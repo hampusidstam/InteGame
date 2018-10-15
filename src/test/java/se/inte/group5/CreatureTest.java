@@ -1,14 +1,16 @@
 package se.inte.group5;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class CreatureTest {
     Creature a;
 
-    @BeforeClass
+    @Before
     public void createCreatures(){
-        a = new Creature(13);
+        a = new Creature(13, 20);
     }
 
     @Test
@@ -22,13 +24,12 @@ public class CreatureTest {
     }
 
     @Test
-    public void getCurrentVelocity_velocityIs20_true(){
-        assertEquals(20, a.getCurrentVelocity());
+    public void getMaxSpeed_MaxSpeedIs20_true(){
+        assertEquals(20, a.getMaxSpeed());
     }
 
     @Test
-    public void getCurrentVelocity_velocityIs10_false(){
-        assertNotEquals(10, a.getCurrentLife());
+    public void getMaxSpeed_MaxSpeedIs10_false(){
+        assertNotEquals(10, a.getMaxSpeed());
     }
-
 }
