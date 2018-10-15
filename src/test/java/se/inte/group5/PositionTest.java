@@ -4,6 +4,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-@Test
 public class PositionTest {
+
+    @Test
+    public void shouldAnswerWithTrue()
+    {
+        assertTrue( true );
+    }
+
 }
