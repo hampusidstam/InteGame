@@ -10,15 +10,14 @@ public class MapTest {
     private Map map = new Map(200,100);
 
     @Test
-    public void shouldReturnWidthOfLevel()
+    public void shouldReturnWidthOfMap()
     {
         assertEquals( 200, map.getWidth() );
     }
 
     @Test
-    public void shouldReturnHeightOfLevel()
+    public void shouldReturnHeightOfMap()
     {
         assertEquals( 100, map.getHeight());
     }
-
 }
