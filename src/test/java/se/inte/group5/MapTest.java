@@ -5,20 +5,20 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 
-public class LevelTest {
+public class MapTest {
 
-    private Level level = new Level(200,100);
+    private Map map = new Map(200,100);
 
     @Test
     public void shouldReturnWidthOfLevel()
     {
-        assertEquals( level.getWidth() , 200);
+        assertEquals( 200, map.getWidth() );
     }
 
     @Test
     public void shouldReturnHeightOfLevel()
     {
-        assertEquals( level.getHeight() , 100);
+        assertEquals( 100, map.getHeight());
     }
 
 }
