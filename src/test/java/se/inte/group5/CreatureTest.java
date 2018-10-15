@@ -21,5 +21,14 @@ public class CreatureTest {
         assertNotEquals(10, a.getCurrentLife());
     }
 
+    @Test
+    public void getCurrentVelocity_velocityIs20_true(){
+        assertEquals(20, a.getCurrentVelocity());
+    }
+
+    @Test
+    public void getCurrentVelocity_velocityIs10_false(){
+        assertNotEquals(10, a.getCurrentLife());
+    }
 
 }
