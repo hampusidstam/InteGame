@@ -1,18 +1,24 @@
 package se.inte.group5;
 
 public class Creature {
-    private int currentLife, maxSpeed;
+    private int healthPoints, maxSpeed;
 
-    public Creature(int currentLife, int maxSpeed) {
-     this.currentLife = currentLife;
-     this.maxSpeed = maxSpeed;
+    public Creature(int healthPoints, int maxSpeed) {
+        this.healthPoints = healthPoints;
+        this.maxSpeed = maxSpeed;
     }
 
-    public int getCurrentLife(){
-        return currentLife;
+    public int getHealthPoints() {
+        return healthPoints;
     }
 
     public int getMaxSpeed() {
         return maxSpeed;
+    }
+
+    public void takeDamage(int damage) {
+        if (damage > 0) {
+            healthPoints -= damage;
+        }
     }
 }
