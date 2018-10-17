@@ -1,9 +1,10 @@
 package se.inte.group5;
 
-public class Creature {
+public abstract class Creature extends GameObject{
     private int healthPoints, maxSpeed;
 
-    public Creature(int healthPoints, int maxSpeed) {
+    public Creature(int healthPoints, int maxSpeed, char symbol, Color color) {
+        super(symbol, color);
         this.healthPoints = healthPoints;
         this.maxSpeed = maxSpeed;
     }
