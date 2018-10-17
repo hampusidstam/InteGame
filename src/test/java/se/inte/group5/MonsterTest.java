@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 public class MonsterTest {
     private Monster m;
@@ -47,5 +48,12 @@ public class MonsterTest {
         monsterFullHp.takeDamage(-1);
         assertEquals(100, monsterFullHp.getHealthPoints());
     }
+
+    @Test
+    public void move_oneToThree_True(){
+        assertTrue(0 <= m.move() && m.move() <= 3);
+
+    }
+
 
 }

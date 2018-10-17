@@ -40,4 +40,6 @@ public class MapTest {
         assertTrue(map.getMap()[0][0] instanceof Wall);
     }
 
+
+
 }

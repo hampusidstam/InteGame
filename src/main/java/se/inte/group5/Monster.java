@@ -16,4 +16,9 @@ public class Monster extends Creature {
         return equipment;
     }
 
+    public int move(){
+        int random = (int )(Math.random() * 3);
+        return random;
+    }
+
 }
