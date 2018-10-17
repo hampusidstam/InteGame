@@ -2,7 +2,6 @@ package se.inte.group5;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,9 +26,11 @@ public class PlantTest {
         assertNotEquals(13, p.getHealthPoints());
     }
 
-   /* @Test
+    /*
+   @Test
     public void getColor_colorIsRed_true() {
-        assertEquals("RED", p.getColor().toString());
-    } */
+        assertEquals(Color.RED, p.getColor());
+    }
+    */
 
 }
