@@ -1,6 +1,9 @@
 package se.inte.group5;
 
 public class Position {
+
+    // TODO behåll klassen för att testa om verktyg upptäcker död kod.
+
     private int x, y;
 
     public Position(int x, int y){

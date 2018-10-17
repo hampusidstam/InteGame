@@ -26,8 +26,26 @@ Ok att dela upp uppgiften och göra 5 varianter på monster, sen ses och jämfö
 
 
 
+# Fortsatt arbete:
+Eri: Map
+Henriette: Plant
+Hampus: Hero
+Joakim: Items
+Ruben: Stationary
+
+
+
 # Redovisning 2 måndag:
 
 - Klassdiagram
 - Sammanställ en punktlista vad vi vill göra framåt
+
+Frågor:
+- Måttet på arv, DIT, aktuellt? Har sagts att det inte är så aktuellt i Java för att det
+bara finns en nivå; allt ärver av Object.
+
+Fler features:
+- Simma genom vattnet?
+- ...
+- ...
 
