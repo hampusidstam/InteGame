@@ -21,6 +21,8 @@ public class Map {
 
     private void createMap(){
         map = new GameObject[height][width];
+        Wall w = new Wall();
+        map[0][0] = w;
     }
 
     public GameObject[][] getMap(){
