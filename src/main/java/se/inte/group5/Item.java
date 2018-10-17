@@ -1,8 +1,8 @@
 package se.inte.group5;
 
-public class Item {
+public abstract class Item {
 
-    public int getType() {
-        return 0;
+    public Item() {
+
     }
 }

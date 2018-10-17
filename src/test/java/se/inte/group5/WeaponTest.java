@@ -5,18 +5,17 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ItemTest {
+public class WeaponTest {
 
-    Item item;
+    Weapon weapon;
 
     @Before
     public void createItem() {
-        item = new Item();
+        weapon = new Weapon(15);
     }
 
     @Test
-    public void getItem_itemType0_true() {
-        assertEquals(0, item.getType());
+    public void dealDamage_strikeWeapon_15damageGiven() {
+        assertEquals(15, weapon.dealDamage());
     }
-
 }
