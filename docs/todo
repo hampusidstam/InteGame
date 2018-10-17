@@ -1,6 +1,33 @@
 
-# Redovisning 1:
+# Redovisning 1 onsdag:
 
 - Hela utvecklingsmiljön, med alla verktyg, är uppe och fungerar hos alla gruppmedlemmar,
 - En spelarkaraktär med egenskaperna liv och hastighet,
 - En karta som spelaren kan röra sig över. Kartan behöver inte innehålla någonting än, vare sig terräng eller saker.
+
+
+Gör tillräckligt mkt för att det ska vara komplext.
+Mål att få intressanta saker att testa.
+
+T.ex. 2 vapen som gör olika saker; ett svärd och en yxa, yxan kan anv till att hugga ner träd.
+Om vi lägger till ett spjut som gör samma sak som svärdet blir det bara fler saker, inte mer komplext.
+
+Få till lösningar som fungerar, sen kan de ändras, refaktoreras
+
+Kartan kan repr av en 2D-array-matris = enkel lösning, dock måste varje plats finnas, kanske bara 10 fyllda av 100.
+Kan i stället ha hashtabell.
+Prova en lösning, kolla egenskaper med profiler, byt till annan lösning.
+
+Ok med ca 20 klasser, 4 är för lite.
+
+2 varianter position; kartan eller karaktären håller reda på var den står.
+
+Ok att dela upp uppgiften och göra 5 varianter på monster, sen ses och jämföra.
+
+
+
+# Redovisning 2 måndag:
+
+- Klassdiagram
+- Sammanställ en punktlista vad vi vill göra framåt
+
