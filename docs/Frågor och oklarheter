@@ -1,0 +1,4 @@
+- Hur ofta ska fi pusha? Ska vi pusha så fort vi skriviet ett testfall trots att inte den riktiga klassen finns att testa mot (TDD)?
+Det riskerar att bara ge fel i utvecklingsmiljön
+
+-Hur detaljerad ska testningen vara?
