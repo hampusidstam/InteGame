@@ -1,4 +1,4 @@
-package se.inte.group5;
+/*package se.inte.group5;
 
 public abstract class Creature extends GameObject{
     private int healthPoints, maxSpeed;
@@ -27,4 +27,5 @@ public abstract class Creature extends GameObject{
             alive = false;
         }
     }
-}
+
+}*/
