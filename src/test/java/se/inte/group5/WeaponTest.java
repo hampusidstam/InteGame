@@ -14,8 +14,15 @@ public class WeaponTest {
         weapon = new Weapon(15);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void Weapon_newWeaponWithNoStrength_exceptionThrown() {
+        new Weapon(0);
+    }
+
     @Test
     public void dealDamage_strikeWeapon_15damageGiven() {
         assertEquals(15, weapon.dealDamage());
     }
+
+
 }
