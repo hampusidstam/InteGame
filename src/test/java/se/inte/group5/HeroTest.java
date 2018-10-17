@@ -13,12 +13,10 @@ public class HeroTest {
         hero = new Hero(100, 10);
     }
 
-    /*
-    @Test
-    public void getHealthPoints_negativeHp_invalid() {
-        //TODO: Negative HP in constructor should not be possible
+    @Test(expected = IllegalArgumentException.class)
+    public void hero_negativeHp_invalid() {
+        new Hero(-1,5);
     }
-    */
 
     @Test
     public void getHealthPoints_hpIs100_true() {

@@ -1,8 +1,8 @@
 package se.inte.group5;
 
 public abstract class Creature extends GameObject{
-    private int healthPoints, maxSpeed;
-    private boolean alive;
+    protected int healthPoints, maxSpeed;
+    protected boolean alive;
 
     public Creature(int healthPoints, int maxSpeed, char symbol, Color color) {
         super(symbol, color);
