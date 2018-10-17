@@ -1,9 +1,7 @@
 package se.inte.group5;
 
 public class Map {
-
-    private int width;
-    private int height;
+    private int width, height;
     private GameObject[][] map;
 
     Map(int width, int height) {
