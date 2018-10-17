@@ -1,0 +1,4 @@
+MethodName_StateUnderTest_ExpectedBehavior: There are arguments against this strategy that if method names change as part of code refactoring than test name like this should also change or it becomes difficult to comprehend at a later stage. Following are some of the example:
+    * isAdult_AgeLessThan18_False
+    * withdrawMoney_InvalidAccount_ExceptionThrown
+    * admitStudent_MissingMandatoryFields_FailToAdmit
