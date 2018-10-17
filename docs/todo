@@ -25,11 +25,15 @@ Ok att dela upp uppgiften och göra 5 varianter på monster, sen ses och jämfö
 
 
 
-Eri: Map
+Eri: Map, Förflyttningsmetoder
 Henriette: Plant
 Hampus: Hero
-Joakim: Items
+Joakim: Items,
 Ruben: Stationary
+
+
+En till Consumableklass, en som ger fullt liv och en ger en fast poäng
+Slumpmässig equipment som Monster ger ifrån sig när de dör, t.ex. generateLoot() i Monsterklassen
 
 
 
