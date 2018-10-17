@@ -21,4 +21,8 @@ public class Creature {
             healthPoints -= damage;
         }
     }
+
+    public int pickUpItem(int item){
+        return 0;
+    }
 }

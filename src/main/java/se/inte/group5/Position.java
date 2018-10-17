@@ -21,7 +21,6 @@ public class Position {
         if (other instanceof Position){
             Position otherPosition = (Position)other;
             if (otherPosition.getX() == x && otherPosition.getY() == y) return true;
-
         }
         return false;
     }
