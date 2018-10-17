@@ -19,10 +19,13 @@ public class WeaponTest {
         new Weapon(0);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void Weapon_newWeaponWithOver100Strength_exceptionThrown() {
+        new Weapon(101);
+    }
+
     @Test
     public void dealDamage_strikeWeapon_15damageGiven() {
         assertEquals(15, weapon.dealDamage());
     }
-
-
 }

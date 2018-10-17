@@ -4,10 +4,9 @@ public class Monster extends Creature {
 
     private Equipment equipment;
 
-    public Monster(int healthPoints, int maxSpeed, char symbol, Color color) {
+    public Monster(int healthPoints, int maxSpeed) {
 
-        super(healthPoints, maxSpeed, symbol, color);
-
+        super(healthPoints, maxSpeed, 'M', Color.GREEN);
     }
 
    // TODO slumpgenerator för om equipment är weapon eller armor
