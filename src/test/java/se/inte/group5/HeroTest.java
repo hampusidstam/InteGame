@@ -31,6 +31,11 @@ public class HeroTest {
     }
 
     @Test
+    public void increaseHealthPoints_increaseBy10_true(){
+        assertEquals(110, hero.getHealthPoints() + 10);
+    }
+
+    @Test
     public void takeDamage_decreaseHp_lose15hp() {
         hero.takeDamage(15);
         assertEquals(85, hero.getHealthPoints());
