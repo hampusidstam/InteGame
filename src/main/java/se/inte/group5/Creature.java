@@ -27,4 +27,5 @@ public abstract class Creature extends GameObject{
             alive = false;
         }
     }
+
 }

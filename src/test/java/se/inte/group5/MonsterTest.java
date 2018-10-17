@@ -13,18 +13,13 @@ public class MonsterTest {
 
     @Before
     public void createMonster() {
-        m = new Monster(10, 20, 'X', Color.BLUE);
+        m = new Monster(13, 20, 'X', Color.BLUE);
         monsterFullHp = new Monster(100, 5, 'X', Color.BLUE);
     }
 
     @Test
     public void getHealthPoints_hpIs13_true() {
         assertEquals(13, m.getHealthPoints());
-    }
-
-    @Test
-    public void getHealthPoints_hpIs13_false() {
-        assertNotEquals(10, m.getHealthPoints());
     }
 
     @Test
