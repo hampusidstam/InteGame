@@ -5,7 +5,6 @@
 - En spelarkaraktär med egenskaperna liv och hastighet,
 - En karta som spelaren kan röra sig över. Kartan behöver inte innehålla någonting än, vare sig terräng eller saker.
 
-
 Gör tillräckligt mkt för att det ska vara komplext.
 Mål att få intressanta saker att testa.
 
@@ -26,12 +25,15 @@ Ok att dela upp uppgiften och göra 5 varianter på monster, sen ses och jämfö
 
 
 
-# Fortsatt arbete:
-Eri: Map
+Eri: Map, Förflyttningsmetoder
 Henriette: Plant
 Hampus: Hero
-Joakim: Items
+Joakim: Items,
 Ruben: Stationary
+
+
+En till Consumableklass, en som ger fullt liv och en ger en fast poäng
+Slumpmässig equipment som Monster ger ifrån sig när de dör, t.ex. generateLoot() i Monsterklassen
 
 
 
@@ -44,8 +46,11 @@ Frågor:
 - Måttet på arv, DIT, aktuellt? Har sagts att det inte är så aktuellt i Java för att det
 bara finns en nivå; allt ärver av Object.
 
-Fler features:
-- Simma genom vattnet?
-- ...
-- ...
+# Fortsatt arbete:
+- Hero kan simma genom vattnet
+- Fler subklasser till Consumable
+- Spellogik lyfts ut från Map till egen klass
+- Experience points
+- Jämföra 2 förflyttningsmetoder med Profiler
+-
 

@@ -28,4 +28,8 @@ public class Map {
     public GameObject[][] getMap(){
         return map;
     }
+
+    public void removeItem(){
+        //TODO
+    }
 }

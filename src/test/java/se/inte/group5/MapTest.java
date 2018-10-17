@@ -21,7 +21,7 @@ public class MapTest {
     }
 
     @Test
-    public void getWidth_widthIs200_False() {
+    public void getHeight_heightIs200_False() {
         assertEquals(100, map.getHeight());
     }
 

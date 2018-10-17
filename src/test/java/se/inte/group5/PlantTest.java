@@ -31,4 +31,9 @@ public class PlantTest {
         assertEquals(Color.RED, p.getColor());
     }
 
+    @Test
+    public void getColor_colorIsBlue_false() {
+        assertNotEquals(Color.BLUE, p.getColor());
+    }
+
 }
