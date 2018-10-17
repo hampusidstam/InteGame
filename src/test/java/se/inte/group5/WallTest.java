@@ -19,4 +19,9 @@ public class WallTest {
         assertEquals('X', w.getSymbol());
     }
 
+    @Test
+    public void getColor_colorIsGray_true() {
+        assertEquals(Color.GRAY, w.getColor());
+    }
+
 }
