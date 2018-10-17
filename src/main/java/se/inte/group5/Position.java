@@ -15,4 +15,14 @@ public class Position {
     public int getY(){
         return y;
     }
+
+    @Override
+    public boolean equals(Object other){
+        if (other instanceof Position){
+            Position otherPosition = (Position)other;
+            if (otherPosition.getX() == x && otherPosition.getY() == y) return true;
+
+        }
+        return false;
+    }
 }
