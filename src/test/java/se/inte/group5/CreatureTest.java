@@ -52,4 +52,9 @@ public class CreatureTest {
         creatureFullHp.takeDamage(-1);
         assertEquals(100, creatureFullHp.getHealthPoints());
     }
+
+    @Test
+    public void pickUpItem_itemPickedUp_true() {
+        assertEquals(0, a.pickUpItem(0));
+    }
 }
