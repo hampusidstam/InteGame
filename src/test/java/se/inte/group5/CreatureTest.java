@@ -22,7 +22,7 @@ public class CreatureTest {
     }
 
     @Test
-    public void getHealthPoints_hpIs10_false() {
+    public void getHealthPoints_hpIs13_false() {
         assertNotEquals(10, a.getHealthPoints());
     }
 

@@ -10,7 +10,7 @@ public class MapTest {
     private Map map = new Map(200, 100);
 
     @Test
-    public void shouldReturnWidthOfMap() {
+    public void getWidth_widthIs200_True() {
         assertEquals(200, map.getWidth());
     }
 
