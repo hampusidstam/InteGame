@@ -26,11 +26,9 @@ public class PlantTest {
         assertNotEquals(13, p.getHealthPoints());
     }
 
-    /*
-   @Test
+    @Test
     public void getColor_colorIsRed_true() {
         assertEquals(Color.RED, p.getColor());
     }
-    */
 
 }
