@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 public class MonsterTest {
-
     private Monster m;
     private Monster monsterFullHp;
 

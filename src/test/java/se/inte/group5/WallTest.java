@@ -11,7 +11,7 @@ public class WallTest {
 
     @Before
     public void createWall() {
-        w = new Wall(Color.GRAY);
+        w = new Wall();
     }
 
     @Test
