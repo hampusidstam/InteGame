@@ -2,9 +2,10 @@ package se.inte.group5;
 
 public class Monster extends Creature {
 
-    public Monster(int hp, int speed) {
+    public Monster(int healthPoints, int maxSpeed, char symbol, Color color) {
 
-        super(hp, speed);
+        super(healthPoints, maxSpeed, symbol, color);
+
     }
 
 }
