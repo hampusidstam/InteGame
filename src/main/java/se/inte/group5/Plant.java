@@ -14,11 +14,11 @@ public class Plant extends Consumable {
         this.color = color.RED;
     }
 
-    public int getHealthPoints(){
+    public int getHealthPoints() {
         return hp;
     }
 
-    public Color getColor(){
+    public Color getColor() {
         return color;
     }
 
