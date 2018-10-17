@@ -6,6 +6,9 @@ public abstract class Creature extends GameObject{
 
     public Creature(int healthPoints, int maxSpeed, char symbol, Color color) {
         super(symbol, color);
+        if (healthPoints < 1 || maxSpeed < 0) {
+            throw new IllegalArgumentException();
+        }
         this.healthPoints = healthPoints;
         this.maxSpeed = maxSpeed;
         this.alive = true;
@@ -28,4 +31,7 @@ public abstract class Creature extends GameObject{
         }
     }
 
+    public boolean isAlive(){
+        return alive;
+    }
 }
