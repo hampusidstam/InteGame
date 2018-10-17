@@ -1,5 +1,8 @@
 package se.inte.group5;
 
-public class Consumable {
+public abstract class Consumable extends Item {
 
+    public Consumable() {
+
+    }
 }
