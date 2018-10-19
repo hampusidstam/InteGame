@@ -1,14 +1,17 @@
 package se.inte.group5;
 
-public abstract class Creature extends GameObject{
+public abstract class Creature extends GameObject {
+
     protected int healthPoints, maxSpeed;
     protected boolean alive;
 
     public Creature(int healthPoints, int maxSpeed, char symbol, Color color) {
         super(symbol, color);
+
         if (healthPoints < 1 || maxSpeed < 0) {
             throw new IllegalArgumentException();
         }
+
         this.healthPoints = healthPoints;
         this.maxSpeed = maxSpeed;
         this.alive = true;
@@ -26,12 +29,13 @@ public abstract class Creature extends GameObject{
         if (damage > 0) {
             healthPoints -= damage;
         }
-        if(healthPoints<1){
+
+        if (healthPoints < 1) {
             alive = false;
         }
     }
 
-    public boolean isAlive(){
+    public boolean isAlive() {
         return alive;
     }
 }

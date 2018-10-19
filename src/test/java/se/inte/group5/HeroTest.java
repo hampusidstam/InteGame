@@ -15,7 +15,7 @@ public class HeroTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void hero_negativeHp_invalid() {
-        new Hero(-1,5);
+        new Hero(-1, 5);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class HeroTest {
     }
 
     @Test
-    public void increaseHealthPoints_increaseBy10_true(){
+    public void increaseHealthPoints_increaseBy10_true() {
         assertEquals(110, hero.getHealthPoints() + 10);
     }
 
@@ -42,6 +42,26 @@ public class HeroTest {
     @Test
     public void takeDamage_decreaseByNegative_healthPointsNotChanged() {
         hero.takeDamage(-1);
+        assertEquals(100, hero.getHealthPoints());
+    }
+
+    @Test
+    public void pickUpItem_eatPlant_increaseHealthPointsBy10() {
+        hero.takeDamage(15);
+        hero.pickUpItem(new Plant());
+        assertEquals(95, hero.getHealthPoints());
+    }
+
+    @Test
+    public void pickUpItem_eatPlantWithFullHp_noIncrease() {
+        hero.pickUpItem(new Plant());
+        assertEquals(100, hero.getHealthPoints());
+    }
+
+    @Test
+    public void pickUpPotion_drinkPotion_increaseHealthPointsBy100() {
+        hero.takeDamage(85);
+        hero.pickUpItem(new Potion());
         assertEquals(100, hero.getHealthPoints());
     }
 

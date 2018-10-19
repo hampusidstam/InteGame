@@ -9,10 +9,9 @@ public class Monster extends Creature {
         super(healthPoints, maxSpeed, 'M', Color.GREEN);
     }
 
-   // TODO slumpgenerator för om equipment är weapon eller armor
+    // TODO slumpgenerator för om equipment är weapon eller armor
 
-    public Equipment getEquipment(){
+    public Equipment getEquipment() {
         return equipment;
     }
-
 }

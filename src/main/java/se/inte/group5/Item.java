@@ -1,8 +1,8 @@
 package se.inte.group5;
 
-public abstract class Item {
+public abstract class Item extends GameObject {
 
-    public Item() {
-
+    public Item(char symbol, Color color) {
+        super(symbol, color);
     }
 }

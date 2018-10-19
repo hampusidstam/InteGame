@@ -5,6 +5,7 @@ public class Armor extends Equipment {
     private int resistance;
 
     public Armor(int resistance) {
+        super('A', Color.GRAY);
         this.resistance = resistance;
     }
 

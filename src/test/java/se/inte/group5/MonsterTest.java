@@ -44,15 +44,14 @@ public class MonsterTest {
     }
 
     @Test
-    public void takeDamage_hitMonsterWithAllHp_monsterDies() {
-        monster.takeDamage(monster.getHealthPoints());
-        assertFalse(monster.isAlive());
-    }
-
-    @Test
     public void takeDamage_decreaseByNegative_healthPointsNotChanged() {
         monsterFullHp.takeDamage(-1);
         assertEquals(100, monsterFullHp.getHealthPoints());
     }
 
+    @Test
+    public void isAlive_killMonster_isNotAlive() {
+        monster.takeDamage(monster.getHealthPoints());
+        assertFalse(monster.isAlive());
+    }
 }
