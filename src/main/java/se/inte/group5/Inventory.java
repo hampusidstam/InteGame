@@ -8,6 +8,16 @@ public class Inventory {
         inventoryArray = new Item[slots];
     }
 
+    public boolean addItem(Item item) {
+        for(int i = 0; i < inventoryArray.length; i++) {
+            if (inventoryArray[i] == null) {
+                inventoryArray[i] = item;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Item[] getInventoryArray() {
         return inventoryArray;
     }
