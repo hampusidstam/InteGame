@@ -59,10 +59,33 @@ public class HeroTest {
     }
 
     @Test
-    public void pickUpPotion_drinkPotion_increaseHealthPointsBy100() {
+    public void pickUpItem_drinkPotion_increaseHealthPointsBy100() {
         hero.takeDamage(85);
         hero.pickUpItem(new Potion());
         assertEquals(100, hero.getHealthPoints());
     }
 
+    @Test
+    public void getInventorySize_returnSize_sizeIs10() {
+        assertEquals(10, hero.getInventorySize());
+    }
+
+    @Test
+    public void pickUpItem_pickUpWeapon_weaponStoredInInventory() {
+        hero.pickUpItem(new Weapon(10));
+        assertEquals(new Weapon(10), hero.inventory.getItem(0));
+    }
+
+    @Test
+    public void pickUpItem_pickUpArmor_armorStoredInInventory() {
+        hero.pickUpItem(new Armor(15));
+        assertEquals(new Armor(15), hero.inventory.getItem(0));
+    }
+
+    @Test
+    public void pickUpItem_pickUpWeapon_doesNotAffectHp() {
+        hero.takeDamage(25);
+        hero.pickUpItem(new Armor(5));
+        assertEquals(75, hero.getHealthPoints());
+    }
 }

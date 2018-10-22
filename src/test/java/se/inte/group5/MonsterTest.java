@@ -1,11 +1,10 @@
 package se.inte.group5;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class MonsterTest {
     private Monster monster;
@@ -53,5 +52,27 @@ public class MonsterTest {
     public void isAlive_killMonster_isNotAlive() {
         monster.takeDamage(monster.getHealthPoints());
         assertFalse(monster.isAlive());
+    }
+
+    @Test
+    public void setEquipment_addEquipment_strengthNotLowerThan1() {
+        assertFalse(monster.getEquipment().strength < 1);
+    }
+
+    @Test
+    public void setEquipment_addEquipment_strengthNotHigherThan100() {
+        assertFalse(monster.getEquipment().strength > 100);
+    }
+
+    @Ignore
+    @Test
+    public void setEquipment_addWeaponWhenCreated_equippedWithWeapon() {
+        assertEquals(new Weapon(10), monster.getEquipment());
+    }
+
+    @Ignore
+    @Test
+    public void setEquipment_addWeapon_equippedWithWeapon() {
+        assertEquals(new Weapon(10), monster.getEquipment());
     }
 }
