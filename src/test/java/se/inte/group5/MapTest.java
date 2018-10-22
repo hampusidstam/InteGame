@@ -92,6 +92,26 @@ public class MapTest {
     }
 
     @Test
+    public void moveCreatures_MapWithHeroAndEquipment_HeroHasPickedUpEquipment() {
+        Map temp = new Map(10, 10);
+
+        Hero hero = new Hero(20, 1);
+        temp.placeGameObject(1,1, hero);
+        Armor armor = new Armor(20);
+        temp.placeGameObject(1,0, armor);
+
+        System.out.println("Before moved");
+        temp.renderToConsole();
+
+        temp.moveCreatures('W');
+
+        System.out.println("After moved");
+        temp.renderToConsole();
+
+        assertEquals(hero.getInventory().getInventoryArray()[0], armor);
+    }
+
+    @Test
     public void renderToConsole_empty10x10(){
         Map map = new Map(10, 10);
         map.renderToConsole();
