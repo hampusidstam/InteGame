@@ -76,12 +76,12 @@ public class HeroTest {
     }
 
     @Test
-    public void move_moveOneStepNorth_dirIs2() {
+    public void move_moveOneStepEast_dirIs2() {
         assertEquals(2, hero.move('E'));
     }
 
     @Test
-    public void move_moveOneStepNorth_dirIs3() {
+    public void move_moveOneStepSouth_dirIs3() {
         assertEquals(3, hero.move('S'));
     }
 
