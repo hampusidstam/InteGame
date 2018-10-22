@@ -47,10 +47,19 @@ public class MapTest {
 
     @Test
     public void moveCreatures_OneCreatureOnEmptyMap_CreatureHasMoved() {
+        Map temp = new Map(10, 10);
+
         Monster monster = new Monster(10, 1);
-        map.placeGameObject(1,1, monster);
-        map.moveCreatures();
-        assertNull(map.getMap()[1][1]);
+        temp.placeGameObject(1,1, monster);
+
+        System.out.println("Before moved");
+        temp.renderToConsole();
+
+        temp.moveCreatures();
+        assertNull(temp.getMap()[1][1]);
+
+        System.out.println("After moved");
+        temp.renderToConsole();
     }
     @Test
     public void renderToConsole_empty10x10(){
