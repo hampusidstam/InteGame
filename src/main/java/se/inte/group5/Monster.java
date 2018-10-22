@@ -1,5 +1,7 @@
 package se.inte.group5;
 
+import java.util.Random;
+
 public class Monster extends Creature {
 
     public Monster(int healthPoints, int maxSpeed) {
@@ -23,5 +25,16 @@ public class Monster extends Creature {
 
     public Equipment getEquipment() {
         return inventory.getItem(0);
+    }
+
+    @Override
+    public int[] getPosition() {
+        int[] pos = {0,0};
+        return pos;
+    }
+
+    @Override
+    public int move() {
+        return new Random().nextInt(5);
     }
 }
