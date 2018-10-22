@@ -100,11 +100,12 @@ public class MapTest {
 
     @Test
     public void generateMap_mapIsSolvable_True(){
-        Map m = new Map(50, 50);
+        Map m = new Map(5, 5);
         GameObject[][] gameMap = m.getGeneratedMap();
         int firstPosition[] = {1,1};
         floodMap(gameMap, firstPosition);
-        assertTrue(mapIsFilledWithStationary(gameMap));
+        boolean filled = mapIsFilledWithStationary(gameMap);
+        assertTrue(filled);
     }
 
     private boolean mapIsFilledWithStationary(GameObject[][] gameMap){

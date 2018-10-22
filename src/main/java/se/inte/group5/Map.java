@@ -3,6 +3,7 @@ package se.inte.group5;
 import java.util.Arrays;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Map {
     private int width, height;
@@ -73,16 +74,138 @@ public class Map {
 
     private void generateMap(){
         generatedMap = new GameObject[height][width];
-        Wall w = new Wall();
+        Wall wall = new Wall();
 
         for (int i=0; i<height; i++){
             for (int j=0; j<width; j++){
                 if (i == 0 || i == height-1 || j == 0 || j == width-1){
-                    generatedMap[i][j] = w;
+                    generatedMap[i][j] = wall;
                 }
             }
         }
+        generateVerticalWallDown(0, width-1, 0);
     }
+
+    private void generateVerticalWallDown(int start, int finish, int index){
+        int length = finish - start;
+        Wall wall = new Wall();
+
+        if (length < 7) return;
+        int newIndex;
+
+        while (true){
+            newIndex = new Random().nextInt(length - 4);
+            newIndex += 2;
+            if (generatedMap[index][newIndex] instanceof Stationary) break;
+        }
+
+        for (int row = index + 1; row < height; row++){
+            if (generatedMap[row][newIndex] instanceof Stationary){
+                if (row - index < 2) return;
+
+                int doorIndex = new Random().nextInt(row - index - 1);
+                generatedMap[doorIndex][newIndex] = null;
+
+                generateHorizontalWallToRight(index, row, newIndex);
+                generateHorizontalWallToLeft(index, row, newIndex);
+                return;
+            }
+            else{
+                generatedMap[row][newIndex] = wall;
+            }
+        }
+    }
+
+    private void generateVerticalWallUp(int start, int finish, int index){
+        int length = finish - start;
+        Wall wall = new Wall();
+
+        if (length < 7) return;
+        int newIndex;
+
+        while (true){
+            newIndex = new Random().nextInt(length - 4);
+            newIndex += 2;
+            if (generatedMap[index][newIndex] instanceof Stationary) break;
+        }
+
+        for (int row = index - 1; row < height; row--){
+            if (generatedMap[row][newIndex] instanceof Stationary){
+                if (row - index < 2) return;
+
+                int doorIndex = new Random().nextInt(row - index - 1);
+                generatedMap[doorIndex][newIndex] = null;
+
+                generateHorizontalWallToRight(index, row, newIndex);
+                generateHorizontalWallToLeft(index, row, newIndex);
+                return;
+            }
+            else{
+                generatedMap[row][newIndex] = wall;
+            }
+        }
+    }
+
+    private void generateHorizontalWallToRight(int start, int finish, int index){
+        int length = finish - start;
+        Wall wall = new Wall();
+
+        if (length < 7) return;
+        int newIndex;
+
+        while (true){
+            newIndex = new Random().nextInt(length - 4);
+            newIndex += 2;
+            if (generatedMap[newIndex][index] instanceof Stationary) break;
+        }
+
+        for (int column = index + 1; column < width; column++){
+            if (generatedMap[newIndex][column] instanceof Stationary){
+                if (column - index < 2) return;
+
+                int doorIndex = new Random().nextInt(column - index - 1);
+                generatedMap[newIndex][doorIndex] = null;
+
+                generateVerticalWallUp(index, column, newIndex);
+                generateVerticalWallDown(index, column, newIndex);
+                return;
+            }
+            else{
+                generatedMap[newIndex][column] = wall;
+            }
+        }
+    }
+
+    private void generateHorizontalWallToLeft(int start, int finish, int index){
+        int length = finish - start;
+        Wall wall = new Wall();
+
+        if (length < 7) return;
+        int newIndex;
+
+        while (true){
+            newIndex = new Random().nextInt(length - 4);
+            newIndex += 2;
+            if (generatedMap[newIndex][index] instanceof Stationary) break;
+        }
+
+        for (int column = index - 1; column < width; column--){
+            if (generatedMap[newIndex][column] instanceof Stationary){
+                if (column - index < 2) return;
+
+                int doorIndex = new Random().nextInt(column - index - 1);
+                generatedMap[newIndex][doorIndex] = null;
+
+                generateVerticalWallUp(index, column, newIndex);
+                generateVerticalWallDown(index, column, newIndex);
+                return;
+            }
+            else{
+                generatedMap[newIndex][column] = wall;
+            }
+        }
+    }
+
 
     public GameObject[][] getGeneratedMap() {
         return generatedMap;
