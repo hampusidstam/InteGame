@@ -41,6 +41,7 @@ public class MapTest {
         assertTrue(map.getMap()[8][5] instanceof Wall);
     }
 
+    /*
     @Test
     public void moveCreatures_OneMonsterOnEmptyMap_CreatureHasMoved() {
         Map temp = new Map(10, 10);
@@ -56,7 +57,7 @@ public class MapTest {
 
         System.out.println("After moved");
         temp.renderToConsole();
-    }
+    }*/
 
     @Test
     public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedNorth() {
