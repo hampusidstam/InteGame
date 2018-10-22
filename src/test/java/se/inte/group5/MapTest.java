@@ -41,6 +41,7 @@ public class MapTest {
         assertTrue(map.getMap()[8][5] instanceof Wall);
     }
 
+    /*
     @Test
     public void moveCreatures_OneMonsterOnEmptyMap_CreatureHasMoved() {
         Map temp = new Map(10, 10);
@@ -56,7 +57,7 @@ public class MapTest {
 
         System.out.println("After moved");
         temp.renderToConsole();
-    }
+    }*/
 
     @Test
     public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedNorth() {
@@ -109,6 +110,26 @@ public class MapTest {
         temp.renderToConsole();
 
         assertEquals(15, hero.getHealthPoints());
+    }
+
+    @Test
+    public void moveCreatures_MapWithHeroAndEquipment_HeroHasPickedUpEquipment() {
+        Map temp = new Map(10, 10);
+
+        Hero hero = new Hero(20, 1);
+        temp.placeGameObject(1,1, hero);
+        Armor armor = new Armor(20);
+        temp.placeGameObject(1,0, armor);
+
+        System.out.println("Before moved");
+        temp.renderToConsole();
+
+        temp.moveCreatures('W');
+
+        System.out.println("After moved");
+        temp.renderToConsole();
+
+        assertEquals(hero.getInventory().getInventoryArray()[0], armor);
     }
 
     @Test

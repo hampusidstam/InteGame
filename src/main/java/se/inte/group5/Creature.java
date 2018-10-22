@@ -28,6 +28,10 @@ public abstract class Creature extends GameObject {
         return maxSpeed;
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
     public void takeDamage(int damage) {
         if (damage > 0) {
             healthPoints -= damage;
