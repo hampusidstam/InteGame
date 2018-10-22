@@ -83,12 +83,11 @@ public class MapTest {
         System.out.println("Before moved");
         temp.renderToConsole();
 
-        temp.moveCreatures();
+        temp.moveCreatures('S');
 
         System.out.println("After moved");
         temp.renderToConsole();
 
-        assertNull(temp.getMap()[1][1]);
         assertEquals(15, hero.getHealthPoints());
     }
 
