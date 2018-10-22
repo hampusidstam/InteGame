@@ -27,13 +27,6 @@ public class Monster extends Creature {
         return inventory.getItem(0);
     }
 
-    @Override
-    public int[] getPosition() {
-        int[] pos = {0,0};
-        return pos;
-    }
-
-    @Override
     public int move() {
         return new Random().nextInt(5);
     }
