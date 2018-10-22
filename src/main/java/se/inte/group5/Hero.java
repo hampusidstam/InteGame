@@ -49,11 +49,15 @@ public class Hero extends Creature {
             increaseHealthPoints(((Plant) item).getEnergy());
         }
         else if (item instanceof Equipment) {
+            if (equippedWeapon == null && item instanceof Weapon) {
+                equippedWeapon = (Weapon) item;
+            }
             inventory.addItem((Equipment) item);
+            setEquippedWeapon();
         }
     }
 
-    public void setEquippedWeapon() {
+    private void setEquippedWeapon() {
         for (Equipment w : inventory.getInventoryArray()) {
             if (w instanceof Weapon) {
                 if (w.strength > equippedWeapon.strength) {
@@ -61,5 +65,9 @@ public class Hero extends Creature {
                 }
             }
         }
+    }
+
+    public Weapon getEquippedWeapon() {
+        return equippedWeapon;
     }
 }
