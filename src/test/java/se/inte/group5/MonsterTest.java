@@ -56,12 +56,12 @@ public class MonsterTest {
 
     @Test
     public void move_moveInDirectionOptionNotAbove4_positionChanged() {
-        assertTrue(monster.move() > 4);
+        assertFalse(monster.move() > 4);
     }
 
     @Test
     public void move_moveInDirectionOptionNotNegative_positionChanged() {
-        assertTrue(monster.move() < 0);
+        assertFalse(monster.move() < 0);
     }
 
     @Test

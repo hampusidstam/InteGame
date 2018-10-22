@@ -6,7 +6,7 @@ public class Monster extends Creature {
 
     public Monster(int healthPoints, int maxSpeed) {
 
-        super(healthPoints, maxSpeed, 'M', Color.GREEN, 1);
+        super(healthPoints, maxSpeed, 'M', Color.RED, 1);
 
         setEquipment();
     }
@@ -19,21 +19,12 @@ public class Monster extends Creature {
         else {
             inventory.addItem(new Armor(equipmentStrength));
         }
-
-        //equipment = new Weapon(10); //TODO REMOVE
     }
 
     public Equipment getEquipment() {
         return inventory.getItem(0);
     }
 
-    @Override
-    public int[] getPosition() {
-        int[] pos = {0,0};
-        return pos;
-    }
-
-    @Override
     public int move() {
         return new Random().nextInt(5);
     }

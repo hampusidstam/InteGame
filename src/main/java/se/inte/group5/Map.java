@@ -2,9 +2,12 @@ package se.inte.group5;
 
 import java.util.Arrays;
 
+import java.util.ArrayList;
+
 public class Map {
     private int width, height;
     private GameObject[][] map, generatedMap;
+    private ArrayList<Creature> creatures = new ArrayList<>();
 
     Map(int width, int height) {
         this.width = width;
@@ -24,6 +27,48 @@ public class Map {
 
     private void createMap(){
         map = new GameObject[height][width];
+    }
+
+    //Behövs för test
+    public void placeGameObject(int y, int x, GameObject gameObject) {
+        map[y][x] = gameObject;
+        if (gameObject instanceof Creature) {
+            ((Creature) gameObject).setPosition(y, x);
+            creatures.add((Creature) gameObject);
+        }
+    }
+
+    //Anropas i intervall
+    public void moveCreatures() {
+        for(Creature c: creatures) {
+            int pos[] = new int[2];
+            if (c instanceof Hero) {
+                //TODO borde läsa av tangentbord
+                pos = c.moveCreature('N');
+            } else if (c instanceof Monster){
+                pos = c.moveCreature('X');
+            }
+
+            if (!(map[pos[2]][pos[3]] instanceof Stationary)) {
+                boolean allowed = false;
+                if (c instanceof Hero) {
+                    allowed = true;
+                    if (map[pos[2]][pos[3]] instanceof Item) {
+                        ((Hero) c).pickUpItem(map[pos[2]][pos[3]]);
+                    }
+                } else {
+                    if (map[pos[2]][pos[3]] == null) {
+                        allowed = true;
+                    }
+                }
+                if (allowed) {
+                    map[pos[2]][pos[3]] = c;
+                    map[pos[0]][pos[1]] = null;
+                    c.setPosition(pos[2], pos[3]);
+                }
+            }
+        }
+        //repaint();
     }
 
     private void generateMap(){
