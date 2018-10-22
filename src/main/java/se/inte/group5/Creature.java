@@ -4,6 +4,7 @@ public abstract class Creature extends GameObject {
 
     protected int healthPoints, maxSpeed;
     protected boolean alive;
+    protected int[] position;
 
     public Creature(int healthPoints, int maxSpeed, char symbol, Color color) {
         super(symbol, color);
@@ -38,4 +39,43 @@ public abstract class Creature extends GameObject {
     public boolean isAlive() {
         return alive;
     }
+
+    public abstract int[] getPosition();
+
+    public void setPosition(int y, int x) {
+        position[0] = y;
+        position[1] = x;
+    }
+
+    public abstract int move();
+
+    public int[] moveCreature() {
+
+        int dir = move();
+        int[] originalPos = getPosition();
+        int[] newPos;
+
+        switch (dir) {
+            // One step north
+            case 1:
+                newPos = new int[] {originalPos[1], originalPos[0], originalPos[1]+1, originalPos[0]};
+                break;
+            // One step east
+            case 2:
+                newPos = new int[] {originalPos[1], originalPos[0], originalPos[1], originalPos[0]+1};
+                break;
+            // One step south
+            case 3:
+                newPos = new int[] {originalPos[1], originalPos[0], originalPos[1]-1, originalPos[0]};
+                break;
+            // One step west
+            case 4:
+                newPos = new int[] {originalPos[1], originalPos[0], originalPos[1], originalPos[0]-1};
+                break;
+            default:
+                newPos = new int[] {originalPos[1], originalPos[0], originalPos[1], originalPos[0]};
+        }
+        return newPos;
+    }
+    
 }

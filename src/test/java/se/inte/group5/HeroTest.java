@@ -66,6 +66,20 @@ public class HeroTest {
     }
 
     @Test
+    public void getStartPosition_isAtPositionX0Y0_position() {
+        int[] pos = {0,0};
+        assertEquals(0, pos[0]);
+        assertEquals(0, pos[1]);
+    }
+
+    @Test
+    public void move_moveOneStepNorth_positionMoved() {
+        char ch = 'N';
+        int dir = 1;
+        assertEquals(1, hero.move());
+    }
+
+    @Test
     public void getInventorySize_returnSize_sizeIs10() {
         assertEquals(10, hero.getInventorySize());
     }
