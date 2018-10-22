@@ -113,4 +113,25 @@ public class HeroTest {
         hero.pickUpItem(new Armor(5));
         assertEquals(75, hero.getHealthPoints());
     }
+
+    @Test
+    public void setEquippedWeapon_pickUpFirstWeapon_isEquipped() {
+        hero.pickUpItem(new Weapon(5));
+        assertEquals(5, hero.getEquippedWeapon().dealDamage());
+    }
+
+    @Test
+    public void setEquippedWeapon_pickUpSecondWeaponThatIsWeaker_firstIsEquipped() {
+        hero.pickUpItem(new Weapon(99));
+        hero.pickUpItem(new Weapon(1));
+        assertEquals(99, hero.getEquippedWeapon().dealDamage());
+    }
+
+    @Test
+    public void setEquippedWeapon_threeWeaponsInInventory_equippedWithStrongest() {
+        hero.pickUpItem(new Weapon(50));
+        hero.pickUpItem(new Weapon(89));
+        hero.pickUpItem(new Weapon(42));
+        assertEquals(89, hero.getEquippedWeapon().dealDamage());
+    }
 }
