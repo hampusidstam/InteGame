@@ -97,9 +97,6 @@ public class Map {
         return obj;
     }
 
-    public void addObjectToMap(GameObject obj, int x, int y){
-        map[x][y] = obj;
-    }
 
     private void renderFrameStars(){
         for(int i = 0; i < width; i++){

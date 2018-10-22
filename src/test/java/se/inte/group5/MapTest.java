@@ -37,7 +37,7 @@ public class MapTest {
 
     @Test
     public void addItem_wall_8_5(){
-        map.addObjectToMap(new Wall(), 8, 5);
+        map.placeGameObject(8, 5, new Wall());
         assertTrue(map.getMap()[8][5] instanceof Wall);
     }
 
@@ -77,12 +77,12 @@ public class MapTest {
     @Test
     public void renderToConsole_10x10_OneOfEach(){
         Map map = new Map(10, 10);
-        map.addObjectToMap(new Hero(100, 10), 0, 0);
-        map.addObjectToMap(new Water(), 0, 1);
-        map.addObjectToMap(new Wall(), 0, 2);
-        map.addObjectToMap(new Monster(100, 10), 2, 2);
-        map.addObjectToMap(new Weapon(12), 6, 7);
-        map.addObjectToMap(new Potion(), 7, 8);
+        map.placeGameObject(0, 0, new Hero(100, 10));
+        map.placeGameObject(1, 0, new Water());
+        map.placeGameObject(2, 0, new Wall());
+        map.placeGameObject(2, 2, new Monster(100, 10));
+        map.placeGameObject(7, 6, new Weapon(12));
+        map.placeGameObject(8, 7, new Potion());
         map.renderToConsole();
     }
     @Test
@@ -90,7 +90,7 @@ public class MapTest {
         Map map = new Map(20,20);
         Wall wall = new Wall();
         assertNull(map.getMap()[10][10]);
-        map.addObjectToMap(wall, 10, 10);
+        map.placeGameObject(10, 10, wall);
         assertEquals(wall, map.getMap()[10][10]);
         assertEquals(wall, map.removeItem(10,10));
     }
@@ -108,18 +108,18 @@ public class MapTest {
     @Test
     public void renderToConsole_40x40_moreItems(){
         Map map = new Map(40, 40);
-        map.addObjectToMap(new Hero(100, 10), 0, 0);
-        map.addObjectToMap(new Wall(), 0, 1);
-        map.addObjectToMap(new Wall(), 1, 1);
-        map.addObjectToMap(new Monster(100, 10), 10, 10);
-        map.addObjectToMap(new Monster(100, 10), 30, 20);
-        map.addObjectToMap(new Water(), 15, 15);
-        map.addObjectToMap(new Water(), 15, 16);
-        map.addObjectToMap(new Water(), 15, 17);
-        map.addObjectToMap(new Weapon(12), 17, 4);
-        map.addObjectToMap(new Weapon(12), 9, 4);
-        map.addObjectToMap(new Potion(), 12, 4);
-        map.addObjectToMap(new Potion(), 19, 8);
+        map.placeGameObject(0, 0, new Hero(100, 10));
+        map.placeGameObject( 1, 0, new Wall());
+        map.placeGameObject(1, 1,new Wall());
+        map.placeGameObject(10, 10, new Monster(100, 10));
+        map.placeGameObject(30, 20, new Monster(100, 10));
+        map.placeGameObject(15, 15, new Water());
+        map.placeGameObject(15, 16, new Water());
+        map.placeGameObject(15, 17, new Water());
+        map.placeGameObject(17, 4,new Weapon(12));
+        map.placeGameObject(9, 4, new Weapon(12));
+        map.placeGameObject(12, 4, new Potion());
+        map.placeGameObject(19, 8, new Potion());
         map.renderToConsole();
     }
 
