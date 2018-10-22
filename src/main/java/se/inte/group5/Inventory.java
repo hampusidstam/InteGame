@@ -2,13 +2,13 @@ package se.inte.group5;
 
 public class Inventory {
 
-    private Item[] inventoryArray;
+    private Equipment[] inventoryArray;
 
     public Inventory(int slots) {
-        inventoryArray = new Item[slots];
+        inventoryArray = new Equipment[slots];
     }
 
-    public boolean addItem(Item item) {
+    public boolean addItem(Equipment item) {
         for (int i = 0; i < inventoryArray.length; i++) {
             if (inventoryArray[i] == null) {
                 inventoryArray[i] = item;
@@ -18,14 +18,14 @@ public class Inventory {
         return false;
     }
 
-    public Item getItem(int item) {
+    public Equipment getItem(int item) {
         if (inventoryArray[item] == null) {
             //TODO
         }
         return inventoryArray[item];
     }
 
-    public Item[] getInventoryArray() {
+    public Equipment[] getInventoryArray() {
         return inventoryArray;
     }
 

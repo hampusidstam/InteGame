@@ -2,22 +2,19 @@ package se.inte.group5;
 
 public class Armor extends Equipment {
 
-    private int resistance;
-
-    public Armor(int resistance) {
-        super('A', Color.GRAY);
-        this.resistance = resistance;
+    public Armor(int strength) {
+        super('A', Color.GRAY, strength);
     }
 
     public int getResistance() {
-        return resistance;
+        return strength;
     }
 
     @Override
     public boolean equals(Object other) {
         if (other instanceof Armor) {
             Armor armor = (Armor) other;
-            return resistance == armor.resistance;
+            return strength == armor.strength;
         }
         return false;
     }

@@ -2,16 +2,29 @@ package se.inte.group5;
 
 public class Monster extends Creature {
 
-    private Equipment equipment;
+    private Inventory inventory;
 
     public Monster(int healthPoints, int maxSpeed) {
 
         super(healthPoints, maxSpeed, 'M', Color.GREEN);
+        inventory = new Inventory(1);
+
+        setEquipment();
     }
 
-    // TODO slumpgenerator för om equipment är weapon eller armor
+    private void setEquipment() {
+        int equipmentStrength = (int) ((100 * Math.random()) + 1);
+        if (equipmentStrength % 2 != 0) {
+            inventory.addItem(new Weapon(equipmentStrength));
+        }
+        else {
+            inventory.addItem(new Armor(equipmentStrength));
+        }
+
+        //equipment = new Weapon(10); //TODO REMOVE
+    }
 
     public Equipment getEquipment() {
-        return equipment;
+        return inventory.getItem(0);
     }
 }
