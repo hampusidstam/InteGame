@@ -9,7 +9,7 @@ public class Inventory {
     }
 
     public boolean addItem(Item item) {
-        for(int i = 0; i < inventoryArray.length; i++) {
+        for (int i = 0; i < inventoryArray.length; i++) {
             if (inventoryArray[i] == null) {
                 inventoryArray[i] = item;
                 return true;
@@ -18,8 +18,19 @@ public class Inventory {
         return false;
     }
 
+    public Item getItem(int item) {
+        if (inventoryArray[item] == null) {
+            //TODO
+        }
+        return inventoryArray[item];
+    }
+
     public Item[] getInventoryArray() {
         return inventoryArray;
+    }
+
+    public int getSize() {
+        return inventoryArray.length;
     }
 
 }

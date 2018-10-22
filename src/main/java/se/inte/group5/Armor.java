@@ -12,4 +12,13 @@ public class Armor extends Equipment {
     public int getResistance() {
         return resistance;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Armor) {
+            Armor armor = (Armor) other;
+            return resistance == armor.resistance;
+        }
+        return false;
+    }
 }

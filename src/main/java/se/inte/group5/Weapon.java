@@ -17,4 +17,14 @@ public class Weapon extends Equipment {
     public int dealDamage() {
         return strength;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Weapon) {
+            Weapon weapon = (Weapon) other;
+            return strength == weapon.strength;
+        }
+        return false;
+    }
+
 }
