@@ -28,6 +28,10 @@ public abstract class Creature extends GameObject {
         return maxSpeed;
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
     public void takeDamage(int damage) {
         if (damage > 0) {
             healthPoints -= damage;
@@ -60,7 +64,7 @@ public abstract class Creature extends GameObject {
         switch (dir) {
             // One step north
             case 1:
-                newPos = new int[] {position[1], position[0], position[1]+1, position[0]};
+                newPos = new int[] {position[1], position[0], position[1]-1, position[0]};
                 break;
             // One step east
             case 2:
@@ -68,7 +72,7 @@ public abstract class Creature extends GameObject {
                 break;
             // One step south
             case 3:
-                newPos = new int[] {position[1], position[0], position[1]-1, position[0]};
+                newPos = new int[] {position[1], position[0], position[1]+1, position[0]};
                 break;
             // One step west
             case 4:

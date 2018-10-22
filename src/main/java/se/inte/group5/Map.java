@@ -1,7 +1,5 @@
 package se.inte.group5;
 
-import java.util.Arrays;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -26,7 +24,7 @@ public class Map {
         return this.height;
     }
 
-    private void createMap(){
+    private void createMap() {
         map = new GameObject[height][width];
     }
 
@@ -40,15 +38,9 @@ public class Map {
     }
 
     //Anropas i intervall
-    public void moveCreatures() {
-        for(Creature c: creatures) {
-            int pos[] = new int[2];
-            if (c instanceof Hero) {
-                //TODO borde läsa av tangentbord
-                pos = c.moveCreature('N');
-            } else if (c instanceof Monster){
-                pos = c.moveCreature('X');
-            }
+    public void moveCreatures(char ch) {
+        for (Creature c : creatures) {
+            int pos[] = c.moveCreature(ch);
 
             if (!(map[pos[2]][pos[3]] instanceof Stationary)) {
                 boolean allowed = false;
@@ -57,14 +49,15 @@ public class Map {
                     if (map[pos[2]][pos[3]] instanceof Item) {
                         ((Hero) c).pickUpItem(map[pos[2]][pos[3]]);
                     }
-                } else {
+                }
+                else {
                     if (map[pos[2]][pos[3]] == null) {
                         allowed = true;
                     }
                 }
                 if (allowed) {
-                    map[pos[2]][pos[3]] = c;
                     map[pos[0]][pos[1]] = null;
+                    map[pos[2]][pos[3]] = c;
                     c.setPosition(pos[2], pos[3]);
                 }
             }
@@ -72,7 +65,7 @@ public class Map {
         //repaint();
     }
 
-    private void generateMap(){
+    private void generateMap() {
         generatedMap = new GameObject[height][width];
         Wall wall = new Wall();
 
@@ -211,27 +204,33 @@ public class Map {
         return generatedMap;
     }
 
-    public GameObject[][] getMap(){
+    public GameObject[][] getMap() {
         return map;
     }
 
-    public void removeItem(){
-        //TODO
+    public GameObject removeItem(int x, int y) {
+        //Removes item from map
+        if (x > width) {
+            throw new IndexOutOfBoundsException();
+        }
+        else if (y > height) {
+            throw new IndexOutOfBoundsException();
+        }
+        GameObject obj = map[x][y];
+        map[x][y] = null;
+        return obj;
     }
 
-    public void addObjectToMap(GameObject obj, int x, int y){
-        map[x][y] = obj;
-    }
 
-    private void renderFrameStars(){
-        for(int i = 0; i < width; i++){
+    private void renderFrameStars() {
+        for (int i = 0; i < width; i++) {
             System.out.print("*****");
         }
         System.out.print("**");
         System.out.println();
     }
 
-    private String printConsoleSymbolWithColor(GameObject obj){
+    private String printConsoleSymbolWithColor(GameObject obj) {
         String color;
         //RED, YELLOW, BLUE, GRAY, GREEN, ORANGE
         switch (obj.getColor()) {
@@ -250,27 +249,27 @@ public class Map {
             case ORANGE:
                 color = "\033[0;35m";
                 break;
-            case YELLOW: color = "\033[0;33m";
+            case YELLOW:
+                color = "\033[0;33m";
                 break;
 
             default:
                 color = "\033[0m";
         }
 
-        return color +obj.getSymbol() + "\033[0m";
+        return color + obj.getSymbol() + "\033[0m";
     }
 
-    public void renderToConsole(){
-        System.out.println("Map["+ width +"][" + height + "]:");
+    public void renderToConsole() {
+        System.out.println("Map[" + width + "][" + height + "]:");
         renderFrameStars();
-        for(int i = 0; i<width; i++)
-        {
+        for (int i = 0; i < height; i++) {
             System.out.print("*");
-            for(int j = 0; j<height; j++)
-            {
-                if(map[i][j] == null){
+            for (int j = 0; j < width; j++) {
+                if (map[i][j] == null) {
                     System.out.print("  .  ");
-                }else{
+                }
+                else {
                     System.out.print("  " + printConsoleSymbolWithColor(map[i][j]) + "  ");
                 }
             }
