@@ -47,8 +47,15 @@ public class Map {
         return map;
     }
 
-    public void removeItem(){
-        //TODO
+    public GameObject removeItem(int x, int y){
+        if(x > width){
+            throw new IndexOutOfBoundsException();
+        }else if (y > height){
+            throw new IndexOutOfBoundsException();
+        }
+        GameObject obj = map[x][y];
+        map[x][y] = null;
+        return obj;
     }
 
     public void addObjectToMap(GameObject obj, int x, int y){
@@ -95,10 +102,10 @@ public class Map {
     public void renderToConsole(){
         System.out.println("Map["+ width +"][" + height + "]:");
         renderFrameStars();
-        for(int i = 0; i<width; i++)
+        for(int i = 0; i<height; i++)
         {
             System.out.print("*");
-            for(int j = 0; j<height; j++)
+            for(int j = 0; j<width; j++)
             {
                 if(map[i][j] == null){
                     System.out.print("  .  ");

@@ -3,9 +3,7 @@ package se.inte.group5;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 public class MapTest {
@@ -50,7 +48,7 @@ public class MapTest {
     }
 
     @Test
-    public void renderToConsole_10x10_Hero00_Vatten01_Vägg02_Monster22_Vapen67_Potion78(){
+    public void renderToConsole_10x10_OneOfEach(){
         Map map = new Map(10, 10);
         map.addObjectToMap(new Hero(100, 10), 0, 0);
         map.addObjectToMap(new Water(), 0, 1);
@@ -60,10 +58,28 @@ public class MapTest {
         map.addObjectToMap(new Potion(), 7, 8);
         map.renderToConsole();
     }
-
+    @Test
+    public void removeItemFromMap_ok(){
+        Map map = new Map(20,20);
+        Wall wall = new Wall();
+        assertNull(map.getMap()[10][10]);
+        map.addObjectToMap(wall, 10, 10);
+        assertEquals(wall, map.getMap()[10][10]);
+        assertEquals(wall, map.removeItem(10,10));
+    }
 
     @Test
-    public void renderToConsole_40x40_Hero00_vägg01_vägg11_monster1010_monster3020_vatten1515_vatten1516_vatten1517_vapen174_vapen_94_potion124_potion198(){
+    public void removeItemThatDontExist_ok(){
+        assertNull(map.removeItem(10,10));
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void removeItemFromMap_indexOutOfBound(){
+        map.removeItem(400,500);
+    }
+
+    @Test
+    public void renderToConsole_40x40_moreItems(){
         Map map = new Map(40, 40);
         map.addObjectToMap(new Hero(100, 10), 0, 0);
         map.addObjectToMap(new Wall(), 0, 1);
