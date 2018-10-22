@@ -39,15 +39,9 @@ public class Map {
     }
 
     //Anropas i intervall
-    public void moveCreatures() {
+    public void moveCreatures(char ch) {
         for(Creature c: creatures) {
-            int pos[] = new int[2];
-            if (c instanceof Hero) {
-                //TODO borde läsa av tangentbord
-                pos = c.moveCreature('N');
-            } else if (c instanceof Monster){
-                pos = c.moveCreature('X');
-            }
+            int pos[] = c.moveCreature(ch);
 
             if (!(map[pos[2]][pos[3]] instanceof Stationary)) {
                 boolean allowed = false;

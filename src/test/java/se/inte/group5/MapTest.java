@@ -46,7 +46,7 @@ public class MapTest {
     }
 
     @Test
-    public void moveCreatures_OneCreatureOnEmptyMap_CreatureHasMoved() {
+    public void moveCreatures_OneMonsterOnEmptyMap_CreatureHasMoved() {
         Map temp = new Map(10, 10);
 
         Monster monster = new Monster(10, 1);
@@ -55,12 +55,23 @@ public class MapTest {
         System.out.println("Before moved");
         temp.renderToConsole();
 
-        temp.moveCreatures();
+        temp.moveCreatures('X');
         assertNull(temp.getMap()[1][1]);
 
         System.out.println("After moved");
         temp.renderToConsole();
     }
+
+    @Test
+    public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedNorth() {
+        map.moveCreatures('N');
+        Hero hero = new Hero(10, 5);
+        map.placeGameObject(5,5, hero);
+
+
+
+    }
+
     @Test
     public void renderToConsole_empty10x10(){
         Map map = new Map(10, 10);
