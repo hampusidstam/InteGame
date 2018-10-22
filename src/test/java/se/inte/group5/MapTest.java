@@ -61,6 +61,29 @@ public class MapTest {
         System.out.println("After moved");
         temp.renderToConsole();
     }
+
+    @Test
+    public void moveCreatures_MapWithHeroAndConsumable_HeroHasPickedUpConsumable() {
+        Map temp = new Map(10, 10);
+
+        Hero hero = new Hero(20, 1);
+        hero.takeDamage(15);
+        temp.placeGameObject(1,1, hero);
+        Plant plant = new Plant();
+        temp.placeGameObject(2,1, plant);
+
+        System.out.println("Before moved");
+        temp.renderToConsole();
+
+        temp.moveCreatures();
+
+        System.out.println("After moved");
+        temp.renderToConsole();
+
+        assertNull(temp.getMap()[1][1]);
+        assertEquals(15, hero.getHealthPoints());
+    }
+
     @Test
     public void renderToConsole_empty10x10(){
         Map map = new Map(10, 10);
