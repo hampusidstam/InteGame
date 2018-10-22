@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Map {
     private int width, height;
     private GameObject[][] map;
-    private ArrayList<Creature> creatures;
+    private ArrayList<Creature> creatures = new ArrayList<>();
 
     Map(int width, int height) {
         this.width = width;
@@ -31,6 +31,10 @@ public class Map {
     //Behövs för test
     public void placeGameObject(int y, int x, GameObject gameObject) {
         map[y][x] = gameObject;
+        if (gameObject instanceof Creature) {
+            ((Creature) gameObject).setPosition(y, x);
+            creatures.add((Creature) gameObject);
+        }
     }
 
     //Anropas i intervall

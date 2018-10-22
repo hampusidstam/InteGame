@@ -4,7 +4,7 @@ public abstract class Creature extends GameObject {
 
     protected int healthPoints, maxSpeed;
     protected boolean alive;
-    protected int[] position;
+    protected int[] position = new int[2];
 
     public Creature(int healthPoints, int maxSpeed, char symbol, Color color) {
         super(symbol, color);
