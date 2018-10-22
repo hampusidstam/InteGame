@@ -42,40 +42,40 @@ public abstract class Creature extends GameObject {
         return alive;
     }
 
-    public abstract int[] getPosition();
-
     public void setPosition(int y, int x) {
         position[0] = y;
         position[1] = x;
     }
 
-    public abstract int move();
+    public int[] moveCreature(char ch) {
 
-    public int[] moveCreature() {
-
-        int dir = move();
-        int[] originalPos = getPosition();
+        int dir = 0;
         int[] newPos;
+
+        if (this instanceof Hero)
+            dir = ((Hero)this).move(ch);
+        else if (this instanceof Monster)
+            dir = ((Monster)this).move();
 
         switch (dir) {
             // One step north
             case 1:
-                newPos = new int[] {originalPos[1], originalPos[0], originalPos[1]+1, originalPos[0]};
+                newPos = new int[] {position[1], position[0], position[1]+1, position[0]};
                 break;
             // One step east
             case 2:
-                newPos = new int[] {originalPos[1], originalPos[0], originalPos[1], originalPos[0]+1};
+                newPos = new int[] {position[1], position[0], position[1], position[0]+1};
                 break;
             // One step south
             case 3:
-                newPos = new int[] {originalPos[1], originalPos[0], originalPos[1]-1, originalPos[0]};
+                newPos = new int[] {position[1], position[0], position[1]-1, position[0]};
                 break;
             // One step west
             case 4:
-                newPos = new int[] {originalPos[1], originalPos[0], originalPos[1], originalPos[0]-1};
+                newPos = new int[] {position[1], position[0], position[1], position[0]-1};
                 break;
             default:
-                newPos = new int[] {originalPos[1], originalPos[0], originalPos[1], originalPos[0]};
+                newPos = new int[] {position[1], position[0], position[1], position[0]};
         }
         return newPos;
     }

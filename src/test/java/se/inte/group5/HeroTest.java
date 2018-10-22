@@ -66,17 +66,28 @@ public class HeroTest {
     }
 
     @Test
-    public void getStartPosition_isAtPositionX0Y0_position() {
-        int[] pos = {0,0};
-        assertEquals(0, pos[0]);
-        assertEquals(0, pos[1]);
+    public void move_standStill_dirIs0() {
+        assertEquals(0, hero.move('0'));
     }
 
     @Test
-    public void move_moveOneStepNorth_positionMoved() {
-        char ch = 'N';
-        int dir = 1;
-        assertEquals(1, hero.move());
+    public void move_moveOneStepNorth_dirIs1() {
+        assertEquals(1, hero.move('N'));
+    }
+
+    @Test
+    public void move_moveOneStepNorth_dirIs2() {
+        assertEquals(2, hero.move('E'));
+    }
+
+    @Test
+    public void move_moveOneStepNorth_dirIs3() {
+        assertEquals(3, hero.move('S'));
+    }
+
+    @Test
+    public void move_moveOneStepWest_dirIs4() {
+        assertEquals(4, hero.move('W'));
     }
 
     @Test

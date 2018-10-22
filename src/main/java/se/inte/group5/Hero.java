@@ -29,15 +29,7 @@ public class Hero extends Creature {
         return inventory.getSize();
     }
 
-    @Override
-    public int[] getPosition() {
-        int[] pos = {0,0};
-        return pos;
-    }
-
-    @Override
-    public int move() {
-        char ch = 'N';
+    public int move(char ch) {
         int dir;
 
         switch (ch) {
