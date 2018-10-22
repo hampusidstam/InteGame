@@ -6,7 +6,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 
 public class MonsterTest {
     private Monster monster;
@@ -45,22 +44,14 @@ public class MonsterTest {
     }
 
     @Test
-    public void takeDamage_hitMonsterWithAllHp_monsterDies() {
-        monster.takeDamage(monster.getHealthPoints());
-        assertFalse(monster.isAlive());
-    }
-
-    @Test
     public void takeDamage_decreaseByNegative_healthPointsNotChanged() {
         monsterFullHp.takeDamage(-1);
         assertEquals(100, monsterFullHp.getHealthPoints());
     }
 
     @Test
-    public void move_oneToThree_True(){
-        assertTrue(0 <= m.move() && m.move() <= 3);
-
+    public void isAlive_killMonster_isNotAlive() {
+        monster.takeDamage(monster.getHealthPoints());
+        assertFalse(monster.isAlive());
     }
-
-
 }
