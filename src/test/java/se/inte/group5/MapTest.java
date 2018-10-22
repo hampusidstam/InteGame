@@ -64,9 +64,10 @@ public class MapTest {
 
     @Test
     public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedNorth() {
-        map.moveCreatures('N');
         Hero hero = new Hero(10, 5);
         map.placeGameObject(5,5, hero);
+        map.moveCreatures('N');
+
 
 
 
