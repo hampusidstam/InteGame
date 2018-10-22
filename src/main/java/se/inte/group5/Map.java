@@ -56,8 +56,8 @@ public class Map {
                     }
                 }
                 if (allowed) {
-                    map[pos[2]][pos[3]] = c;
                     map[pos[0]][pos[1]] = null;
+                    map[pos[2]][pos[3]] = c;
                     c.setPosition(pos[2], pos[3]);
                 }
             }
