@@ -55,6 +55,12 @@ public class MonsterTest {
     }
 
     @Test
+    public void move_moveInRandomDirection_positionChanged() {
+        int dir = monster.move();
+        assertEquals(dir == 0 || dir == 1 || dir == 2 || dir == 3 || dir == 4, monster.move());
+    }
+
+    @Test
     public void setEquipment_addEquipment_strengthNotLowerThan1() {
         assertFalse(monster.getEquipment().strength < 1);
     }
