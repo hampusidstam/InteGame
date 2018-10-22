@@ -3,7 +3,9 @@ package se.inte.group5;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 
@@ -40,6 +42,13 @@ public class MapTest {
         assertTrue(map.getMap()[0][0] instanceof Wall);
     }
 
+    @Test
+    public void moveCreatures_OneCreatureOnEmptyMap_CreatureHasMoved() {
+        Monster monster = new Monster(10, 1);
+        map.placeGameObject(1,1, monster);
+        map.moveCreatures();
+        assertNull(map.getMap()[1][1]);
+    }
 
 
 }
