@@ -18,6 +18,13 @@ public class Inventory {
         return false;
     }
 
+    public Equipment getItem(int item) {
+        if (inventoryArray[item] == null) {
+            //TODO ta bort?
+        }
+        return inventoryArray[item];
+    }
+
     public Equipment[] getInventoryArray() {
         return inventoryArray;
     }

@@ -23,6 +23,10 @@ public class Monster extends Creature {
         //equipment = new Weapon(10); //TODO REMOVE
     }
 
+    public Equipment getEquipment() {
+        return inventory.getItem(0);
+    }
+
     public int move() {
         return new Random().nextInt(5);
     }
