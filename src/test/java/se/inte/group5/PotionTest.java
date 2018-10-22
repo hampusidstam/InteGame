@@ -7,9 +7,8 @@ import static org.junit.Assert.assertEquals;
 public class PotionTest {
 
     @Test
-    public void healPotency_givePotionToHero_healFull() {
+    public void getEnergy_newPotion100Energy_energyIs100() {
         Potion potion = new Potion();
-        assertEquals(100, potion.getHealthPoints());
+        assertEquals(100, potion.getEnergy());
     }
-
 }

@@ -2,12 +2,9 @@ package se.inte.group5;
 
 public class Monster extends Creature {
 
-    private Inventory inventory;
-
     public Monster(int healthPoints, int maxSpeed) {
 
-        super(healthPoints, maxSpeed, 'M', Color.GREEN);
-        inventory = new Inventory(1);
+        super(healthPoints, maxSpeed, 'M', Color.GREEN, 1);
 
         setEquipment();
     }

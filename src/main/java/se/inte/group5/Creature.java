@@ -3,9 +3,10 @@ package se.inte.group5;
 public abstract class Creature extends GameObject {
 
     protected int healthPoints, maxSpeed;
+    protected Inventory inventory;
     protected boolean alive;
 
-    public Creature(int healthPoints, int maxSpeed, char symbol, Color color) {
+    public Creature(int healthPoints, int maxSpeed, char symbol, Color color, int inventorySize) {
         super(symbol, color);
 
         if (healthPoints < 1 || maxSpeed < 0) {
@@ -15,6 +16,7 @@ public abstract class Creature extends GameObject {
         this.healthPoints = healthPoints;
         this.maxSpeed = maxSpeed;
         this.alive = true;
+        inventory = new Inventory(inventorySize);
     }
 
     public int getHealthPoints() {
