@@ -60,24 +60,7 @@ public class MapTest {
         map.addObjectToMap(new Potion(), 7, 8);
         map.renderToConsole();
     }
-    @Test
-    public void generateMap_mapIsSolvable_True(){
-        GameObject[][] gameMap = map.getGeneratedMap();
-        int firstPosition[] = {1,1};
-        floodMap(gameMap, firstPosition);
-        assertTrue(mapIsFilledWithStationary(gameMap));
-    }
 
-    private boolean mapIsFilledWithStationary(GameObject[][] gameMap){
-        for (GameObject[] row: gameMap){
-            for (GameObject occupant : row){
-                if (!(occupant instanceof Stationary)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 
     @Test
     public void renderToConsole_40x40_Hero00_vägg01_vägg11_monster1010_monster3020_vatten1515_vatten1516_vatten1517_vapen174_vapen_94_potion124_potion198(){
@@ -96,9 +79,31 @@ public class MapTest {
         map.addObjectToMap(new Potion(), 19, 8);
         map.renderToConsole();
     }
+
+    @Test
+    public void generateMap_mapIsSolvable_True(){
+        Map m = new Map(10, 10);
+        GameObject[][] gameMap = m.getGeneratedMap();
+        int firstPosition[] = {1,1};
+        floodMap(gameMap, firstPosition);
+        assertTrue(mapIsFilledWithStationary(gameMap));
+    }
+
+    private boolean mapIsFilledWithStationary(GameObject[][] gameMap){
+        for (GameObject[] row: gameMap){
+            for (GameObject occupant : row){
+                if (!(occupant instanceof Stationary)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     private void floodMap(GameObject[][] gameMap, int[] position){
         if (!(gameMap[position[0]][position[1]] instanceof Stationary)){
             gameMap[position[0]][position[1]] = filler;
+            System.out.println("Filling " + position[0] + position[1]);
 
             int[] firstPosition = {position[0]+1, position[1]};
             int[] secondPosition = {position[0]-1, position[1]};
