@@ -63,12 +63,32 @@ public class MapTest {
         Hero hero = new Hero(10, 5);
         map.placeGameObject(5,5, hero);
         map.moveCreatures('N');
-
-
-
-
+        assertTrue(map.getMap()[4][5] instanceof Hero);
     }
 
+    @Test
+    public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedEast() {
+        Hero hero = new Hero(10, 5);
+        map.placeGameObject(5,5, hero);
+        map.moveCreatures('E');
+        assertTrue(map.getMap()[5][6] instanceof Hero);
+    }
+
+    @Test
+    public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedSouth() {
+        Hero hero = new Hero(10, 5);
+        map.placeGameObject(5,5, hero);
+        map.moveCreatures('S');
+        assertTrue(map.getMap()[6][5] instanceof Hero);
+    }
+
+    @Test
+    public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedWest() {
+        Hero hero = new Hero(10, 5);
+        map.placeGameObject(5,5, hero);
+        map.moveCreatures('W');
+        assertTrue(map.getMap()[5][4] instanceof Hero);
+    }
 
     @Test
     public void moveCreatures_MapWithHeroAndConsumable_HeroHasPickedUpConsumable() {
