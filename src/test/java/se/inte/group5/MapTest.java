@@ -4,11 +4,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 
 public class MapTest {
     private Map map;
+    private StationaryFill filler = new StationaryFill();
 
     @Before
     public void createMaps(){
@@ -58,6 +60,24 @@ public class MapTest {
         map.addObjectToMap(new Potion(), 7, 8);
         map.renderToConsole();
     }
+    @Test
+    public void generateMap_mapIsSolvable_True(){
+        GameObject[][] gameMap = map.getGeneratedMap();
+        int firstPosition[] = {1,1};
+        floodMap(gameMap, firstPosition);
+        assertTrue(mapIsFilledWithStationary(gameMap));
+    }
+
+    private boolean mapIsFilledWithStationary(GameObject[][] gameMap){
+        for (GameObject[] row: gameMap){
+            for (GameObject occupant : row){
+                if (!(occupant instanceof Stationary)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     @Test
     public void renderToConsole_40x40_Hero00_vägg01_vägg11_monster1010_monster3020_vatten1515_vatten1516_vatten1517_vapen174_vapen_94_potion124_potion198(){
@@ -75,5 +95,26 @@ public class MapTest {
         map.addObjectToMap(new Potion(), 12, 4);
         map.addObjectToMap(new Potion(), 19, 8);
         map.renderToConsole();
+    }
+    private void floodMap(GameObject[][] gameMap, int[] position){
+        if (!(gameMap[position[0]][position[1]] instanceof Stationary)){
+            gameMap[position[0]][position[1]] = filler;
+
+            int[] firstPosition = {position[0]+1, position[1]};
+            int[] secondPosition = {position[0]-1, position[1]};
+            int[] thirdPosition = {position[0], position[1]+1};
+            int[] fourthPosition = {position[0], position[1]-1};
+            floodMap(gameMap, firstPosition);
+            floodMap(gameMap, secondPosition);
+            floodMap(gameMap, thirdPosition);
+            floodMap(gameMap, fourthPosition);
+        }
+        return;
+    }
+
+    class StationaryFill extends Stationary{
+        public StationaryFill() {
+            super('~', Color.BLUE);
+        }
     }
 }

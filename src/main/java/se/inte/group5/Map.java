@@ -4,13 +4,14 @@ import java.util.Arrays;
 
 public class Map {
     private int width, height;
-    private GameObject[][] map;
+    private GameObject[][] map, generatedMap;
 
     Map(int width, int height) {
         this.width = width;
         this.height = height;
 
         createMap();
+        generateMap();
     }
 
     public int getWidth() {
@@ -23,6 +24,23 @@ public class Map {
 
     private void createMap(){
         map = new GameObject[height][width];
+    }
+
+    private void generateMap(){
+        generatedMap = new GameObject[height][width];
+        Wall w = new Wall();
+
+        for (int i=0; i<height; i++){
+            for (int j=0; j<width; j++){
+                if (i == 0 || i == height-1 || j == 0 || j == width){
+                    generatedMap[i][j] = w;
+                }
+            }
+        }
+    }
+
+    public GameObject[][] getGeneratedMap() {
+        return generatedMap;
     }
 
     public GameObject[][] getMap(){
