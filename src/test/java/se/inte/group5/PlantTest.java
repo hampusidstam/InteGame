@@ -17,13 +17,13 @@ public class PlantTest {
     }
 
     @Test
-    public void getHealthPoints_hpIs10_true() {
-        assertEquals(10, plant.getHealthPoints());
+    public void getEnergy_plantEnergyIs10_true() {
+        assertEquals(10, plant.getEnergy());
     }
 
     @Test
-    public void getHealthPoints_hpIs10_false() {
-        assertNotEquals(13, plant.getHealthPoints());
+    public void getEnergy_plantEnergyIs10_false() {
+        assertNotEquals(13, plant.getEnergy());
     }
 
     @Test
