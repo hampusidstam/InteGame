@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class HeroTest {
-    Hero hero;
+    private Hero hero;
 
     @Before
     public void createHero_correctValues() {
@@ -59,7 +59,7 @@ public class HeroTest {
     }
 
     @Test
-    public void pickUpItem_drinkPotion_increaseHealthPointsBy100() {
+    public void pickUpItem_drinkPotion_increaseHealthPointsTo100() {
         hero.takeDamage(85);
         hero.pickUpItem(new Potion());
         assertEquals(100, hero.getHealthPoints());

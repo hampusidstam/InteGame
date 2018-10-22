@@ -3,12 +3,10 @@ package se.inte.group5;
 public class Hero extends Creature {
 
     private final int MAXIMUM_HP = 100; //TODO: Should not have max hp?
-    protected Inventory inventory;
 
     public Hero(int healthPoints, int speed) {
 
-        super(healthPoints, speed, '@', Color.YELLOW);
-        inventory = new Inventory(10);
+        super(healthPoints, speed, '@', Color.YELLOW, 10);
     }
 
     public void pickUpItem(Object item) {
@@ -16,7 +14,7 @@ public class Hero extends Creature {
             healthPoints = MAXIMUM_HP;
         }
         else if (item instanceof Plant) {
-            increaseHealthPoints(((Plant) item).getHealthPoints());
+            increaseHealthPoints(((Plant) item).getEnergy());
         }
         else if (item instanceof Equipment) {
             inventory.addItem((Equipment) item);
