@@ -55,9 +55,13 @@ public class MonsterTest {
     }
 
     @Test
-    public void move_moveInRandomDirection_positionChanged() {
-        int dir = monster.move();
-        assertEquals(dir == 0 || dir == 1 || dir == 2 || dir == 3 || dir == 4, monster.move());
+    public void move_moveInDirectionOptionNotAbove4_positionChanged() {
+        assertTrue(monster.move() > 4);
+    }
+
+    @Test
+    public void move_moveInDirectionOptionNotNegative_positionChanged() {
+        assertTrue(monster.move() < 0);
     }
 
     @Test
