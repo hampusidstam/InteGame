@@ -82,7 +82,7 @@ public class MapTest {
 
     @Test
     public void generateMap_mapIsSolvable_True(){
-        Map m = new Map(10, 10);
+        Map m = new Map(50, 50);
         GameObject[][] gameMap = m.getGeneratedMap();
         int firstPosition[] = {1,1};
         floodMap(gameMap, firstPosition);
@@ -103,7 +103,6 @@ public class MapTest {
     private void floodMap(GameObject[][] gameMap, int[] position){
         if (!(gameMap[position[0]][position[1]] instanceof Stationary)){
             gameMap[position[0]][position[1]] = filler;
-            System.out.println("Filling " + position[0] + position[1]);
 
             int[] firstPosition = {position[0]+1, position[1]};
             int[] secondPosition = {position[0]-1, position[1]};

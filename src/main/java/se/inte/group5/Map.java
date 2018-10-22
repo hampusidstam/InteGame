@@ -32,7 +32,7 @@ public class Map {
 
         for (int i=0; i<height; i++){
             for (int j=0; j<width; j++){
-                if (i == 0 || i == height-1 || j == 0 || j == width){
+                if (i == 0 || i == height-1 || j == 0 || j == width-1){
                     generatedMap[i][j] = w;
                 }
             }
