@@ -87,6 +87,7 @@ public class Map {
     }
 
     public GameObject removeItem(int x, int y){
+        //Removes item from map
         if(x > width){
             throw new IndexOutOfBoundsException();
         }else if (y > height){
