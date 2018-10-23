@@ -189,7 +189,8 @@ public class MapTest {
 
     @Test
     public void generateMap_mapIsSolvable_True(){
-        Map m = new Map(5, 5);
+        Map m = new Map(10, 10);
+        m.generateMap();
         GameObject[][] gameMap = m.getGeneratedMap();
         int firstPosition[] = {1,1};
         floodMap(gameMap, firstPosition);
