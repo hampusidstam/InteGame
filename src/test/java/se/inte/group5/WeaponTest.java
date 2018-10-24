@@ -32,7 +32,7 @@ public class WeaponTest {
 
     @Test
     public void equals_differentStrength_notSameWeapon() {
-        assertNotEquals(weapon, new Monster(5, 10));
+        assertNotEquals(weapon, new Monster(5));
     }
 
     @Test

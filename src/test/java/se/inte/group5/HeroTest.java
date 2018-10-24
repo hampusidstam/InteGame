@@ -24,11 +24,6 @@ public class HeroTest {
     }
 
     @Test
-    public void getMaxSpeed_MaxSpeedIs10_true() {
-        assertEquals(10, hero.getMaxSpeed());
-    }
-
-    @Test
     public void heal_increaseBy10_true() {
         assertEquals(110, hero.getHealthPoints() + 10);
     }
