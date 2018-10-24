@@ -4,9 +4,9 @@ import java.util.Random;
 
 public class Monster extends Creature {
 
-    public Monster(int healthPoints, int maxSpeed) {
+    public Monster(int healthPoints) {
 
-        super(healthPoints, maxSpeed, 'M', Color.RED, 1);
+        super(healthPoints, 'M', Color.RED, 1);
 
         setEquipment();
     }

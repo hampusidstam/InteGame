@@ -60,7 +60,7 @@ public class MapTest {
 
     @Test
     public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedNorth() {
-        Hero hero = new Hero(10, 5);
+        Hero hero = new Hero(10);
         map.placeGameObject(5,5, hero);
         map.moveCreatures('N');
         assertTrue(map.getMap()[4][5] instanceof Hero);
@@ -68,7 +68,7 @@ public class MapTest {
 
     @Test
     public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedEast() {
-        Hero hero = new Hero(10, 5);
+        Hero hero = new Hero(10);
         map.placeGameObject(5,5, hero);
         map.moveCreatures('E');
         assertTrue(map.getMap()[5][6] instanceof Hero);
@@ -76,7 +76,7 @@ public class MapTest {
 
     @Test
     public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedSouth() {
-        Hero hero = new Hero(10, 5);
+        Hero hero = new Hero(10);
         map.placeGameObject(5,5, hero);
         map.moveCreatures('S');
         assertTrue(map.getMap()[6][5] instanceof Hero);
@@ -84,21 +84,22 @@ public class MapTest {
 
     @Test
     public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedWest() {
-        Hero hero = new Hero(10, 5);
+        Hero hero = new Hero(10);
         map.placeGameObject(5,5, hero);
         map.moveCreatures('W');
         assertTrue(map.getMap()[5][4] instanceof Hero);
     }
 
-    class MonsterRandomInject extends Monster {
-        public MonsterRandomInject() {
-            super(20,10);
-        }
-
-        @Override
-        public int move() {
-            return 0;
-        }
+    @Test
+    public void renderToConsole_10x10_OneOfEach() {
+        Map map = new Map(10, 10);
+        map.placeGameObject(0, 0, new Hero(100));
+        map.placeGameObject(1, 0, new Water());
+        map.placeGameObject(2, 0, new Wall());
+        map.placeGameObject(2, 2, new Monster(100));
+        map.placeGameObject(7, 6, new Weapon(12));
+        map.placeGameObject(8, 7, new Potion());
+        map.renderToConsole();
     }
 
     @Test
@@ -118,7 +119,7 @@ public class MapTest {
     public void moveCreatures_HeroNextToWall_HeroHasNotMoved() {
         Map temp = new Map(10, 10);
 
-        Hero hero = new Hero(20, 1);
+        Hero hero = new Hero(20);
         temp.placeGameObject(1,1, hero);
         Wall wall = new Wall();
         temp.placeGameObject(1,0, wall);
@@ -139,7 +140,7 @@ public class MapTest {
     public void moveCreatures_MapWithHeroAndConsumable_HeroHas15HP() {
         Map temp = new Map(10, 10);
 
-        Hero hero = new Hero(20, 1);
+        Hero hero = new Hero(20);
         hero.takeDamage(15);
         temp.placeGameObject(1,1, hero);
         Plant plant = new Plant();
@@ -161,7 +162,7 @@ public class MapTest {
     public void moveCreatures_MapWithHeroAndEquipment_HeroHasEquipmentInInventory() {
         Map temp = new Map(10, 10);
 
-        Hero hero = new Hero(20, 1);
+        Hero hero = new Hero(20);
         temp.placeGameObject(1,1, hero);
         Armor armor = new Armor(20);
         temp.placeGameObject(1,0, armor);
@@ -185,14 +186,20 @@ public class MapTest {
     }
 
     @Test
-    public void renderToConsole_10x10_OneOfEach(){
-        Map map = new Map(10, 10);
-        map.placeGameObject(0, 0, new Hero(100, 10));
-        map.placeGameObject(1, 0, new Water());
-        map.placeGameObject(2, 0, new Wall());
-        map.placeGameObject(2, 2, new Monster(100, 10));
-        map.placeGameObject(7, 6, new Weapon(12));
-        map.placeGameObject(8, 7, new Potion());
+    public void renderToConsole_40x40_moreItems() {
+        Map map = new Map(40, 40);
+        map.placeGameObject(0, 0, new Hero(100));
+        map.placeGameObject(1, 0, new Wall());
+        map.placeGameObject(1, 1, new Wall());
+        map.placeGameObject(10, 10, new Monster(100));
+        map.placeGameObject(30, 20, new Monster(100));
+        map.placeGameObject(15, 15, new Water());
+        map.placeGameObject(15, 16, new Water());
+        map.placeGameObject(15, 17, new Water());
+        map.placeGameObject(17, 4, new Weapon(12));
+        map.placeGameObject(9, 4, new Weapon(12));
+        map.placeGameObject(12, 4, new Potion());
+        map.placeGameObject(19, 8, new Potion());
         map.renderToConsole();
     }
     @Test
@@ -215,21 +222,14 @@ public class MapTest {
         map.removeItem(400,500);
     }
 
-    @Test
-    public void renderToConsole_40x40_moreItems(){
-        Map map = new Map(40, 40);
-        map.placeGameObject(0, 0, new Hero(100, 10));
-        map.placeGameObject( 1, 0, new Wall());
-        map.placeGameObject(1, 1,new Wall());
-        map.placeGameObject(10, 10, new Monster(100, 10));
-        map.placeGameObject(30, 20, new Monster(100, 10));
-        map.placeGameObject(15, 15, new Water());
-        map.placeGameObject(15, 16, new Water());
-        map.placeGameObject(15, 17, new Water());
-        map.placeGameObject(17, 4,new Weapon(12));
-        map.placeGameObject(9, 4, new Weapon(12));
-        map.placeGameObject(12, 4, new Potion());
-        map.placeGameObject(19, 8, new Potion());
-        map.renderToConsole();
+    class MonsterRandomInject extends Monster {
+        public MonsterRandomInject() {
+            super(20);
+        }
+
+        @Override
+        public int move() {
+            return 0;
+        }
     }
 }

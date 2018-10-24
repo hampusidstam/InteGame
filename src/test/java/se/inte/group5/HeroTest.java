@@ -10,22 +10,17 @@ public class HeroTest {
 
     @Before
     public void createHero_correctValues() {
-        hero = new Hero(100, 10);
+        hero = new Hero(100);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void hero_negativeHp_invalid() {
-        new Hero(-1, 5);
+        new Hero(-1);
     }
 
     @Test
     public void getHealthPoints_hpIs100_true() {
         assertEquals(100, hero.getHealthPoints());
-    }
-
-    @Test
-    public void getMaxSpeed_MaxSpeedIs10_true() {
-        assertEquals(10, hero.getMaxSpeed());
     }
 
     @Test

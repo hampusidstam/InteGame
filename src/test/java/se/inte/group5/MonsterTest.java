@@ -11,8 +11,8 @@ public class MonsterTest {
 
     @Before
     public void createMonster() {
-        monster = new Monster(13, 20);
-        monsterFullHp = new Monster(100, 5);
+        monster = new Monster(13);
+        monsterFullHp = new Monster(100);
     }
 
     @Test
@@ -22,17 +22,7 @@ public class MonsterTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void Monster_negativeHp_invalid() {
-        new Monster(-1, 5);
-    }
-
-    @Test
-    public void getMaxSpeed_MaxSpeedIs20_true() {
-        assertEquals(20, monster.getMaxSpeed());
-    }
-
-    @Test
-    public void getMaxSpeed_MaxSpeedIs10_false() {
-        assertNotEquals(10, monster.getMaxSpeed());
+        new Monster(-1);
     }
 
     @Test
@@ -87,7 +77,7 @@ public class MonsterTest {
 
     class MonsterRandomWeaponInject extends Monster {
         public MonsterRandomWeaponInject() {
-            super(100, 10);
+            super(100);
 
             setEquipment();
         }
@@ -100,7 +90,7 @@ public class MonsterTest {
 
     class MonsterRandomArmorInject extends Monster {
         public MonsterRandomArmorInject() {
-            super(100, 10);
+            super(100);
             setEquipment();
         }
 

@@ -37,7 +37,7 @@ public class GeneratedMap {
     private void putMonstersOnMap(){
         int numberOfMonsters = height*width/50;
         for (int i = 0; i < numberOfMonsters; i++){
-            Monster monster = new Monster(10, 10);
+            Monster monster = new Monster(10);
             int[] position = putGameObjectsOnMap(monster);
             monster.setPosition(position[0], position[1]);
             creatures.add(monster);

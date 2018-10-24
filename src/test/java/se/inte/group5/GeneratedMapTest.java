@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class GeneratedMapTest {
     private StationaryFill filler = new StationaryFill();
-    private Hero hero = new Hero(10, 10);
+    private Hero hero = new Hero(10);
 
     @Test
     public void generateMap_mapIsSolvable_True(){

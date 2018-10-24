@@ -1,7 +1,6 @@
 package se.inte.group5;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Map {
     private int width, height;
@@ -14,7 +13,7 @@ public class Map {
     Map(int width, int height) {
         this.width = width;
         this.height = height;
-        hero = new Hero(10, 10);
+        hero = new Hero(10);
         createMap();
     }
 
@@ -47,7 +46,7 @@ public class Map {
                 if (c instanceof Hero) {
                     allowed = true;
                     if (map[pos[2]][pos[3]] instanceof Item) {
-                        ((Hero) c).pickUpItem(map[pos[2]][pos[3]]);
+                        ((Hero) c).pickUpItem((Item) map[pos[2]][pos[3]]);
                     }
                 } else {
                     if (map[pos[2]][pos[3]] == null) {

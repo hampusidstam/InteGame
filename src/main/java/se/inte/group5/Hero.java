@@ -6,9 +6,9 @@ public class Hero extends Creature {
     private Weapon equippedWeapon;
     private Armor equippedArmor;
 
-    public Hero(int healthPoints, int speed) {
+    public Hero(int healthPoints) {
 
-        super(healthPoints, speed, '@', Color.YELLOW, 10);
+        super(healthPoints, '@', Color.YELLOW, 10);
     }
 
     public Weapon getEquippedWeapon() {
@@ -43,7 +43,7 @@ public class Hero extends Creature {
         }
     }
 
-    public void pickUpItem(Object item) {
+    public void pickUpItem(Item item) {
 
         if (item instanceof Consumable) {
             pickUpConsumable((Consumable) item);
