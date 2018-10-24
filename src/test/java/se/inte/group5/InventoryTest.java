@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 public class InventoryTest {
 
-    Inventory inventory;
+    private Inventory inventory;
 
     @Before
     public void createInventory() {
