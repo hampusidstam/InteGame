@@ -32,20 +32,6 @@ public abstract class Creature extends GameObject {
         return inventory;
     }
 
-    public void takeDamage(int damage) {
-        if (damage > 0) {
-            healthPoints -= damage;
-        }
-
-        if (healthPoints < 1) {
-            alive = false;
-        }
-    }
-
-    public boolean isAlive() {
-        return alive;
-    }
-
     public void setPosition(int y, int x) {
         position[0] = y;
         position[1] = x;
@@ -82,6 +68,24 @@ public abstract class Creature extends GameObject {
                 newPos = new int[] {position[1], position[0], position[1], position[0]};
         }
         return newPos;
+    }
+
+    public void takeDamage(int damage) {
+        if (damage > 0) {
+            healthPoints -= damage;
+        }
+
+        if (healthPoints < 1) {
+            dies();
+        }
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    private void dies() {
+        alive = false;
     }
     
 }

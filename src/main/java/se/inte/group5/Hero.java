@@ -10,64 +10,68 @@ public class Hero extends Creature {
         super(healthPoints, speed, '@', Color.YELLOW, 10);
     }
 
-    private void increaseHealthPoints(int healthPoints) {
-        this.healthPoints += healthPoints;
+    public Weapon getEquippedWeapon() {
+        return equippedWeapon;
     }
 
     public int getInventorySize() {
         return inventory.getSize();
     }
 
-    public int move(char ch) {
-        int dir;
+    private void increaseHealthPoints(int healthPoints) {
+        this.healthPoints += healthPoints;
+        assert healthPoints <= MAXIMUM_HP && healthPoints > 0;
+    }
 
+    public int move(char ch) {
         switch (ch) {
             case 'N':
-                dir = 1;
-                break;
+                return 1;
             case 'E':
-                dir = 2;
-                break;
+                return 2;
             case 'S':
-                dir = 3;
-                break;
+                return 3;
             case 'W':
-                dir = 4;
-                break;
+                return 4;
             default:
-                dir = 0;
+                return 0;
         }
-
-        return dir;
     }
 
     public void pickUpItem(Object item) {
-        if ((healthPoints > 90 && item instanceof Plant) || item instanceof Potion) {
-            healthPoints = MAXIMUM_HP;
-        }
-        else if (item instanceof Plant) {
-            increaseHealthPoints(((Plant) item).getEnergy());
+
+        if (item instanceof Consumable) {
+            pickUpConsumable(item);
         }
         else if (item instanceof Equipment) {
-            if (equippedWeapon == null && item instanceof Weapon) {
-                equippedWeapon = (Weapon) item;
-            }
-            inventory.addItem((Equipment) item);
-            setEquippedWeapon();
+            pickUpEquipment(item);
         }
+    }
+
+    private void pickUpConsumable(Object item) {
+        if (healthPoints >= 90 || item instanceof Potion) {
+            healthPoints = MAXIMUM_HP;
+        }
+        else {
+            increaseHealthPoints(((Plant) item).getEnergy());
+        }
+    }
+
+    private void pickUpEquipment(Object item) {
+        if (equippedWeapon == null && item instanceof Weapon) {
+            equippedWeapon = (Weapon) item;
+        }
+
+        inventory.addItem((Equipment) item);
+        setEquippedWeapon();
     }
 
     private void setEquippedWeapon() {
         for (Equipment w : inventory.getInventoryArray()) {
-            if (w instanceof Weapon) {
-                if (w.strength > equippedWeapon.strength) {
-                    equippedWeapon = (Weapon) w;
-                }
+            if (w instanceof Weapon && w.strength > equippedWeapon.strength) {
+                equippedWeapon = (Weapon) w;
             }
         }
     }
 
-    public Weapon getEquippedWeapon() {
-        return equippedWeapon;
-    }
 }
