@@ -41,28 +41,28 @@ public class Hero extends Creature {
     public void pickUpItem(Object item) {
 
         if (item instanceof Consumable) {
-            pickUpConsumable(item);
+            pickUpConsumable((Consumable) item);
         }
         else if (item instanceof Equipment) {
-            pickUpEquipment(item);
+            pickUpEquipment((Equipment) item);
         }
     }
 
-    private void pickUpConsumable(Object item) {
+    private void pickUpConsumable(Consumable item) {
         if (healthPoints >= 90 || item instanceof Potion) {
             healthPoints = MAXIMUM_HP;
         }
         else {
-            increaseHealthPoints(((Plant) item).getEnergy());
+            increaseHealthPoints(item.getEnergy());
         }
     }
 
-    private void pickUpEquipment(Object item) {
+    private void pickUpEquipment(Equipment item) {
         if (equippedWeapon == null && item instanceof Weapon) {
             equippedWeapon = (Weapon) item;
         }
 
-        inventory.addItem((Equipment) item);
+        inventory.addItem(item);
         setEquippedWeapon();
     }
 
