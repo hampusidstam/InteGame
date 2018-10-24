@@ -9,7 +9,9 @@ public class GeneratedMap {
     private Wall wall = new Wall();
     private ArrayList<Creature> creatures = new ArrayList<>();
     private Hero hero;
+    private ArrayList<int[]> doors = new ArrayList<>();
 
+    //TODO: Map should probably take hero as an argument (that way a new level can be created without loosing hero progress)
     public GeneratedMap(int width, int height, Hero hero) {
         this.width = width;
         this.height = height;
@@ -21,20 +23,21 @@ public class GeneratedMap {
         renderGeneratedToConsole();
     }
 
-    private void putHeroOnMap(Hero hero) {
+    private void putHeroOnMap(Hero hero){
         generatedMap[1][1] = hero;
         hero.setPosition(1, 1);
         creatures.add(hero);
     }
 
-    public ArrayList<Creature> getCreatures() {
+    public ArrayList<Creature> getCreatures(){
         return creatures;
     }
 
 
-    private void putMonstersOnMap() {
-        int numberOfMonsters = height * width / 50;
-        for (int i = 0; i < numberOfMonsters; i++) {
+    //TODO: Monsters should be dependent on hero strength upon creation
+    private void putMonstersOnMap(){
+        int numberOfMonsters = height*width/50;
+        for (int i = 0; i < numberOfMonsters; i++){
             Monster monster = new Monster(10);
             int[] position = putGameObjectsOnMap(monster);
             monster.setPosition(position[0], position[1]);
@@ -42,32 +45,33 @@ public class GeneratedMap {
         }
     }
 
-    private void putConsumablesOnMap() {
+    private void putConsumablesOnMap(){
         putPlantsOnMap();
         putPotionsOnMap();
     }
 
-    private void putPlantsOnMap() {
-        int numberOfPlants = height * width / 30;
-        for (int i = 0; i < numberOfPlants; i++) {
+    private void putPlantsOnMap(){
+        int numberOfPlants = height*width/30;
+        for (int i = 0; i < numberOfPlants; i++){
             Plant plant = new Plant();
             putGameObjectsOnMap(plant);
         }
     }
 
-    private void putPotionsOnMap() {
-        int numberOfPotions = height * width / 75;
-        for (int i = 0; i < numberOfPotions; i++) {
+    private void putPotionsOnMap(){
+        int numberOfPotions = height*width/75;
+        for (int i = 0; i < numberOfPotions; i++){
             Potion potion = new Potion();
             putGameObjectsOnMap(potion);
         }
     }
 
-    private int[] putGameObjectsOnMap(GameObject obj) {
-        while (true) {
+
+    private int[] putGameObjectsOnMap(GameObject obj){
+        while (true){
             int column = new Random().nextInt(width);
             int row = new Random().nextInt(height);
-            if (generatedMap[row][column] == null) {
+            if (generatedMap[row][column] == null){
                 generatedMap[row][column] = obj;
                 int[] position = {row, column};
                 return position;
@@ -86,75 +90,91 @@ public class GeneratedMap {
     private void generateMap() {
         generatedMap = new GameObject[height][width];
 
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
+        for (int i=0; i<height; i++){
+            for (int j=0; j<width; j++){
+                if (i == 0 || i == height-1 || j == 0 || j == width-1){
                     generatedMap[i][j] = wall;
                 }
             }
         }
-        generateVerticalWall(0, width - 1, 0);
+
+        generateVerticalWall(0, width-1, 0);
     }
 
     private int generateMapGenerateWallIndex(int start, int finish, int index) {
         int length = finish - start;
-        if (length < 7) {
-            return 0;
-        }
-        int newIndex;
-        while (true) {
+        if (length < 7) return 0;
+        int newIndex ;
+        while (true){
             newIndex = new Random().nextInt(length - 4);
             newIndex += 2;
             if (generatedMap[newIndex][index] instanceof Stationary) {
                 return newIndex;
             }
+            if (generatedMap[newIndex][index] instanceof Stationary && !(generatedMap[newIndex][index] instanceof Door)) return newIndex;
         }
     }
 
-    private void generateVerticalWall(int start, int finish, int index) {
-        int newIndex = generateMapGenerateWallIndex(start, finish, index);
-        if (newIndex == 0) {
-            return;
+    private int generateMapGenerateWallIndex2(int start, int finish, int index) {
+        int length = finish - start;
+        if (length < 7) return 0;
+        int newIndex ;
+        while (true){
+            newIndex = new Random().nextInt(length - 4);
+            newIndex += 2;
+            if (generatedMap[index][newIndex] instanceof Stationary) return newIndex;
         }
+    }
+
+    private void generateVerticalWall(int start, int finish, int index){
+        int newIndex = generateMapGenerateWallIndex(start, finish, index);
+        if (newIndex == 0) return;
         generateVerticalWallDown(start, finish, index, newIndex);
 
         newIndex = generateMapGenerateWallIndex(start, finish, index);
-        if (newIndex == 0) {
-            return;
-        }
+        if (newIndex == 0) return;
         generateVerticalWallUp(start, finish, index, newIndex);
     }
 
     private void generateVerticalWallDown(int start, int finish, int index, int newIndex) {
-        for (int row = index + 1; row < height; row++) {
+        for (int row = index + 1; row < height; row++){
             innerVerticalLoop(row, index, newIndex);
         }
     }
 
     private void generateVerticalWallUp(int start, int finish, int index, int newIndex) {
-        for (int row = index - 1; row >= 0; row--) {
+        for (int row = index - 1; row >= 0; row--){
             innerVerticalLoop(row, index, newIndex);
         }
     }
 
     private void innerVerticalLoop(int row, int index, int newIndex) {
-        if (generatedMap[row][newIndex] instanceof Stationary) {
+        if (generatedMap[row][newIndex] instanceof Stationary){
+            //if (generatedMap[row][newIndex] instanceof Door && row - index > 1)
             if (row - index > 1) {
                 int doorIndex = new Random().nextInt(row - index - 1);
-                generatedMap[doorIndex + 1 + index][newIndex] = null;
+                generatedMap[doorIndex+1+index][newIndex] = null;
+                generateDoor(doorIndex+1+index, newIndex);
+                generateHorizontalWall(index, row, newIndex);
             }
             else if (row - index < -1) {
                 int doorIndex = new Random().nextInt(index - row - 1);
-                generatedMap[doorIndex + 1 + row][newIndex] = null;
+                generatedMap[doorIndex+1+row][newIndex] = null;
+                generateHorizontalWall(row, index, newIndex);
             }
-            else {
-                return;
-            }
+            //else return;
+
             generateHorizontalWall(index, row, newIndex);
         }
-        else {
+        else{
             generatedMap[row][newIndex] = wall;
         }
+    }
+
+    private void generateDoor(int row, int column){
+        generatedMap[row][column] = new Door();
+        int[] position = {row, column};
+        doors.add(position);
     }
 
     private void generateHorizontalWall(int start, int finish, int index) {
@@ -168,17 +188,19 @@ public class GeneratedMap {
         if (newIndex == 0) {
             return;
         }
+        newIndex = generateMapGenerateWallIndex2(start, finish, index);
+        if (newIndex == 0) return;
         generateHorizontalWallLeft(start, finish, index, newIndex);
     }
 
     private void generateHorizontalWallRight(int start, int finish, int index, int newIndex) {
-        for (int column = index + 1; column < width; column++) {
+        for (int column = index + 1; column < width; column++){
             innerHorizontalLoop(column, index, newIndex);
         }
     }
 
     private void generateHorizontalWallLeft(int start, int finish, int index, int newIndex) {
-        for (int column = index - 1; column >= 0; column--) {
+        for (int column = index - 1; column >= 0; column--){
             innerHorizontalLoop(column, index, newIndex);
         }
     }
@@ -187,18 +209,22 @@ public class GeneratedMap {
         if (generatedMap[newIndex][column] instanceof Stationary) {
             if (column - index > 1) {
                 int doorIndex = new Random().nextInt(column - index - 1);
+                generatedMap[newIndex][doorIndex+1+index] = null;
+                generateDoor(newIndex, doorIndex+1+index);
+                generateVerticalWall(index, column, newIndex);
                 generatedMap[newIndex][doorIndex + 1 + index] = null;
             }
             else if (column - index < -1) {
                 int doorIndex = new Random().nextInt(index - column - 1);
+                generatedMap[newIndex][doorIndex+1+column] = null;
+                generateDoor(newIndex, doorIndex+1+column);
+                generateVerticalWall(column, index, newIndex);
                 generatedMap[newIndex][doorIndex + 1 + column] = null;
             }
-            else {
-                return;
-            }
+            else return;
             generateVerticalWall(index, column, newIndex);
         }
-        else {
+        else{
             generatedMap[newIndex][column] = wall;
         }
     }
@@ -228,8 +254,9 @@ public class GeneratedMap {
             case YELLOW:
                 color = "\033[0;33m";
                 break;
+            default:
+                color = "\033[0;90m";
         }
-
         return color + obj.getSymbol() + "\033[0m";
     }
 
@@ -244,6 +271,12 @@ public class GeneratedMap {
                 }
             }
             System.out.println();
+        }
+    }
+
+    class Door extends Stationary{
+        public Door() {
+            super('.', Color.GRAY);
         }
     }
 }
