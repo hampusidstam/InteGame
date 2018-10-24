@@ -9,7 +9,7 @@ import static org.junit.Assert.assertNotEquals;
 
 public class ArmorTest {
 
-    Armor armor;
+    private Armor armor;
 
     @Before
     public void createArmor() {

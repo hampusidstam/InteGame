@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 public class WallTest {
 
-    Wall w;
+    private Wall w;
 
     @Before
     public void createWall() {
