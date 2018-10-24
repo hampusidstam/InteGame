@@ -1,6 +1,5 @@
 package se.inte.group5;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -11,15 +10,8 @@ public class GeneratedMapTest {
     private Hero hero = new Hero(10, 10);
 
     @Test
-    public void renderGeneratedToConsole_empty10x10(){
-        GeneratedMap map = new GeneratedMap(10, 10, hero);
-        map.renderGeneratedToConsole();
-    }
-
-    @Test
     public void generateMap_mapIsSolvable_True(){
         GeneratedMap m = new GeneratedMap(10, 10, hero);
-        m.generateMap();
         GameObject[][] gameMap = m.getGeneratedMap();
         int firstPosition[] = {1,1};
         floodMap(gameMap, firstPosition);
@@ -27,6 +19,31 @@ public class GeneratedMapTest {
         m.renderGeneratedToConsole();
         assertTrue(filled);
     }
+
+    @Test
+    public void getHeight_heightIs10_True(){
+        GeneratedMap m = new GeneratedMap(10, 10, hero);
+        assertEquals(10, m.getHeight());
+    }
+
+    @Test
+    public void getHeight_heightIs10_False(){
+        GeneratedMap m = new GeneratedMap(10, 10, hero);
+        assertNotEquals(15, m.getHeight());
+    }
+
+    @Test
+    public void getWidth_widthIs10_True(){
+        GeneratedMap m = new GeneratedMap(10, 10, hero);
+        assertEquals(10, m.getWidth());
+    }
+
+    @Test
+    public void getWidth_widthIs10_False(){
+        GeneratedMap m = new GeneratedMap(10, 10, hero);
+        assertNotEquals(15, m.getWidth());
+    }
+
 
     private boolean mapIsFilledWithStationary(GameObject[][] gameMap){
         for (GameObject[] row: gameMap){
@@ -53,13 +70,6 @@ public class GeneratedMapTest {
             floodMap(gameMap, fourthPosition);
         }
         return;
-    }
-
-    @Test
-    public void renderGeneratedToConsole_10x10_isRendered(){
-        GeneratedMap m = new GeneratedMap(10, 10, hero);
-        m.generateMap();
-        m.renderGeneratedToConsole();
     }
 
     class StationaryFill extends Stationary{

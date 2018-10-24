@@ -66,9 +66,8 @@ public class GeneratedMap {
     public int getHeight() {
         return this.height;
     }
-    //This should be private! Made public to allow separate testing without having to
-    // instantiate it from constructor and possibly have it interfere with other tests.
-    public void generateMap() {
+
+    private void generateMap() {
         generatedMap = new GameObject[height][width];
 
         for (int i=0; i<height; i++){
