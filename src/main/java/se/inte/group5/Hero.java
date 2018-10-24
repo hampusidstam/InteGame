@@ -4,6 +4,7 @@ public class Hero extends Creature {
 
     private final int MAXIMUM_HP = 100; //TODO: Should not have max hp?
     private Weapon equippedWeapon;
+    private Armor equippedArmor;
 
     public Hero(int healthPoints, int speed) {
 
@@ -14,11 +15,15 @@ public class Hero extends Creature {
         return equippedWeapon;
     }
 
+    public Armor getEquippedArmor() {
+        return equippedArmor;
+    }
+
     public int getInventorySize() {
         return inventory.getSize();
     }
 
-    private void increaseHealthPoints(int healthPoints) {
+    private void heal(int healthPoints) {
         this.healthPoints += healthPoints;
         assert healthPoints <= MAXIMUM_HP && healthPoints > 0;
     }
@@ -53,25 +58,34 @@ public class Hero extends Creature {
             healthPoints = MAXIMUM_HP;
         }
         else {
-            increaseHealthPoints(item.getEnergy());
+            heal(item.getEnergy());
         }
     }
 
     private void pickUpEquipment(Equipment item) {
-        if (equippedWeapon == null && item instanceof Weapon) {
-            equippedWeapon = (Weapon) item;
+        if (item instanceof Armor) {
+            if (equippedArmor == null) {
+                equippedArmor = (Armor) item;
+            }
+        }
+        else if (item instanceof Weapon) {
+            if (equippedWeapon == null) {
+                equippedWeapon = (Weapon) item;
+            }
         }
 
         inventory.addItem(item);
-        setEquippedWeapon();
+        setEquipment();
     }
 
-    private void setEquippedWeapon() {
-        for (Equipment w : inventory.getInventoryArray()) {
-            if (w instanceof Weapon && w.strength > equippedWeapon.strength) {
-                equippedWeapon = (Weapon) w;
+    private void setEquipment() {
+        for (Equipment item : inventory.getInventoryArray()) {
+            if (item instanceof Weapon && item.strength > equippedWeapon.strength) {
+                equippedWeapon = (Weapon) item;
+            }
+            else if (item instanceof Armor && item.strength > equippedArmor.strength) {
+                equippedArmor = (Armor) item;
             }
         }
     }
-
 }
