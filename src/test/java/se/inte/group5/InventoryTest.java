@@ -22,11 +22,9 @@ public class InventoryTest {
         Assert.assertArrayEquals(new Item[5], inventory.getInventoryArray());
     }
 
-    //Kollar hittills endast ifall det finns ett nytt item i arrayen, men inte ifall det är lika. Krävs isåfall equals metod för item/armor.
     @Test
     public void addItem_Empty5SlotInventory_true() {
         assertTrue(inventory.addItem(new Armor(20)));
-        assertNotEquals(null, inventory.getInventoryArray()[0]);
     }
 
     @Test

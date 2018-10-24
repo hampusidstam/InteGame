@@ -1,7 +1,6 @@
 package se.inte.group5;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -74,15 +73,40 @@ public class MonsterTest {
         assertFalse(monster.getEquipment().strength > 100);
     }
 
-    @Ignore
     @Test
     public void setEquipment_addWeaponWhenCreated_equippedWithWeapon() {
+        MonsterRandomWeaponInject monster = new MonsterRandomWeaponInject();
         assertEquals(new Weapon(10), monster.getEquipment());
     }
 
-    @Ignore
     @Test
-    public void setEquipment_addWeapon_equippedWithWeapon() {
-        assertEquals(new Weapon(10), monster.getEquipment());
+    public void setEquipment_addArmorWhenCreated_equippedWithArmor() {
+        MonsterRandomArmorInject monster = new MonsterRandomArmorInject();
+        assertEquals(new Armor(5), monster.getEquipment());
+    }
+
+    class MonsterRandomWeaponInject extends Monster {
+        public MonsterRandomWeaponInject() {
+            super(100, 10);
+
+            setEquipment();
+        }
+
+        @Override
+        protected void setEquipment() {
+            inventory.addItem(new Weapon(10));
+        }
+    }
+
+    class MonsterRandomArmorInject extends Monster {
+        public MonsterRandomArmorInject() {
+            super(100, 10);
+            setEquipment();
+        }
+
+        @Override
+        protected void setEquipment() {
+            inventory.addItem(new Armor(5));
+        }
     }
 }
