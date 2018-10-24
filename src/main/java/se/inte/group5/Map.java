@@ -250,4 +250,19 @@ public class Map {
         }
         renderFrameStars();
     }
+
+
+    public void renderGeneratedToConsole() {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (generatedMap[i][j] == null) {
+                    System.out.print(" . ");
+                }
+                else {
+                    System.out.print(" " + printConsoleSymbolWithColor(generatedMap[i][j]) + " ");
+                }
+            }
+            System.out.println();
+        }
+    }
 }

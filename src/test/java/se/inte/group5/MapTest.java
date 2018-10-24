@@ -92,7 +92,28 @@ public class MapTest {
     }
 
     @Test
-    public void moveCreatures_MapWithHeroAndConsumable_HeroHasPickedUpConsumable() {
+    public void moveCreatures_HeroNextToWall_HeroHasNotMoved() {
+        Map temp = new Map(10, 10);
+
+        Hero hero = new Hero(20, 1);
+        temp.placeGameObject(1,1, hero);
+        Wall wall = new Wall();
+        temp.placeGameObject(1,0, wall);
+
+        System.out.println("moveCreatures_HeroNextToWall_HeroHasNotMoved");
+        System.out.println("Before moved");
+        temp.renderToConsole();
+
+        temp.moveCreatures('W');
+
+        System.out.println("After moved");
+        temp.renderToConsole();
+
+        assertNotNull(temp.getMap()[1][1]);
+    }
+
+    @Test
+    public void moveCreatures_MapWithHeroAndConsumable_HeroHas15HP() {
         Map temp = new Map(10, 10);
 
         Hero hero = new Hero(20, 1);
@@ -101,6 +122,7 @@ public class MapTest {
         Plant plant = new Plant();
         temp.placeGameObject(2,1, plant);
 
+        System.out.println("moveCreatures_MapWithHeroAndConsumable_HeroHas15HP");
         System.out.println("Before moved");
         temp.renderToConsole();
 
@@ -113,7 +135,7 @@ public class MapTest {
     }
 
     @Test
-    public void moveCreatures_MapWithHeroAndEquipment_HeroHasPickedUpEquipment() {
+    public void moveCreatures_MapWithHeroAndEquipment_HeroHasEquipmentInInventory() {
         Map temp = new Map(10, 10);
 
         Hero hero = new Hero(20, 1);
@@ -121,6 +143,7 @@ public class MapTest {
         Armor armor = new Armor(20);
         temp.placeGameObject(1,0, armor);
 
+        System.out.println("moveCreatures_MapWithHeroAndEquipment_HeroHasEquipmentInInventory");
         System.out.println("Before moved");
         temp.renderToConsole();
 
@@ -223,6 +246,13 @@ public class MapTest {
             floodMap(gameMap, fourthPosition);
         }
         return;
+    }
+
+    @Test
+    public void renderGeneratedToConsole_10x10_isRendered(){
+        Map m = new Map(10, 10);
+        m.generateMap();
+        m.renderGeneratedToConsole();
     }
 
     class StationaryFill extends Stationary{
