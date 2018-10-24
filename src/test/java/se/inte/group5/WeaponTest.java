@@ -8,7 +8,7 @@ import static org.junit.Assert.assertNotEquals;
 
 public class WeaponTest {
 
-    Weapon weapon;
+    private Weapon weapon;
 
     @Before
     public void createItem() {
