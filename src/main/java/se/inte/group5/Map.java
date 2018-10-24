@@ -8,12 +8,57 @@ public class Map {
     private GameObject[][] map, generatedMap;
     private Wall wall = new Wall();
     private ArrayList<Creature> creatures = new ArrayList<>();
+    private Hero hero;
 
+    //TODO: Map should probably take hero as an argument (that way a new level can be created without loosing hero progress)
     Map(int width, int height) {
         this.width = width;
         this.height = height;
-        createMap();
-        //generateMap();
+        hero = new Hero(10, 10);
+        //createMap();
+        generateMap();
+        putHeroOnMap(hero);
+        putMonstersOnMap();
+        putConsumablesOnMap();
+        renderGeneratedToConsole();
+    }
+
+    private void putHeroOnMap(Hero hero){
+        generatedMap[1][1] = hero;
+        hero.setPosition(1, 1);
+        creatures.add(hero);
+    }
+
+
+    //TODO: Monsters should be dependent on hero strength upon creation
+    private void putMonstersOnMap(){
+        int numberOfMonsters = height*width/50;
+        for (int i = 0; i < numberOfMonsters; i++){
+            Monster monster = new Monster(10, 10);
+            int[] position = putGameObjectsOnMap(monster);
+            monster.setPosition(position[0], position[1]);
+            creatures.add(monster);
+        }
+    }
+
+    private void putConsumablesOnMap(){
+        int numberOfConsumables = height*width/30;
+        for (int i = 0; i < numberOfConsumables; i++){
+            Plant plant = new Plant();
+            putGameObjectsOnMap(plant);
+        }
+    }
+
+    private int[] putGameObjectsOnMap(GameObject obj){
+        while (true){
+            int column = new Random().nextInt(width);
+            int row = new Random().nextInt(height);
+            if (generatedMap[row][column] == null){
+                generatedMap[row][column] = obj;
+                int[] position = {row, column};
+                return position;
+            }
+        }
     }
 
     public int getWidth() {
@@ -253,7 +298,7 @@ public class Map {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (generatedMap[i][j] == null) {
-                    System.out.print(" . ");
+                    System.out.print("   ");
                 }
                 else {
                     System.out.print(" " + printConsoleSymbolWithColor(generatedMap[i][j]) + " ");
