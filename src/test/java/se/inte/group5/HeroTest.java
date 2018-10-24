@@ -29,7 +29,7 @@ public class HeroTest {
     }
 
     @Test
-    public void increaseHealthPoints_increaseBy10_true() {
+    public void heal_increaseBy10_true() {
         assertEquals(110, hero.getHealthPoints() + 10);
     }
 
@@ -96,15 +96,24 @@ public class HeroTest {
     }
 
     @Test
-    public void pickUpItem_pickUpWeapon_weaponStoredInInventory() {
+    public void pickUpItem_pickUpWeapon_weaponStoredInInventoryAndIsEquipped() {
         hero.pickUpItem(new Weapon(10));
         assertEquals(new Weapon(10), hero.inventory.getItem(0));
+        assertEquals(new Weapon(10), hero.getEquippedWeapon());
     }
 
     @Test
-    public void pickUpItem_pickUpArmor_armorStoredInInventory() {
+    public void pickUpItem_pickUpArmor_armorStoredInInventoryAndIsEquipped() {
         hero.pickUpItem(new Armor(15));
         assertEquals(new Armor(15), hero.inventory.getItem(0));
+        assertEquals(new Armor(15), hero.getEquippedArmor());
+    }
+
+    @Test
+    public void pickUpItem_pickUpArmor_strongerArmorGetsEquipped() {
+        hero.pickUpItem(new Armor(15));
+        hero.pickUpItem(new Armor(22));
+        assertEquals(new Armor(22), hero.getEquippedArmor());
     }
 
     @Test
@@ -115,20 +124,20 @@ public class HeroTest {
     }
 
     @Test
-    public void setEquippedWeapon_pickUpFirstWeapon_isEquipped() {
+    public void setEquipment_pickUpFirstWeapon_isEquipped() {
         hero.pickUpItem(new Weapon(5));
         assertEquals(5, hero.getEquippedWeapon().dealDamage());
     }
 
     @Test
-    public void setEquippedWeapon_pickUpSecondWeaponThatIsWeaker_firstIsEquipped() {
+    public void setEquipment_pickUpSecondWeaponThatIsWeaker_firstIsEquipped() {
         hero.pickUpItem(new Weapon(99));
         hero.pickUpItem(new Weapon(1));
         assertEquals(99, hero.getEquippedWeapon().dealDamage());
     }
 
     @Test
-    public void setEquippedWeapon_threeWeaponsInInventory_equippedWithStrongest() {
+    public void setEquipment_threeWeaponsInInventory_equippedWithStrongest() {
         hero.pickUpItem(new Weapon(50));
         hero.pickUpItem(new Weapon(89));
         hero.pickUpItem(new Weapon(42));
