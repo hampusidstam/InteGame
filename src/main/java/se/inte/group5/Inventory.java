@@ -5,6 +5,9 @@ public class Inventory {
     private Equipment[] inventoryArray;
 
     public Inventory(int slots) {
+        if (slots < 1) {
+            slots = 1;
+        }
         inventoryArray = new Equipment[slots];
     }
 

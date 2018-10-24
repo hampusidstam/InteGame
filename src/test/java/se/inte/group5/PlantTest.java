@@ -27,8 +27,8 @@ public class PlantTest {
     }
 
     @Test
-    public void getColor_colorIsRed_true() {
-        assertEquals(Color.RED, plant.getColor());
+    public void getColor_colorIsGreen_true() {
+        assertEquals(Color.GREEN, plant.getColor());
     }
 
     @Test

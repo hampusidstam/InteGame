@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class InventoryTest {
@@ -33,6 +33,12 @@ public class InventoryTest {
             inventory.addItem(new Armor(1));
         }
         assertFalse(inventory.addItem(new Weapon(10)));
+    }
+
+    @Test
+    public void inventory_negativeSlots_slotsSetToOne() {
+        inventory = new Inventory(-5);
+        assertEquals(1, inventory.getSize());
     }
 
 }
