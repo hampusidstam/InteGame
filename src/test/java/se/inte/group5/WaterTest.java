@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 public class WaterTest {
 
-    Water wt;
+    private Water wt;
 
     @Before
     public void createWater() {
