@@ -26,6 +26,8 @@ public class Monster extends Creature {
     }
 
     public int move() {
+
         return new Random().nextInt(5);
+        // alt. getRandomDir();
     }
 }
