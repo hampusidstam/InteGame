@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class WeaponTest {
 
@@ -27,5 +28,15 @@ public class WeaponTest {
     @Test
     public void dealDamage_strikeWeapon_15damageGiven() {
         assertEquals(15, weapon.dealDamage());
+    }
+
+    @Test
+    public void equals_differentStrength_notSameWeapon() {
+        assertNotEquals(weapon, new Monster(5, 10));
+    }
+
+    @Test
+    public void equals_sameStrength_sameWeapon() {
+        assertEquals(weapon, new Weapon(15));
     }
 }
