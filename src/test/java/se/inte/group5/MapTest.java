@@ -92,7 +92,7 @@ public class MapTest {
     }
 
     @Test
-    public void moveCreatures_HeroNextToWall_HeroHasNotMOved() {
+    public void moveCreatures_HeroNextToWall_HeroHasNotMoved() {
         Map temp = new Map(10, 10);
 
         Hero hero = new Hero(20, 1);
@@ -100,6 +100,7 @@ public class MapTest {
         Wall wall = new Wall();
         temp.placeGameObject(1,0, wall);
 
+        System.out.println("moveCreatures_HeroNextToWall_HeroHasNotMoved");
         System.out.println("Before moved");
         temp.renderToConsole();
 
@@ -121,6 +122,7 @@ public class MapTest {
         Plant plant = new Plant();
         temp.placeGameObject(2,1, plant);
 
+        System.out.println("moveCreatures_MapWithHeroAndConsumable_HeroHas15HP");
         System.out.println("Before moved");
         temp.renderToConsole();
 
@@ -141,6 +143,7 @@ public class MapTest {
         Armor armor = new Armor(20);
         temp.placeGameObject(1,0, armor);
 
+        System.out.println("moveCreatures_MapWithHeroAndEquipment_HeroHasEquipmentInInventory");
         System.out.println("Before moved");
         temp.renderToConsole();
 
