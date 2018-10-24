@@ -28,6 +28,11 @@ public class GeneratedMap {
         creatures.add(hero);
     }
 
+    public ArrayList<Creature> getCreatures(){
+        return creatures;
+    }
+
+
     //TODO: Monsters should be dependent on hero strength upon creation
     private void putMonstersOnMap(){
         int numberOfMonsters = height*width/50;
@@ -66,9 +71,8 @@ public class GeneratedMap {
     public int getHeight() {
         return this.height;
     }
-    //This should be private! Made public to allow separate testing without having to
-    // instantiate it from constructor and possibly have it interfere with other tests.
-    public void generateMap() {
+
+    private void generateMap() {
         generatedMap = new GameObject[height][width];
 
         for (int i=0; i<height; i++){
