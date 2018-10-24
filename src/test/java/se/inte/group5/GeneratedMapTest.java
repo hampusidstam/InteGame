@@ -107,7 +107,6 @@ public class GeneratedMapTest {
     @Test
     public void renderGeneratedToConsole_10x10_isRendered(){
         GeneratedMap m = new GeneratedMap(10, 10, hero);
-        m.generateMap();
         m.renderGeneratedToConsole();
     }
 
