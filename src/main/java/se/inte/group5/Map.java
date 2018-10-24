@@ -65,7 +65,8 @@ public class Map {
     }
 
     public GameObject[][] getMap() {
-        return map;
+        GameObject[][] temp = map;
+        return temp;
     }
 
     public GameObject removeItem(int x, int y) {

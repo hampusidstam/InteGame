@@ -174,7 +174,8 @@ public class GeneratedMap {
 
 
     public GameObject[][] getGeneratedMap() {
-        return generatedMap;
+        GameObject[][] temp = generatedMap;
+        return temp;
     }
 
     private String printConsoleSymbolWithColor(GameObject obj) {

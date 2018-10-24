@@ -26,7 +26,8 @@ public class Inventory {
     }
 
     public Equipment[] getInventoryArray() {
-        return inventoryArray;
+        Equipment[] temp = inventoryArray;
+        return temp;
     }
 
     public int getSize() {
