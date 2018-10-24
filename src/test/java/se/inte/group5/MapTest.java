@@ -110,9 +110,8 @@ public class MapTest {
         temp.placeGameObject(2,2, monster);
 
         temp.moveCreatures('X');
-
+        
         assertNotNull(temp.getMap()[2][2]);
-
     }
 
     @Test
