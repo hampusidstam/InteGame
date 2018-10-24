@@ -181,17 +181,14 @@ public class GeneratedMap {
     }
 
     private String printConsoleSymbolWithColor(GameObject obj) {
-        String color = "\033[0m";
-        //RED, YELLOW, BLUE, GRAY, GREEN, ORANGE
+        String color = "\033[0;90m";
+
         switch (obj.getColor()) {
             case BLUE:
                 color = "\033[0;34m";
                 break;
             case RED:
                 color = "\033[0;31m";
-                break;
-            case GRAY:
-                color = "\033[0;90m";
                 break;
             case GREEN:
                 color = "\u001b[32m";
