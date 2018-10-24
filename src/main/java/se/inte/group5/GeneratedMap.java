@@ -10,7 +10,6 @@ public class GeneratedMap {
     private ArrayList<Creature> creatures = new ArrayList<>();
     private Hero hero;
 
-    //TODO: Map should probably take hero as an argument (that way a new level can be created without loosing hero progress)
     public GeneratedMap(int width, int height, Hero hero) {
         this.width = width;
         this.height = height;
@@ -33,7 +32,6 @@ public class GeneratedMap {
     }
 
 
-    //TODO: Monsters should be dependent on hero strength upon creation
     private void putMonstersOnMap(){
         int numberOfMonsters = height*width/50;
         for (int i = 0; i < numberOfMonsters; i++){
@@ -183,7 +181,7 @@ public class GeneratedMap {
     }
 
     private String printConsoleSymbolWithColor(GameObject obj) {
-        String color;
+        String color = "\033[0m";
         //RED, YELLOW, BLUE, GRAY, GREEN, ORANGE
         switch (obj.getColor()) {
             case BLUE:
@@ -204,9 +202,6 @@ public class GeneratedMap {
             case YELLOW:
                 color = "\033[0;33m";
                 break;
-
-            default:
-                color = "\033[0m";
         }
 
         return color + obj.getSymbol() + "\033[0m";
