@@ -225,6 +225,13 @@ public class MapTest {
         return;
     }
 
+    @Test
+    public void renderGeneratedToConsole_10x10_isRendered(){
+        Map m = new Map(10, 10);
+        m.generateMap();
+        m.renderGeneratedToConsole();
+    }
+
     class StationaryFill extends Stationary{
         public StationaryFill() {
             super('~', Color.BLUE);
