@@ -7,10 +7,6 @@ public abstract class Consumable extends Item {
     public Consumable(char symbol, Color color, int energy) {
         super(symbol, color);
 
-        if (energy < 1) {
-            throw new IllegalArgumentException("HP must be above 0");
-        }
-
         this.energy = energy;
     }
 
