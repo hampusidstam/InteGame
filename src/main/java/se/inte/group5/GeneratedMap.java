@@ -119,9 +119,9 @@ public class GeneratedMap {
         generateVerticalWallDown(start, finish, index, newIndex);
 
         newIndex = generateMapGenerateWallIndex(start, finish, index);
-        if (newIndex == 0) {
+        /**if (newIndex == 0) {
             return;
-        }
+         }**/
         generateVerticalWallUp(start, finish, index, newIndex);
     }
 
@@ -147,9 +147,7 @@ public class GeneratedMap {
                 int doorIndex = new Random().nextInt(index - row - 1);
                 generatedMap[doorIndex + 1 + row][newIndex] = null;
             }
-            else {
-                return;
-            }
+
             generateHorizontalWall(index, row, newIndex);
         }
         else {
@@ -165,9 +163,9 @@ public class GeneratedMap {
         generateHorizontalWallRight(start, finish, index, newIndex);
 
         newIndex = generateMapGenerateWallIndex(start, finish, index);
-        if (newIndex == 0) {
+        /**if (newIndex == 0) {
             return;
-        }
+         }**/
         generateHorizontalWallLeft(start, finish, index, newIndex);
     }
 
@@ -193,9 +191,7 @@ public class GeneratedMap {
                 int doorIndex = new Random().nextInt(index - column - 1);
                 generatedMap[newIndex][doorIndex + 1 + column] = null;
             }
-            else {
-                return;
-            }
+
             generateVerticalWall(index, column, newIndex);
         }
         else {

@@ -49,7 +49,7 @@ public class Map {
                         ((Hero) c).pickUpItem((Item) map[pos[2]][pos[3]]);
                     }
                 } else {
-                    if (map[pos[2]][pos[3]] == null) {
+                    if (map[pos[2]][pos[3]] == null || (pos[2] == pos[0] && pos[3] == pos[1])) {
                         allowed = true;
                     }
                 }

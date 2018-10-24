@@ -42,7 +42,7 @@ public class MapTest {
 
     @Test
     public void moveCreatures_OneHeroOnEmptyMap_HeroHasNotMoved() {
-        Hero hero = new Hero(10, 5);
+        Hero hero = new Hero(10);
         map.placeGameObject(5,5, hero);
         map.moveCreatures('0');
         assertTrue(map.getMap()[5][5] instanceof Hero);
@@ -100,9 +100,8 @@ public class MapTest {
         temp.placeGameObject(2,2, monster);
 
         temp.moveCreatures('X');
-
+        
         assertNotNull(temp.getMap()[2][2]);
-
     }
 
     @Test
