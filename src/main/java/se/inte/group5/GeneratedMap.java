@@ -28,6 +28,11 @@ public class GeneratedMap {
         creatures.add(hero);
     }
 
+    public ArrayList<Creature> getCreatures(){
+        return creatures;
+    }
+
+
     //TODO: Monsters should be dependent on hero strength upon creation
     private void putMonstersOnMap(){
         int numberOfMonsters = height*width/50;

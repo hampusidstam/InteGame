@@ -56,6 +56,38 @@ public class GeneratedMapTest {
     }
 
     @Test
+    public void putHeroOnMap_HeroIsAt1x1InTheMatrix_true(){
+        GeneratedMap map = new GeneratedMap(10, 10, hero);
+        assertTrue(map.getGeneratedMap()[1][1] instanceof Hero);
+    }
+
+    @Test
+    public void putHeroOnMap_HeroInArrayList_true(){
+        GeneratedMap map = new GeneratedMap(10, 10, hero);
+        Hero hero = (Hero)map.getGeneratedMap()[1][1];
+        assertTrue(map.getCreatures().contains(hero));
+    }
+
+    @Test
+    public void putMonsterOnMap_Map10x10_2monstersExistsOnMapMatrix(){
+        int width = 10;
+        int height = 10;
+        GeneratedMap map = new GeneratedMap(width, height, hero);
+        int monsterCount = 0;
+        int expectedMonsterCount = (width*height)/50;
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if(map.getGeneratedMap()[i][j] instanceof Monster){
+                    monsterCount++;
+                }
+            }
+        }
+        assertEquals(expectedMonsterCount, monsterCount);
+    }
+
+
+    @Test
     public void renderGeneratedToConsole_10x10_isRendered(){
         GeneratedMap m = new GeneratedMap(10, 10, hero);
         m.generateMap();
