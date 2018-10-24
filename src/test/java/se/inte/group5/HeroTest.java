@@ -10,12 +10,12 @@ public class HeroTest {
 
     @Before
     public void createHero_correctValues() {
-        hero = new Hero(100, 10);
+        hero = new Hero(100);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void hero_negativeHp_invalid() {
-        new Hero(-1, 5);
+        new Hero(-1);
     }
 
     @Test
