@@ -91,6 +91,30 @@ public class MapTest {
         assertTrue(map.getMap()[5][4] instanceof Hero);
     }
 
+    class MonsterRandomInject extends Monster {
+        public MonsterRandomInject() {
+            super(20,10);
+        }
+
+        @Override
+        public int move() {
+            return 0;
+        }
+    }
+
+    @Test
+    public void moveCreatures_MonsterMoves_MonsterHasMoved() {
+        Map temp = new Map(10, 10);
+
+        MonsterRandomInject monster = new MonsterRandomInject();
+        temp.placeGameObject(2,2, monster);
+
+        temp.moveCreatures('X');
+
+        assertNotNull(temp.getMap()[2][2]);
+
+    }
+
     @Test
     public void moveCreatures_HeroNextToWall_HeroHasNotMoved() {
         Map temp = new Map(10, 10);

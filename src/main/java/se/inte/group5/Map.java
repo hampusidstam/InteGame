@@ -28,7 +28,6 @@ public class Map {
         map = new GameObject[height][width];
     }
 
-    //Behövs för test
     public void placeGameObject(int y, int x, GameObject gameObject) {
         map[y][x] = gameObject;
         if (gameObject instanceof Creature) {
@@ -37,7 +36,6 @@ public class Map {
         }
     }
 
-    //Anropas i intervall
     public void moveCreatures(char ch) {
         for (Creature c : creatures) {
             int pos[] = c.moveCreature(ch);
@@ -49,8 +47,7 @@ public class Map {
                     if (map[pos[2]][pos[3]] instanceof Item) {
                         ((Hero) c).pickUpItem(map[pos[2]][pos[3]]);
                     }
-                }
-                else {
+                } else {
                     if (map[pos[2]][pos[3]] == null) {
                         allowed = true;
                     }
