@@ -23,7 +23,7 @@ public class Inventory {
 
     public Equipment getItem(int item) {
         if (inventoryArray[item] == null) {
-            //TODO ta bort?
+            return null;
         }
         return inventoryArray[item];
     }

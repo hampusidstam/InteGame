@@ -2,7 +2,7 @@ package se.inte.group5;
 
 public class Hero extends Creature {
 
-    private final int MAXIMUM_HP = 100; //TODO: Should not have max hp?
+    private final int MAXIMUM_HP = 100;
     private Weapon equippedWeapon;
     private Armor equippedArmor;
 
