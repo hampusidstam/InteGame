@@ -40,23 +40,13 @@ public class MapTest {
         assertTrue(map.getMap()[8][5] instanceof Wall);
     }
 
-    /*
     @Test
-    public void moveCreatures_OneMonsterOnEmptyMap_CreatureHasMoved() {
-        Map temp = new Map(10, 10);
-
-        Monster monster = new Monster(10, 1);
-        temp.placeGameObject(1,1, monster);
-
-        System.out.println("Before moved");
-        temp.renderToConsole();
-
-        temp.moveCreatures('X');
-        assertNull(temp.getMap()[1][1]);
-
-        System.out.println("After moved");
-        temp.renderToConsole();
-    }*/
+    public void moveCreatures_OneHeroOnEmptyMap_HeroHasNotMoved() {
+        Hero hero = new Hero(10, 5);
+        map.placeGameObject(5,5, hero);
+        map.moveCreatures('0');
+        assertTrue(map.getMap()[5][5] instanceof Hero);
+    }
 
     @Test
     public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedNorth() {
@@ -110,9 +100,8 @@ public class MapTest {
         temp.placeGameObject(2,2, monster);
 
         temp.moveCreatures('X');
-
+        
         assertNotNull(temp.getMap()[2][2]);
-
     }
 
     @Test
