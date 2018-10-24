@@ -92,7 +92,27 @@ public class MapTest {
     }
 
     @Test
-    public void moveCreatures_MapWithHeroAndConsumable_HeroHasPickedUpConsumable() {
+    public void moveCreatures_HeroNextToWall_HeroHasNotMOved() {
+        Map temp = new Map(10, 10);
+
+        Hero hero = new Hero(20, 1);
+        temp.placeGameObject(1,1, hero);
+        Wall wall = new Wall();
+        temp.placeGameObject(1,0, wall);
+
+        System.out.println("Before moved");
+        temp.renderToConsole();
+
+        temp.moveCreatures('W');
+
+        System.out.println("After moved");
+        temp.renderToConsole();
+
+        assertNotNull(temp.getMap()[1][1]);
+    }
+
+    @Test
+    public void moveCreatures_MapWithHeroAndConsumable_HeroHas15HP() {
         Map temp = new Map(10, 10);
 
         Hero hero = new Hero(20, 1);
@@ -113,7 +133,7 @@ public class MapTest {
     }
 
     @Test
-    public void moveCreatures_MapWithHeroAndEquipment_HeroHasPickedUpEquipment() {
+    public void moveCreatures_MapWithHeroAndEquipment_HeroHasEquipmentInInventory() {
         Map temp = new Map(10, 10);
 
         Hero hero = new Hero(20, 1);
