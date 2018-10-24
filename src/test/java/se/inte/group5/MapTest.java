@@ -275,7 +275,7 @@ public class MapTest {
 
     @Test
     public void renderGeneratedToConsole_10x10_isRendered(){
-        Map m = new Map(15, 15);
+        Map m = new Map(10, 10);
         m.generateMap();
         m.renderGeneratedToConsole();
     }
