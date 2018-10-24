@@ -11,7 +11,7 @@ public class Monster extends Creature {
         setEquipment();
     }
 
-    private void setEquipment() {
+    protected void setEquipment() {
         int equipmentStrength = (int) ((100 * Math.random()) + 1);
         if (equipmentStrength % 2 != 0) {
             inventory.addItem(new Weapon(equipmentStrength));
