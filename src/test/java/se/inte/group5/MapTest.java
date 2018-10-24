@@ -12,7 +12,7 @@ public class MapTest {
 
     @Before
     public void createMaps(){
-        map = new Map(200, 100);
+        //map = new Map(200, 100);
     }
 
     @Test
@@ -195,6 +195,7 @@ public class MapTest {
         int firstPosition[] = {1,1};
         floodMap(gameMap, firstPosition);
         boolean filled = mapIsFilledWithStationary(gameMap);
+        m.renderGeneratedToConsole();
         assertTrue(filled);
     }
 
@@ -227,7 +228,7 @@ public class MapTest {
 
     @Test
     public void renderGeneratedToConsole_10x10_isRendered(){
-        Map m = new Map(10, 10);
+        Map m = new Map(15, 15);
         m.generateMap();
         m.renderGeneratedToConsole();
     }
