@@ -138,4 +138,25 @@ public class HeroTest {
         hero.pickUpItem(new Weapon(42));
         assertEquals(89, hero.getEquippedWeapon().dealDamage());
     }
+
+    @Test
+    public void getStrength_EquipmentEmtpy_0strength(){
+        Hero hero = new Hero(100);
+        assertEquals(0, hero.getStrength());
+    }
+
+    @Test
+    public void getStrength_EquipmentWeapon_5Strength(){
+        Hero hero = new Hero(100);
+        hero.pickUpItem(new Weapon(5));
+        assertEquals(5, hero.getStrength());
+    }
+
+    @Test
+    public void getStrength_EquipmentWeaponArmor_10Strength(){
+        Hero hero = new Hero(100);
+        hero.pickUpItem(new Weapon(5));
+        hero.pickUpItem(new Armor(5));
+        assertEquals(10, hero.getStrength());
+    }
 }
