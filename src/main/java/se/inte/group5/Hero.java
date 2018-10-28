@@ -46,7 +46,7 @@ public class Hero extends Creature {
     public void pickUpItem(Item item) {
 
         if (item instanceof Consumable) {
-            pickUpConsumable((Consumable) item);
+            useConsumable((Consumable) item);
         }
         else if (item instanceof Equipment) {
             setActiveEquipment((Equipment) item);
@@ -54,7 +54,7 @@ public class Hero extends Creature {
         }
     }
 
-    private void pickUpConsumable(Consumable item) {
+    private void useConsumable(Consumable item) {
         if (healthPoints >= 90 || item instanceof Potion) {
             healthPoints = MAXIMUM_HP;
         }
