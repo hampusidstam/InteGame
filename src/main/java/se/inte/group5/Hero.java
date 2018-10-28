@@ -79,7 +79,7 @@ public class Hero extends Creature {
     public int getStrength(){
         int total = 0;
         if(equippedWeapon != null){
-            total += equippedWeapon.dealDamage();
+            total += equippedWeapon.getDamage();
         }
         if(equippedArmor != null){
             total += equippedArmor.getResistance();
