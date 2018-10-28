@@ -49,7 +49,8 @@ public class Hero extends Creature {
             pickUpConsumable((Consumable) item);
         }
         else if (item instanceof Equipment) {
-            pickUpEquipment((Equipment) item);
+            setActiveEquipment((Equipment) item);
+            inventory.addItem((Equipment) item);
         }
     }
 
@@ -62,29 +63,15 @@ public class Hero extends Creature {
         }
     }
 
-    private void pickUpEquipment(Equipment item) {
+    private void setActiveEquipment(Equipment item) {
         if (item instanceof Armor) {
-            if (equippedArmor == null) {
+            if (equippedArmor == null || item.strength > equippedArmor.strength) {
                 equippedArmor = (Armor) item;
             }
         }
         else if (item instanceof Weapon) {
-            if (equippedWeapon == null) {
+            if (equippedWeapon == null || item.strength > equippedWeapon.strength) {
                 equippedWeapon = (Weapon) item;
-            }
-        }
-
-        inventory.addItem(item);
-        setEquipment();
-    }
-
-    private void setEquipment() {
-        for (Equipment item : inventory.getInventoryArray()) {
-            if (item instanceof Weapon && item.strength > equippedWeapon.strength) {
-                equippedWeapon = (Weapon) item;
-            }
-            else if (item instanceof Armor && item.strength > equippedArmor.strength) {
-                equippedArmor = (Armor) item;
             }
         }
     }

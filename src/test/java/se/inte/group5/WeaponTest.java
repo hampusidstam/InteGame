@@ -27,7 +27,7 @@ public class WeaponTest {
 
     @Test
     public void dealDamage_strikeWeapon_15damageGiven() {
-        assertEquals(15, weapon.dealDamage());
+        assertEquals(15, weapon.getDamage());
     }
 
     @Test
