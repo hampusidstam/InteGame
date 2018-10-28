@@ -88,4 +88,8 @@ public class Hero extends Creature {
             }
         }
     }
+
+    public int getStrength(){
+        return -1;
+    }
 }
