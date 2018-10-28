@@ -6,7 +6,7 @@ public class Weapon extends Equipment {
         super('W', Color.BLUE, strength);
     }
 
-    public int dealDamage() {
+    public int getDamage() {
         return strength;
     }
 
