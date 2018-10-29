@@ -21,6 +21,12 @@ public class GeneratedMapTest {
     }
 
     @Test
+    public void alwaysTrue(){
+        GeneratedMap m = new GeneratedMap(10, 10, hero);
+        assertEquals(10, 10);
+    }
+
+    @Test
     public void getHeight_heightIs10_True(){
         GeneratedMap m = new GeneratedMap(10, 10, hero);
         assertEquals(10, m.getHeight());
@@ -115,4 +121,5 @@ public class GeneratedMapTest {
             super('~', Color.BLUE);
         }
     }
+
 }
