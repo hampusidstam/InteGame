@@ -22,7 +22,7 @@ public class GeneratedMapTest {
 
     @Test
     public void alwaysTrue(){
-        GeneratedMap m = new GeneratedMap(10, 10, hero);
+        GeneratedMap m = new GeneratedMap(500, 500, hero);
         assertEquals(10, 10);
     }
 
