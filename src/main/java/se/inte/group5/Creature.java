@@ -10,7 +10,7 @@ public abstract class Creature extends GameObject {
     public Creature(int healthPoints, char symbol, Color color, int inventorySize) {
         super(symbol, color);
 
-        if (healthPoints < 1) {
+        if (healthPoints < 1 || healthPoints > 100) {
             throw new IllegalArgumentException();
         }
 

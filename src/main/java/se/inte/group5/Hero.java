@@ -23,8 +23,14 @@ public class Hero extends Creature {
         return inventory.getSize();
     }
 
-    private void heal(int healthPoints) {
+    protected void heal(int healthPoints) {
+        if (healthPoints < 1) {
+            throw new IllegalArgumentException();
+        }
         this.healthPoints += healthPoints;
+        if (this.healthPoints > MAXIMUM_HP) {
+            this.healthPoints = MAXIMUM_HP;
+        }
         assert healthPoints <= MAXIMUM_HP && healthPoints > 0;
     }
 
@@ -44,13 +50,15 @@ public class Hero extends Creature {
     }
 
     public void pickUpItem(Item item) {
-
         if (item instanceof Consumable) {
             useConsumable((Consumable) item);
         }
         else if (item instanceof Equipment) {
             setActiveEquipment((Equipment) item);
             inventory.addItem((Equipment) item);
+        }
+        else if (item == null) {
+            throw new IllegalArgumentException();
         }
     }
 
