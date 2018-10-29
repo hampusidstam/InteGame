@@ -42,7 +42,7 @@ public class MapTest {
 
     @Test
     public void moveCreatures_OneHeroOnEmptyMap_HeroHasNotMoved() {
-        Hero hero = new Hero(10, 5);
+        Hero hero = new Hero(10);
         map.placeGameObject(5,5, hero);
         map.moveCreatures('0');
         assertTrue(map.getMap()[5][5] instanceof Hero);
@@ -192,23 +192,30 @@ public class MapTest {
         map.renderToConsole();
     }
     @Test
-    public void removeItemFromMap_ok(){
+    public void removeItem_mapWithAWall_returningWall(){
         Map map = new Map(20,20);
         Wall wall = new Wall();
-        assertNull(map.getMap()[10][10]);
         map.placeGameObject(10, 10, wall);
-        assertEquals(wall, map.getMap()[10][10]);
         assertEquals(wall, map.removeItem(10,10));
+        assertNull(map.getMap()[10][10]);
     }
 
     @Test
-    public void removeItemThatDontExist_ok(){
+    public void removeItem_removeItemThatDontExist_returnNull(){
+        Map map = new Map(20,20);
         assertNull(map.removeItem(10,10));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void removeItemFromMap_indexOutOfBound(){
-        map.removeItem(400,500);
+    public void removeItem_WrongWidth_indexOutOfBound(){
+        Map map = new Map(20,20);
+        map.removeItem(5,30);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void removeItem_WrongHeight_indexOutOfBound(){
+        Map map = new Map(20,20);
+        map.removeItem(30,5);
     }
 
     class MonsterRandomInject extends Monster {

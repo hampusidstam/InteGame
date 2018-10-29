@@ -121,14 +121,14 @@ public class HeroTest {
     @Test
     public void setEquipment_pickUpFirstWeapon_isEquipped() {
         hero.pickUpItem(new Weapon(5));
-        assertEquals(5, hero.getEquippedWeapon().dealDamage());
+        assertEquals(5, hero.getEquippedWeapon().getDamage());
     }
 
     @Test
     public void setEquipment_pickUpSecondWeaponThatIsWeaker_firstIsEquipped() {
         hero.pickUpItem(new Weapon(99));
         hero.pickUpItem(new Weapon(1));
-        assertEquals(99, hero.getEquippedWeapon().dealDamage());
+        assertEquals(99, hero.getEquippedWeapon().getDamage());
     }
 
     @Test
@@ -136,6 +136,51 @@ public class HeroTest {
         hero.pickUpItem(new Weapon(50));
         hero.pickUpItem(new Weapon(89));
         hero.pickUpItem(new Weapon(42));
-        assertEquals(89, hero.getEquippedWeapon().dealDamage());
+        assertEquals(89, hero.getEquippedWeapon().getDamage());
+    }
+
+    @Test
+    public void pickUpItem_statematchine_test1() {
+        hero.pickUpItem(new Weapon(50));
+        hero.pickUpItem(new Weapon(15));
+        hero.pickUpItem(new Weapon(100));
+        hero.pickUpItem(new Armor(30));
+        hero.pickUpItem(new Armor(56));
+        hero.pickUpItem(new Weapon(75));
+        assertEquals(new Weapon(100), hero.getEquippedWeapon());
+        assertEquals(new Armor(56), hero.getEquippedArmor());
+    }
+
+    @Test
+    public void pickUpItem_statemachine_test2() {
+        hero.pickUpItem(new Armor(5));
+        hero.pickUpItem(new Armor(3));
+        hero.pickUpItem(new Armor(88));
+        hero.pickUpItem(new Weapon(75));
+        hero.pickUpItem(new Armor(50));
+        hero.pickUpItem(new Weapon(98));
+        assertEquals(new Weapon(98), hero.getEquippedWeapon());
+        assertEquals(new Armor(88), hero.getEquippedArmor());
+    }
+
+    @Test
+    public void getStrength_EquipmentEmtpy_0strength(){
+        Hero hero = new Hero(100);
+        assertEquals(0, hero.getStrength());
+    }
+
+    @Test
+    public void getStrength_EquipmentWeapon_5Strength(){
+        Hero hero = new Hero(100);
+        hero.pickUpItem(new Weapon(5));
+        assertEquals(5, hero.getStrength());
+    }
+
+    @Test
+    public void getStrength_EquipmentWeaponArmor_10Strength(){
+        Hero hero = new Hero(100);
+        hero.pickUpItem(new Weapon(5));
+        hero.pickUpItem(new Armor(5));
+        assertEquals(10, hero.getStrength());
     }
 }
