@@ -77,11 +77,11 @@ public class GeneratedMap {
     }
 
     public int getWidth() {
-        return this.width;
+        return width;
     }
 
     public int getHeight() {
-        return this.height;
+        return height;
     }
 
     private void generateMap() {
@@ -92,7 +92,7 @@ public class GeneratedMap {
 
     }
 
-    private void generateSurroundingWalls() {
+    protected void generateSurroundingWalls() {
         for (int i=0; i<height; i++){
             for (int j=0; j<width; j++){
                 if (i == 0 || i == height-1 || j == 0 || j == width-1){
@@ -130,15 +130,13 @@ public class GeneratedMap {
         return newIndex;
     }
 
-
-
     private void generateVerticalWall(int start, int finish, int index){
         int newIndex = generateWallIndex(start, finish, index, true);
-        if (newIndex == 0) return;
+        if (newIndex < 1) return;
         generateVerticalWallDown(start, finish, index, newIndex);
 
         newIndex = generateWallIndex(start, finish, index, true);
-        if (newIndex == 0) return;
+        if (newIndex < 1) return;
         generateVerticalWallUp(start, finish, index, newIndex);
     }
 
@@ -180,11 +178,11 @@ public class GeneratedMap {
 
     private void generateHorizontalWall(int start, int finish, int index){
         int newIndex = generateWallIndex(start, finish, index, false);
-        if (newIndex == 0) return;
+        if (newIndex < 1) return;
         generateHorizontalWallRight(start, finish, index, newIndex);
 
         newIndex = generateWallIndex(start, finish, index, false);
-        if (newIndex == 0) return;
+        if (newIndex < 1) return;
         generateHorizontalWallLeft(start, finish, index, newIndex);
     }
 
@@ -224,7 +222,7 @@ public class GeneratedMap {
         }
     }
 
-    public GameObject[][] getGeneratedMap() {
+    protected GameObject[][] getGeneratedMap() {
         return generatedMap;
     }
 

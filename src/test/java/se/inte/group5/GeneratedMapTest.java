@@ -21,29 +21,27 @@ public class GeneratedMapTest {
     }
 
     @Test
-    public void getHeight_heightIs10_True(){
-        GeneratedMap m = new GeneratedMap(10, 10, hero);
-        assertEquals(10, m.getHeight());
+    public void getWidth_widthIs40_True(){
+        GeneratedMap m = new GeneratedMap(40, 40, hero);
+        assertEquals(40, m.getHeight());
     }
-
     @Test
-    public void getHeight_heightIs10_False(){
-        GeneratedMap m = new GeneratedMap(10, 10, hero);
+    public void getWidth_widthIs40_False(){
+        GeneratedMap m = new GeneratedMap(40, 40, hero);
         assertNotEquals(15, m.getHeight());
     }
 
     @Test
-    public void getWidth_widthIs10_True(){
-        GeneratedMap m = new GeneratedMap(10, 10, hero);
-        assertEquals(10, m.getWidth());
+    public void getHeight_heightIs30_True(){
+        GeneratedMap m = new GeneratedMap(30, 30, hero);
+        assertEquals(30, m.getHeight());
     }
 
     @Test
-    public void getWidth_widthIs10_False(){
-        GeneratedMap m = new GeneratedMap(10, 10, hero);
-        assertNotEquals(15, m.getWidth());
+    public void getHeight_heightIs40_False(){
+        GeneratedMap m = new GeneratedMap(40, 40, hero);
+        assertNotEquals(15, m.getHeight());
     }
-
 
     private boolean mapIsFilledWithStationary(GameObject[][] gameMap){
         for (GameObject[] row: gameMap){
@@ -171,5 +169,49 @@ public class GeneratedMapTest {
         for (int i=0; i<generatedMap.length-1; i++){
             generatedMap[i][generatedMap[0].length/2] = new Wall();
         }
+    }
+
+    @Test
+    public void generateWallIndex_WallBuiltIntoDoor_True(){
+        GeneratedMap gm = new MapWithDoorBorder();
+        boolean noWalls = true;
+        for (int i = 1; i<7; i++){
+            if (gm.getGeneratedMap()[6][i] instanceof Wall){
+                noWalls = false;
+            }
+            if (gm.getGeneratedMap()[i][1] instanceof Wall){
+                noWalls = false;
+            }
+            if (gm.getGeneratedMap()[i][6] instanceof Wall){
+                noWalls = false;
+            }
+
+        }
+        assertTrue(noWalls);
+    }
+
+    class MapWithDoorBorder extends GeneratedMap{
+
+        public MapWithDoorBorder(){
+            super(8, 8, new Hero(10));
+        }
+
+        @Override
+        protected void generateSurroundingWalls() {
+            for (int i=0; i<getHeight(); i++){
+                for (int j=0; j<getWidth(); j++){
+                    if (i == 0 || i == getHeight()-1 || j == 0 || j == getWidth()-1){
+                        getGeneratedMap()[i][j] = new Door();
+                    }
+                }
+            }
+            getGeneratedMap()[0][1] = new Wall();
+            getGeneratedMap()[0][2] = new Wall();
+            getGeneratedMap()[0][3] = new Wall();
+            getGeneratedMap()[0][4] = new Wall();
+            getGeneratedMap()[0][5] = new Wall();
+            getGeneratedMap()[0][6] = new Wall();
+        }
+
     }
 }
