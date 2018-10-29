@@ -60,7 +60,6 @@ public class Map {
                 }
             }
         }
-        //repaint();
     }
 
     public GameObject[][] getMap() {
