@@ -218,7 +218,7 @@ public class GeneratedMap {
     }
 
     public GameObject[][] getGeneratedMap() {
-        return generatedMap;
+        return generatedMap.clone();
     }
 
 

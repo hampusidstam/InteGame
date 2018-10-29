@@ -29,8 +29,7 @@ public class Inventory {
     }
 
     public Equipment[] getInventoryArray() {
-        Equipment[] temp = inventoryArray;
-        return temp;
+        return inventoryArray.clone();
     }
 
     public int getSize() {

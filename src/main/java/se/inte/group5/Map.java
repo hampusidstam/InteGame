@@ -63,8 +63,7 @@ public class Map {
     }
 
     public GameObject[][] getMap() {
-        GameObject[][] temp = map;
-        return temp;
+        return map.clone();
     }
 
     public GameObject removeItem(int x, int y) {
