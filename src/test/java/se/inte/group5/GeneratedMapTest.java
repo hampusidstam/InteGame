@@ -21,12 +21,6 @@ public class GeneratedMapTest {
     }
 
     @Test
-    public void alwaysTrue(){
-        GeneratedMap m = new GeneratedMap(10, 10, hero);
-        assertEquals(10, 10);
-    }
-
-    @Test
     public void getHeight_heightIs10_True(){
         GeneratedMap m = new GeneratedMap(10, 10, hero);
         assertEquals(10, m.getHeight());
@@ -122,4 +116,60 @@ public class GeneratedMapTest {
         }
     }
 
+    @Test
+    public void floodMap_mapIsSolvable_True(){
+        GameObject[][] generatedMap = new GameObject[40][50];
+        generateSolvableMap(generatedMap);
+        int firstPosition[] = {1,1};
+        floodMap(generatedMap, firstPosition);
+        assertTrue(mapIsFilledWithStationary(generatedMap));
+    }
+
+    @Test
+    public void floodMap_mapIsNotSolvable_False(){
+        GameObject[][] generatedMap = new GameObject[40][50];
+        generateUnsolvableMap(generatedMap);
+        int firstPosition[] = {1,1};
+        floodMap(generatedMap, firstPosition);
+        assertFalse(mapIsFilledWithStationary(generatedMap));
+    }
+
+    @Test
+    public void mapIsFilledWithStationary_mapIsFilledWithWalls_True(){
+        GameObject[][] generatedMap = new GameObject[10][10];
+        generateFilledMap(generatedMap);
+        assertTrue(mapIsFilledWithStationary(generatedMap));
+    }
+
+    @Test
+    public void mapIsFilledWithStationary_mapNotFilledWithWalls_False(){
+        GameObject[][] generatedMap = new GameObject[40][50];
+        generateSolvableMap(generatedMap);
+        assertFalse(mapIsFilledWithStationary(generatedMap));
+    }
+
+    private void generateFilledMap(GameObject[][] generatedMap){
+        for (int i=0; i<generatedMap.length; i++){
+            for (int j=0; j<generatedMap[0].length; j++){
+                generatedMap[i][j] = new Wall();
+            }
+        }
+    }
+
+    private void generateSolvableMap(GameObject[][] generatedMap){
+        for (int i=0; i<generatedMap.length; i++){
+            for (int j=0; j<generatedMap[0].length; j++){
+                if (i == 0 || i == generatedMap.length-1 || j == 0 || j == generatedMap[0].length-1){
+                    generatedMap[i][j] = new Wall();
+                }
+            }
+        }
+    }
+
+    private void generateUnsolvableMap(GameObject[][] generatedMap){
+        generateSolvableMap(generatedMap);
+        for (int i=0; i<generatedMap.length-1; i++){
+            generatedMap[i][generatedMap[0].length/2] = new Wall();
+        }
+    }
 }

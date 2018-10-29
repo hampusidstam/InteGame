@@ -105,22 +105,29 @@ public class GeneratedMap {
     private int generateWallIndex(int start, int finish, int index, boolean vertical) {
         int length = finish - start;
         if (length < 7) return 0;
-        int newIndex ;
-        int a = 0;
-        while (a < 2*length){
-            a++;
+        int newIndex = 0;
+        for (int a = 0; a < 2*length; a++){
             newIndex = new Random().nextInt(length - 4);
             newIndex += 2;
             if (vertical) {
                 newIndex += start;
-                if (!(generatedMap[index][newIndex] instanceof Door)) return newIndex;
+                if (!(generatedMap[index][newIndex] instanceof Door)){
+                    a = 2*length;
+                    break;
+                    //return newIndex;
+                }
             }
             else {
                 newIndex += start;
-                if (!(generatedMap[newIndex][index] instanceof Door)) return newIndex;
+                if (!(generatedMap[newIndex][index] instanceof Door)){
+                    a = 2*length;
+                    break;
+                    //return newIndex;
+                }
             }
+            newIndex = -1;
         }
-        return 0;
+        return newIndex;
     }
 
 
