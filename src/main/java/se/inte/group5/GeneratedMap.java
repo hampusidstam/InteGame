@@ -225,7 +225,11 @@ public class GeneratedMap {
     }
 
     public GameObject[][] getGeneratedMap() {
-        return generatedMap.clone();
+        GameObject[][] temp = new GameObject[height][width];
+        for (int i = 0; i < height; i++) {
+            temp[i] = generatedMap[i].clone();
+        }
+        return temp;
     }
 
 
