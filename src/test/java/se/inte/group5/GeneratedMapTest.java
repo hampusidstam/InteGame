@@ -9,6 +9,15 @@ public class GeneratedMapTest {
     private StationaryFill filler = new StationaryFill();
     private Hero hero = new Hero(10);
 
+
+    // Lagt till variabler:
+
+    private Plant plant = new Plant();
+    private Potion potion = new Potion();
+    private Weapon weakWeapon = new Weapon(20);
+    private Weapon strongWeapon = new Weapon(50);
+    private Armor armor = new Armor(50);
+
     @Test
     public void getWidth_widthIs40_True(){
         GeneratedMap m = new GeneratedMap(40, 40, hero);
@@ -272,7 +281,6 @@ public class GeneratedMapTest {
         hero.setDirectionInput('0');
         map.moveCreatures();
         assertEquals(hero, map.getActualMap()[1][1]);
-
     }
 
     @Test
@@ -320,42 +328,96 @@ public class GeneratedMapTest {
         assertEquals(hero, map.getActualMap()[3][1]);
     }
 
+
+    // Kolla nedan tester
+
+
     @Test
     public void moveCreatures_heroMovesOnPlant_true(){
-
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 3, 3);
+        map.putItemOnMap(plant, 2, 3);
+        hero.setDirectionInput('N');
+        map.moveCreatures();
+        assertNotEquals(plant, map.getActualMap()[2][3]);
+        // Kollar att växten försvunnit, eller ska den kolla att heros hp ökat?
     }
 
     @Test
     public void moveCreatures_heroMovesOnPlantAtFullHP_true(){
-
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 3, 3);
+        map.putItemOnMap(plant, 2, 3);
+        hero.setDirectionInput('N');
+        map.moveCreatures();
+        hero.pickUpItem(plant);
+        assertEquals(30, hero.getHealthPoints());
+        // Ska kolla att heros hp ökat från 10 till 20? Eller att heros hp redan var 100? sätts i injection till 10.
     }
 
     @Test
     public void moveCreatures_heroMovesOnPotion_true(){
-
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 3, 3);
+        map.putItemOnMap(potion, 3, 4);
+        hero.setDirectionInput('E');
+        map.moveCreatures();
+        hero.pickUpItem(potion);
+        assertNotEquals(potion, map.getActualMap()[2][4]);
     }
 
     @Test
     public void moveCreatures_heroMovesOnPotionAtFullHP_true(){
-
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 3, 3);
+        map.putItemOnMap(potion, 2, 3);
+        hero.setDirectionInput('N');
+        map.moveCreatures();
+        hero.pickUpItem(potion);
+        assertEquals(100, hero.getHealthPoints());
+        // Kollar att heros hp ökat till 100
     }
+
 
     @Test
     public void moveCreatures_weaponIsNotEquipped_false(){
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 3, 3);
+        map.putItemOnMap(strongWeapon, 2, 3);
+        map.putItemOnMap(weakWeapon, 2, 4);
 
+        hero.setDirectionInput('N');
+        map.moveCreatures();
+        hero.pickUpItem(strongWeapon);
+
+        hero.setDirectionInput('E');
+        map.moveCreatures();
+        hero.pickUpItem(weakWeapon);
+
+        assertNotEquals(20, hero.getStrength());
     }
 
     @Test
     public void moveCreatures_weaponIsEquipped_true(){
-
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 3, 3);
+        map.putItemOnMap(strongWeapon, 4, 3);
+        hero.setDirectionInput('S');
+        map.moveCreatures();
+        hero.pickUpItem(strongWeapon);
+        assertEquals(50, hero.getStrength());
     }
 
     @Test
-    public void moveCreatures_armorIsNotEquipped_true(){
-
+    public void moveCreatures_armorIsNotEquipped_true(){        // ska denna testa att heron hittar en sämre armor som ej sätts till aktiv?
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 3, 3);
+        map.putItemOnMap(armor, 2, 4);
+        hero.setDirectionInput('E');
+        map.moveCreatures();
+        hero.pickUpItem(armor);
+        assertEquals(50, hero.getStrength());
     }
-
-
 
     class MonsterRandomInject extends Monster {
         int direction;
@@ -370,10 +432,16 @@ public class GeneratedMapTest {
         }
     }
 
+    /*
     @Test
     public void moveCreatures_monsterAttemptsToMoveThroughWall_true(){
-
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        MonsterRandomInject monster = new MonsterRandomInject(30, 1);
+        map.putCreatureOnMap(monster, 3, 1);
+        map.moveCreatures();
+        assertEquals(monster, map.getActualMap()[1][1]);
     }
+    */
 
     @Test
     public void moveCreatures_monsterMovesNorth_true(){
