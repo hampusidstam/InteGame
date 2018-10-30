@@ -8,15 +8,12 @@ import static org.junit.Assert.*;
 public class GeneratedMapTest {
     private StationaryFill filler = new StationaryFill();
     private Hero hero = new Hero(10);
-
-
-    // Lagt till variabler:
-
     private Plant plant = new Plant();
     private Potion potion = new Potion();
     private Weapon weakWeapon = new Weapon(20);
     private Weapon strongWeapon = new Weapon(50);
-    private Armor armor = new Armor(50);
+    private Armor weakArmor = new Armor(30);
+    private Armor strongArmor = new Armor(40);
 
     @Test
     public void getWidth_widthIs40_True(){
@@ -40,8 +37,6 @@ public class GeneratedMapTest {
         GeneratedMap m = new GeneratedMap(40, 40, hero);
         assertNotEquals(15, m.getHeight());
     }
-
-
 
     private boolean mapIsFilledWithStationary(GameObject[][] gameMap){
         for (GameObject[] row: gameMap){
@@ -328,10 +323,6 @@ public class GeneratedMapTest {
         assertEquals(hero, map.getActualMap()[3][1]);
     }
 
-
-    // Kolla nedan tester
-
-
     @Test
     public void moveCreatures_heroMovesOnPlant_true(){
         GeneratedMapInject map = new GeneratedMapInject(10, 10);
@@ -340,19 +331,29 @@ public class GeneratedMapTest {
         hero.setDirectionInput('N');
         map.moveCreatures();
         assertNotEquals(plant, map.getActualMap()[2][3]);
-        // Kollar att växten försvunnit, eller ska den kolla att heros hp ökat?
     }
 
     @Test
-    public void moveCreatures_heroMovesOnPlantAtFullHP_true(){
+    public void moveCreatures_heroMovesOnPlant_heroHealthIncrease(){
+        int healthDifference = hero.getHealthPoints();
         GeneratedMapInject map = new GeneratedMapInject(10, 10);
         map.putCreatureOnMap(hero, 3, 3);
         map.putItemOnMap(plant, 2, 3);
         hero.setDirectionInput('N');
         map.moveCreatures();
-        hero.pickUpItem(plant);
-        assertEquals(30, hero.getHealthPoints());
-        // Ska kolla att heros hp ökat från 10 till 20? Eller att heros hp redan var 100? sätts i injection till 10.
+        healthDifference -= hero.getHealthPoints();
+        assertEquals(-10, healthDifference);
+    }
+
+    @Test
+    public void moveCreatures_heroMovesOnPlantAtFullHP_true(){
+        Hero h = new Hero(99);
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(h, 3, 3);
+        map.putItemOnMap(plant, 2, 3);
+        h.setDirectionInput('N');
+        map.moveCreatures();
+        assertEquals(100, h.getHealthPoints());
     }
 
     @Test
@@ -360,10 +361,10 @@ public class GeneratedMapTest {
         GeneratedMapInject map = new GeneratedMapInject(10, 10);
         map.putCreatureOnMap(hero, 3, 3);
         map.putItemOnMap(potion, 3, 4);
+        assertEquals(potion, map.getActualMap()[3][4]);
         hero.setDirectionInput('E');
         map.moveCreatures();
-        hero.pickUpItem(potion);
-        assertNotEquals(potion, map.getActualMap()[2][4]);
+        assertNotEquals(potion, map.getActualMap()[3][4]);
     }
 
     @Test
@@ -373,28 +374,34 @@ public class GeneratedMapTest {
         map.putItemOnMap(potion, 2, 3);
         hero.setDirectionInput('N');
         map.moveCreatures();
-        hero.pickUpItem(potion);
         assertEquals(100, hero.getHealthPoints());
-        // Kollar att heros hp ökat till 100
     }
 
 
     @Test
-    public void moveCreatures_weaponIsNotEquipped_false(){
+    public void moveCreatures_weakWeaponIsNotEquipped_false(){
         GeneratedMapInject map = new GeneratedMapInject(10, 10);
         map.putCreatureOnMap(hero, 3, 3);
         map.putItemOnMap(strongWeapon, 2, 3);
         map.putItemOnMap(weakWeapon, 2, 4);
-
         hero.setDirectionInput('N');
         map.moveCreatures();
-        hero.pickUpItem(strongWeapon);
-
         hero.setDirectionInput('E');
         map.moveCreatures();
-        hero.pickUpItem(weakWeapon);
+        assertNotEquals(weakWeapon, hero.getEquippedWeapon());
+    }
 
-        assertNotEquals(20, hero.getStrength());
+    @Test
+    public void moveCreatures_weakWeaponInInventory_false(){
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 3, 3);
+        map.putItemOnMap(strongWeapon, 2, 3);
+        map.putItemOnMap(weakWeapon, 2, 4);
+        hero.setDirectionInput('N');
+        map.moveCreatures();
+        hero.setDirectionInput('E');
+        map.moveCreatures();
+        assertTrue(isInInventory(hero, weakWeapon));
     }
 
     @Test
@@ -404,19 +411,54 @@ public class GeneratedMapTest {
         map.putItemOnMap(strongWeapon, 4, 3);
         hero.setDirectionInput('S');
         map.moveCreatures();
-        hero.pickUpItem(strongWeapon);
-        assertEquals(50, hero.getStrength());
+        assertEquals(strongWeapon, hero.getEquippedWeapon());
     }
 
     @Test
-    public void moveCreatures_armorIsNotEquipped_true(){        // ska denna testa att heron hittar en sämre armor som ej sätts till aktiv?
+    public void moveCreatures_armorIsEquipped_true(){
         GeneratedMapInject map = new GeneratedMapInject(10, 10);
-        map.putCreatureOnMap(hero, 3, 3);
-        map.putItemOnMap(armor, 2, 4);
-        hero.setDirectionInput('E');
+        map.putCreatureOnMap(hero, 1, 4);
+        map.putItemOnMap(weakArmor, 2, 4);
+        hero.setDirectionInput('S');
         map.moveCreatures();
-        hero.pickUpItem(armor);
-        assertEquals(50, hero.getStrength());
+        assertEquals(weakArmor, hero.getEquippedArmor());
+    }
+
+    @Test
+    public void moveCreatures_weakArmorIsNotEquipped_true(){
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 1, 4);
+        map.putItemOnMap(strongArmor, 2, 4);
+        map.putItemOnMap(weakArmor, 3, 4);
+        hero.setDirectionInput('S');
+        map.moveCreatures();
+        hero.setDirectionInput('S');
+        map.moveCreatures();
+        assertNotEquals(weakArmor, hero.getEquippedArmor());
+    }
+
+    @Test
+    public void moveCreatures_weakArmorInInventory_true(){
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 1, 4);
+        map.putItemOnMap(strongArmor, 2, 4);
+        map.putItemOnMap(weakArmor, 3, 4);
+        hero.setDirectionInput('S');
+        map.moveCreatures();
+        hero.setDirectionInput('S');
+        map.moveCreatures();
+        assertTrue(isInInventory(hero, weakArmor));
+    }
+
+    private boolean isInInventory(Creature owner, Item item){
+        int size = owner.getInventory().getSize();
+        boolean contains = false;
+        for (int i = 0; i < size; i++){
+            if (owner.getInventory().getItem(i) == item){
+                contains = true;
+            }
+        }
+        return contains;
     }
 
     class MonsterRandomInject extends Monster {
@@ -432,16 +474,15 @@ public class GeneratedMapTest {
         }
     }
 
-    /*
     @Test
     public void moveCreatures_monsterAttemptsToMoveThroughWall_true(){
         GeneratedMapInject map = new GeneratedMapInject(10, 10);
         MonsterRandomInject monster = new MonsterRandomInject(30, 1);
-        map.putCreatureOnMap(monster, 3, 1);
+        map.putCreatureOnMap(monster, 1, 2);
         map.moveCreatures();
-        assertEquals(monster, map.getActualMap()[1][1]);
+        assertEquals(monster, map.getActualMap()[1][2]);
     }
-    */
+
 
     @Test
     public void moveCreatures_monsterMovesNorth_true(){
@@ -464,22 +505,22 @@ public class GeneratedMapTest {
     }
 
     @Test
-    public void moveCreatures_monsterMovesOnPlant_true(){
+    public void moveCreatures_monsterMovesOnPlant_false(){
 
     }
 
     @Test
-    public void moveCreatures_monsterMovesOnPotion_true(){
+    public void moveCreatures_monsterMovesOnPotion_false(){
 
     }
 
     @Test
-    public void moveCreatures_monsterMovesOnWeapon_true(){
+    public void moveCreatures_monsterMovesOnWeapon_false(){
 
     }
 
     @Test
-    public void moveCreatures_monsterMovesOnArmor_true(){
+    public void moveCreatures_monsterMovesOnArmor_false(){
 
     }
 

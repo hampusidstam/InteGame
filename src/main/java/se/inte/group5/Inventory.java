@@ -21,11 +21,11 @@ public class Inventory {
         return false;
     }
 
-    public Equipment getItem(int item) {
-        if (inventoryArray[item] == null) {
+    public Equipment getItem(int index) {
+        if (inventoryArray[index] == null) {
             return null;
         }
-        return inventoryArray[item];
+        return inventoryArray[index];
     }
 
     public Equipment[] getInventoryArray() {

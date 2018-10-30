@@ -47,17 +47,7 @@ public class MonsterTest {
     public void move_monsterHasNoPosition_throwsIllegalArgumentException(){
         monster.move();
     }
-    /*
-    @Test
-    public void move_moveInDirectionOptionNotAbove4_positionChanged() {
-        assertFalse(monster.move() > 4);
-    }
 
-    @Test
-    public void move_moveInDirectionOptionNotNegative_positionChanged() {
-        assertFalse(monster.move() < 0);
-    }
-    */
     @Test
     public void setEquipment_addEquipment_strengthNotLowerThan1() {
         assertFalse(monster.getEquipment().strength < 1);
