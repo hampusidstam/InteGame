@@ -201,7 +201,7 @@ public class GeneratedMapTest {
             for (int i=0; i<getHeight(); i++){
                 for (int j=0; j<getWidth(); j++){
                     if (i == 0 || i == getHeight()-1 || j == 0 || j == getWidth()-1){
-                        getGeneratedMap()[i][j] = new Door();
+                        getActualMap()[i][j] = new Door();
                     }
                 }
             }
@@ -212,6 +212,201 @@ public class GeneratedMapTest {
             getGeneratedMap()[0][5] = new Wall();
             getGeneratedMap()[0][6] = new Wall();
         }
+    }
+
+    class GeneratedMapInject extends GeneratedMap{
+        private GameObject gameObject;
+        private int heroY, heroX, objY, objX;
+
+        public GeneratedMapInject(int width, int height, Hero hero, int heroY, int heroX, GameObject gameObject, int objY, int objX) {
+            super(width, height, hero);
+            this.gameObject = gameObject;
+            this.heroY = heroY;
+            this.heroX = heroX;
+            this.objY = objY;
+            this.objX = objX;
+        }
+
+        public GeneratedMapInject(int width, int height, Hero hero, int heroY, int heroX) {
+            super(width, height, hero);
+            this.heroY = heroY;
+            this.heroX = heroX;
+        }
+
+        @Override
+        protected void generateAll(){
+            generateMap();
+
+            getActualMap()[heroY][heroX] = hero;
+            hero.setPosition(heroY, heroX);
+            getCreatures().add(hero);
+
+            if (gameObject != null){
+                getActualMap()[objY][objX] = gameObject;
+                if (gameObject instanceof Monster){
+                    Monster monster = (Monster) gameObject;
+                    monster.setPosition(objY, objX);
+                    getCreatures().add(monster);
+                }
+
+            }
+        }
+
+        private void generateMap() {
+            for (int i = 0; i < getHeight(); i++) {
+                for (int j = 0; j < getWidth(); j++) {
+                    if (i == 0 || i == getHeight() - 1 || j == 0 || j == getWidth() - 1) {
+                        getActualMap()[i][j] = new Wall();
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    public void moveCreatures_heroHasNotMoved_true(){
+        GeneratedMapInject map = new GeneratedMapInject(10, 10, hero, 1, 1);
+        //hero.setDirectionInput('0');
+        //map.moveCreatures();
+        //assertEquals(hero, map.getActualMap()[1][1]);
 
     }
+
+    @Test
+    public void moveCreatures_heroAttemptsToMoveThroughWall_true(){
+        GeneratedMapInject map = new GeneratedMapInject(10, 10, hero, 1, 1);
+        //hero.setDirectionInput('N');
+        //map.moveCreatures();
+        //assertEquals(hero, map.getActualMap()[1][1]);
+    }
+
+
+    /*
+    @Test
+    public void moveCreatures_OneHeroOnEmptyMap_HeroHasNotMoved() {
+        Hero hero = new Hero(10);
+        generatedMap.placeGameObject(5,5, hero);
+        map.moveCreatures('0');
+        assertTrue(map.getMap()[5][5] instanceof Hero);
+    }
+
+    @Test
+    public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedNorth() {
+        Hero hero = new Hero(10);
+        map.placeGameObject(5,5, hero);
+        map.moveCreatures('N');
+        assertTrue(map.getMap()[4][5] instanceof Hero);
+    }
+
+    @Test
+    public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedEast() {
+        Hero hero = new Hero(10);
+        map.placeGameObject(5,5, hero);
+        map.moveCreatures('E');
+        assertTrue(map.getMap()[5][6] instanceof Hero);
+    }
+
+    @Test
+    public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedSouth() {
+        Hero hero = new Hero(10);
+        map.placeGameObject(5,5, hero);
+        map.moveCreatures('S');
+        assertTrue(map.getMap()[6][5] instanceof Hero);
+    }
+
+    @Test
+    public void moveCreatures_OneHeroOnEmptyMap_HeroHasMovedWest() {
+        Hero hero = new Hero(10);
+        map.placeGameObject(5,5, hero);
+        map.moveCreatures('W');
+        assertTrue(map.getMap()[5][4] instanceof Hero);
+    }
+
+    @Test
+    public void moveCreatures_MonsterMoves_MonsterHasMoved() {
+        Map temp = new Map(10, 10);
+
+        MonsterRandomInject monster = new MonsterRandomInject();
+        temp.placeGameObject(2,2, monster);
+
+        temp.moveCreatures('X');
+
+        assertNotNull(temp.getMap()[2][2]);
+    }
+
+    @Test
+    public void moveCreatures_HeroNextToWall_HeroHasNotMoved() {
+        Map temp = new Map(10, 10);
+
+        Hero hero = new Hero(20);
+        temp.placeGameObject(1,1, hero);
+        Wall wall = new Wall();
+        temp.placeGameObject(1,0, wall);
+
+        System.out.println("moveCreatures_HeroNextToWall_HeroHasNotMoved");
+        System.out.println("Before moved");
+        temp.renderToConsole();
+
+        temp.moveCreatures('W');
+
+        System.out.println("After moved");
+        temp.renderToConsole();
+
+        assertNotNull(temp.getMap()[1][1]);
+    }
+
+    @Test
+    public void moveCreatures_MapWithHeroAndConsumable_HeroHas15HP() {
+        Map temp = new Map(10, 10);
+
+        Hero hero = new Hero(20);
+        hero.takeDamage(15);
+        temp.placeGameObject(1,1, hero);
+        Plant plant = new Plant();
+        temp.placeGameObject(2,1, plant);
+
+        System.out.println("moveCreatures_MapWithHeroAndConsumable_HeroHas15HP");
+        System.out.println("Before moved");
+        temp.renderToConsole();
+
+        temp.moveCreatures('S');
+
+        System.out.println("After moved");
+        temp.renderToConsole();
+
+        assertEquals(15, hero.getHealthPoints());
+    }
+
+    @Test
+    public void moveCreatures_MapWithHeroAndEquipment_HeroHasEquipmentInInventory() {
+        Map temp = new Map(10, 10);
+
+        Hero hero = new Hero(20);
+        temp.placeGameObject(1,1, hero);
+        Armor armor = new Armor(20);
+        temp.placeGameObject(1,0, armor);
+
+        System.out.println("moveCreatures_MapWithHeroAndEquipment_HeroHasEquipmentInInventory");
+        System.out.println("Before moved");
+        temp.renderToConsole();
+
+        temp.moveCreatures('W');
+
+        System.out.println("After moved");
+        temp.renderToConsole();
+
+        assertEquals(hero.getInventory().getInventoryArray()[0], armor);
+    }
+
+    class MonsterRandomInject extends Monster {
+        public MonsterRandomInject() {
+            super(20);
+        }
+
+        @Override
+        public int move() {
+            return 0;
+        }
+    }
+    */
 }

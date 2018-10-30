@@ -96,29 +96,46 @@ public class HeroTest {
         assertEquals(100, hero.getHealthPoints());
     }
 
-    @Test
-    public void move_standStill_dirIs0() {
-        assertEquals(0, hero.move('0'));
+    @Test(expected = IllegalStateException.class)
+    public void move_heroHasNoPosition_throwsIllegalArgumentException(){
+        hero.setDirectionInput('N');
+        hero.move();
     }
 
     @Test
-    public void move_moveOneStepNorth_dirIs1() {
-        assertEquals(1, hero.move('N'));
+    public void setDirectionInput_directionInputIsN_True(){
+        hero.setDirectionInput('N');
+        assertEquals(1, hero.getDirectionInput());
     }
 
     @Test
-    public void move_moveOneStepEast_dirIs2() {
-        assertEquals(2, hero.move('E'));
+    public void setDirectionInput_directionInputIsE_True(){
+        hero.setDirectionInput('E');
+        assertEquals(2, hero.getDirectionInput());
     }
 
     @Test
-    public void move_moveOneStepSouth_dirIs3() {
-        assertEquals(3, hero.move('S'));
+    public void setDirectionInput_directionInputIsS_True(){
+        hero.setDirectionInput('S');
+        assertEquals(3, hero.getDirectionInput());
     }
 
     @Test
-    public void move_moveOneStepWest_dirIs4() {
-        assertEquals(4, hero.move('W'));
+    public void setDirectionInput_directionInputIsW_True(){
+        hero.setDirectionInput('W');
+        assertEquals(4, hero.getDirectionInput());
+    }
+
+    @Test
+    public void setDirectionInput_directionInputIs0_True(){
+        hero.setDirectionInput('0');
+        assertEquals(0, hero.getDirectionInput());
+    }
+
+    @Test
+    public void setDirectionInput_directionInputIs¤_True(){
+        hero.setDirectionInput('¤');
+        assertEquals(0, hero.getDirectionInput());
     }
 
     @Test

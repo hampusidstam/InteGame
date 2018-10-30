@@ -32,6 +32,35 @@ public abstract class Creature extends GameObject {
         position[1] = x;
     }
 
+    public abstract int[] move();
+
+    public int[] moveCreature(int direction){
+        if (position[0] == 0 || position[1] == 0) throw new IllegalStateException();
+
+        int[] newPosition;
+        switch (direction) {
+            // One step north
+            case 1:
+                newPosition = new int[] {position[1], position[0], position[1]-1, position[0]};
+                break;
+            // One step east
+            case 2:
+                newPosition = new int[] {position[1], position[0], position[1], position[0]+1};
+                break;
+            // One step south
+            case 3:
+                newPosition = new int[] {position[1], position[0], position[1]+1, position[0]};
+                break;
+            // One step west
+            case 4:
+                newPosition = new int[] {position[1], position[0], position[1], position[0]-1};
+                break;
+            default:
+                newPosition = new int[] {position[1], position[0], position[1], position[0]};
+        }
+        return newPosition;
+    }
+/*
     public int[] moveCreature(char ch) {
 
         int dir = 0;
@@ -64,7 +93,7 @@ public abstract class Creature extends GameObject {
         }
         return newPos;
     }
-
+*/
     public void takeDamage(int damage) {
         if (damage > 0) {
             healthPoints -= damage;

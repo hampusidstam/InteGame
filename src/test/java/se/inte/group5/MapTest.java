@@ -1,5 +1,5 @@
 package se.inte.group5;
-
+/*
 import org.junit.Before;
 import org.junit.Test;
 
@@ -230,4 +230,4 @@ public class MapTest {
     }
 
 
-}
+}*/

@@ -5,9 +5,7 @@ import java.util.Random;
 public class Monster extends Creature {
 
     public Monster(int healthPoints) {
-
         super(healthPoints, 'M', Color.RED, 1);
-
         setEquipment();
     }
 
@@ -25,9 +23,7 @@ public class Monster extends Creature {
         return inventory.getItem(0);
     }
 
-    public int move() {
-
-        return new Random().nextInt(5);
-        // alt. getRandomDir();
+    public int[] move(){
+        return moveCreature(new Random().nextInt(5));
     }
 }

@@ -1,5 +1,5 @@
 package se.inte.group5;
-
+/*
 import java.util.ArrayList;
 
 public class Map {
@@ -140,4 +140,4 @@ public class Map {
         }
         renderFrameStars();
     }
-}
+}*/

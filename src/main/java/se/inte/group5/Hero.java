@@ -1,14 +1,14 @@
 package se.inte.group5;
 
 public class Hero extends Creature {
-
     private final int MAXIMUM_HP = 100;
     private Weapon equippedWeapon;
     private Armor equippedArmor;
+    private int directionInput;
 
     public Hero(int healthPoints) {
-
         super(healthPoints, '@', Color.YELLOW, 10);
+        this.directionInput = 0;
     }
 
     public Weapon getEquippedWeapon() {
@@ -34,19 +34,31 @@ public class Hero extends Creature {
         assert healthPoints <= MAXIMUM_HP && healthPoints > 0;
     }
 
-    public int move(char ch) {
-        switch (ch) {
+    protected void setDirectionInput(char direction){
+        switch (direction) {
             case 'N':
-                return 1;
+                directionInput = 1;
+                break;
             case 'E':
-                return 2;
+                directionInput = 2;
+                break;
             case 'S':
-                return 3;
+                directionInput = 3;
+                break;
             case 'W':
-                return 4;
+                directionInput = 4;
+                break;
             default:
-                return 0;
+                directionInput = 0;
         }
+    }
+
+    public int[] move(){
+        return moveCreature(directionInput);
+    }
+
+    protected int getDirectionInput(){
+        return directionInput;
     }
 
     public void pickUpItem(Item item) {

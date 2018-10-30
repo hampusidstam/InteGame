@@ -15,11 +15,16 @@ public class GeneratedMap {
         this.width = width;
         this.height = height;
         this.hero = hero;
+        generatedMap = new GameObject[height][width];
+        generateAll();
+        renderGeneratedToConsole();
+    }
+
+    protected void generateAll(){
         generateMap();
         putHeroOnMap(hero);
         putMonstersOnMap();
         putConsumablesOnMap();
-        renderGeneratedToConsole();
     }
 
     private void putHeroOnMap(Hero hero){
@@ -28,7 +33,7 @@ public class GeneratedMap {
         creatures.add(hero);
     }
 
-    public ArrayList<Creature> getCreatures(){
+    protected ArrayList<Creature> getCreatures(){
         return creatures;
     }
 
@@ -76,6 +81,28 @@ public class GeneratedMap {
         }
     }
 
+    public void moveCreatures() {
+        for (Creature creature : creatures) {
+            int position[] = creature.move();
+            boolean allowed = false;
+
+            if (generatedMap[position[2]][position[3]] == null){
+                allowed = true;
+            }
+            else if (generatedMap[position[2]][position[3]] instanceof Item) {
+                if (creature instanceof Hero) {
+                    allowed = true;
+                    ((Hero) creature).pickUpItem((Item) generatedMap[position[2]][position[3]]);
+                }
+            }
+            if (allowed) {
+                generatedMap[position[0]][position[1]] = null;
+                generatedMap[position[2]][position[3]] = creature;
+                creature.setPosition(position[2], position[3]);
+            }
+        }
+    }
+
     public int getWidth() {
         return width;
     }
@@ -85,14 +112,13 @@ public class GeneratedMap {
     }
 
     private void generateMap() {
-        generatedMap = new GameObject[height][width];
         generateSurroundingWalls();
         generateVerticalWall(0, width-1, 0);
         removeDoors();
 
     }
 
-    private void generateSurroundingWalls() {
+    protected void generateSurroundingWalls() {
         for (int i=0; i<height; i++){
             for (int j=0; j<width; j++){
                 if (i == 0 || i == height-1 || j == 0 || j == width-1){
@@ -222,6 +248,10 @@ public class GeneratedMap {
             generatedMap[newIndex][column] = wall;
             return column;
         }
+    }
+
+    protected GameObject[][] getActualMap() {
+        return generatedMap;
     }
 
     public GameObject[][] getGeneratedMap() {
