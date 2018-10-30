@@ -63,7 +63,10 @@ public class Map {
     }
 
     public GameObject[][] getMap() {
-        GameObject[][] temp = map;
+        GameObject[][] temp = new GameObject[height][width];
+        for (int i = 0; i < height; i++) {
+            temp[i] = map[i].clone();
+        }
         return temp;
     }
 

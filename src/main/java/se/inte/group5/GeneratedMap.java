@@ -92,7 +92,7 @@ public class GeneratedMap {
 
     }
 
-    protected void generateSurroundingWalls() {
+    private void generateSurroundingWalls() {
         for (int i=0; i<height; i++){
             for (int j=0; j<width; j++){
                 if (i == 0 || i == height-1 || j == 0 || j == width-1){
@@ -129,6 +129,8 @@ public class GeneratedMap {
         }
         return newIndex;
     }
+
+
 
     private void generateVerticalWall(int start, int finish, int index){
         int newIndex = generateWallIndex(start, finish, index, true);
@@ -222,8 +224,12 @@ public class GeneratedMap {
         }
     }
 
-    protected GameObject[][] getGeneratedMap() {
-        return generatedMap;
+    public GameObject[][] getGeneratedMap() {
+        GameObject[][] temp = new GameObject[height][width];
+        for (int i = 0; i < height; i++) {
+            temp[i] = generatedMap[i].clone();
+        }
+        return temp;
     }
 
 

@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class HeroTest {
     private Hero hero;
@@ -14,8 +15,24 @@ public class HeroTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void hero_negativeHp_invalid() {
-        new Hero(-1);
+    public void hero_negativeHp_IllegalArgumentException() {
+        new Hero(-10);
+    }
+
+    @Test
+    public void hero_HeroWith50Hp_true() {
+        Hero temp = new Hero(50);
+        assertNotNull(temp);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void hero_150Hp_IllegalArgumentException() {
+        new Hero(150);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void hero_0Hp_IllegalArgumentException() {
+        new Hero(0);
     }
 
     @Test
@@ -24,8 +41,27 @@ public class HeroTest {
     }
 
     @Test
-    public void heal_increaseBy10_true() {
-        assertEquals(110, hero.getHealthPoints() + 10);
+    public void heal_healFor50_true() {
+        hero.takeDamage(50);
+        hero.heal(50);
+        assertEquals(100, hero.getHealthPoints());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void heal_negativeHeal_IllegalArgumentException() {
+        hero.heal(-10);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void heal_healFor0_IllegalArgumentException() {
+        hero.heal(0);
+    }
+
+    @Test
+    public void heal_HealMoreThanMaxHpMinusCurrentHp_HpIsMax() {
+        hero.takeDamage(50);
+        hero.heal(70);
+        assertEquals(100, hero.getHealthPoints());
     }
 
     @Test
@@ -161,6 +197,11 @@ public class HeroTest {
         hero.pickUpItem(new Weapon(98));
         assertEquals(new Weapon(98), hero.getEquippedWeapon());
         assertEquals(new Armor(88), hero.getEquippedArmor());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void pickUpItem_tryPickingUpNull_IllegalArgumentException() {
+        hero.pickUpItem(null);
     }
 
     @Test
