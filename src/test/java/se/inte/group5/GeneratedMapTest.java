@@ -234,44 +234,24 @@ public class GeneratedMapTest {
     }
 
     class GeneratedMapInject extends GeneratedMap{
-        private GameObject gameObject;
-        private int heroY, heroX, objY, objX;
 
-        private GeneratedMapInject(int width, int height, Hero hero, int heroY, int heroX, GameObject gameObject, int objY, int objX) {
-            super(width, height, hero);
-            this.gameObject = gameObject;
-            this.heroY = heroY;
-            this.heroX = heroX;
-            this.objY = objY;
-            this.objX = objX;
-        }
-
-        private GeneratedMapInject(int width, int height, Hero hero, int heroY, int heroX) {
-            super(width, height, hero);
-            this.heroY = heroY;
-            this.heroX = heroX;
+        private GeneratedMapInject(int width, int height) {
+            super(width, height, new Hero(10));
 
             generateMap();
-            putGameObjectsOnMap();
-            renderGeneratedToConsole();
         }
 
         @Override
         protected void generateAll(){}
 
-        private void putGameObjectsOnMap(){
-            getActualMap()[heroY][heroX] = hero;
-            hero.setPosition(heroY, heroX);
-            getCreatures().add(hero);
+        private void putCreatureOnMap(Creature creature, int row, int column){
+            getActualMap()[row][column] = creature;
+            creature.setPosition(row, column);
+            getCreatures().add(creature);
+        }
 
-            if (gameObject != null){
-                getActualMap()[objY][objX] = gameObject;
-                if (gameObject instanceof Monster){
-                    Monster monster = (Monster) gameObject;
-                    monster.setPosition(objY, objX);
-                    getCreatures().add(monster);
-                }
-            }
+        private void putItemOnMap(Item item, int row, int column){
+            getActualMap()[row][column] = item;
         }
 
         private void generateMap() {
@@ -287,7 +267,8 @@ public class GeneratedMapTest {
 
     @Test
     public void moveCreatures_heroHasNotMoved_true(){
-        GeneratedMapInject map = new GeneratedMapInject(10, 10, hero, 1, 1);
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 1, 1);
         hero.setDirectionInput('0');
         map.moveCreatures();
         assertEquals(hero, map.getActualMap()[1][1]);
@@ -296,7 +277,8 @@ public class GeneratedMapTest {
 
     @Test
     public void moveCreatures_heroAttemptsToMoveThroughWall_true(){
-        GeneratedMapInject map = new GeneratedMapInject(10, 10, hero, 1, 1);
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 1, 1);
         hero.setDirectionInput('N');
         map.moveCreatures();
         assertEquals(hero, map.getActualMap()[1][1]);
@@ -304,7 +286,8 @@ public class GeneratedMapTest {
 
     @Test
     public void moveCreatures__heroMovesNorth_true(){
-        GeneratedMapInject map = new GeneratedMapInject(10, 10, hero, 3, 1);
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 3, 1);
         hero.setDirectionInput('N');
         map.moveCreatures();
         assertEquals(hero, map.getActualMap()[2][1]);
@@ -312,7 +295,8 @@ public class GeneratedMapTest {
 
     @Test
     public void moveCreatures__heroMovesEast_true(){
-        GeneratedMapInject map = new GeneratedMapInject(10, 10, hero, 3, 1);
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 3, 1);
         hero.setDirectionInput('E');
         map.moveCreatures();
         assertEquals(hero, map.getActualMap()[3][2]);
@@ -320,7 +304,8 @@ public class GeneratedMapTest {
 
     @Test
     public void moveCreatures__heroMovesSouth_true(){
-        GeneratedMapInject map = new GeneratedMapInject(10, 10, hero, 3, 1);
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 3, 1);
         hero.setDirectionInput('S');
         map.moveCreatures();
         assertEquals(hero, map.getActualMap()[4][1]);
@@ -328,7 +313,8 @@ public class GeneratedMapTest {
 
     @Test
     public void moveCreatures__heroMovesWest_true(){
-        GeneratedMapInject map = new GeneratedMapInject(10, 10, hero, 3, 2);
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        map.putCreatureOnMap(hero, 3, 2);
         hero.setDirectionInput('W');
         map.moveCreatures();
         assertEquals(hero, map.getActualMap()[3][1]);
