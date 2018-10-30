@@ -486,42 +486,98 @@ public class GeneratedMapTest {
 
     @Test
     public void moveCreatures_monsterMovesNorth_true(){
-
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        MonsterRandomInject monster = new MonsterRandomInject(90, 1);
+        map.putCreatureOnMap(monster, 3, 3);
+        assertEquals(monster, map.getActualMap()[3][3]);
+        map.moveCreatures();
+        assertNull(map.getActualMap()[3][3]);
+        assertEquals(monster, map.getActualMap()[2][3]);
     }
 
     @Test
     public void moveCreatures_monsterMovesEast_true(){
-
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        MonsterRandomInject monster = new MonsterRandomInject(90, 2);
+        map.putCreatureOnMap(monster, 3, 3);
+        assertEquals(monster, map.getActualMap()[3][3]);
+        map.moveCreatures();
+        assertNull(map.getActualMap()[3][3]);
+        assertEquals(monster, map.getActualMap()[3][4]);
     }
 
     @Test
     public void moveCreatures_monsterMovesSouth_true(){
-
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        MonsterRandomInject monster = new MonsterRandomInject(90, 3);
+        map.putCreatureOnMap(monster, 3, 3);
+        assertEquals(monster, map.getActualMap()[3][3]);
+        map.moveCreatures();
+        assertNull(map.getActualMap()[3][3]);
+        assertEquals(monster, map.getActualMap()[4][3]);
     }
 
     @Test
     public void moveCreatures_monsterMovesWest_true(){
-
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        MonsterRandomInject monster = new MonsterRandomInject(90, 4);
+        map.putCreatureOnMap(monster, 3, 3);
+        assertEquals(monster, map.getActualMap()[3][3]);
+        map.moveCreatures();
+        assertNull(map.getActualMap()[3][3]);
+        assertEquals(monster, map.getActualMap()[3][2]);
     }
 
     @Test
     public void moveCreatures_monsterMovesOnPlant_false(){
-
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        MonsterRandomInject monster = new MonsterRandomInject(90, 2);
+        map.putCreatureOnMap(monster, 3, 3);
+        map.putItemOnMap(plant, 3, 4);
+        assertEquals(monster, map.getActualMap()[3][3]);
+        assertEquals(plant, map.getActualMap()[3][4]);
+        map.moveCreatures();
+        assertEquals(monster, map.getActualMap()[3][3]);
+        assertEquals(plant, map.getActualMap()[3][4]);
     }
 
     @Test
     public void moveCreatures_monsterMovesOnPotion_false(){
-
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        MonsterRandomInject monster = new MonsterRandomInject(90, 4);
+        map.putCreatureOnMap(monster, 3, 3);
+        map.putItemOnMap(potion, 3, 2);
+        assertEquals(monster, map.getActualMap()[3][3]);
+        assertEquals(potion, map.getActualMap()[3][2]);
+        map.moveCreatures();
+        assertEquals(monster, map.getActualMap()[3][3]);
+        assertEquals(potion, map.getActualMap()[3][2]);
     }
 
     @Test
     public void moveCreatures_monsterMovesOnWeapon_false(){
-
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        MonsterRandomInject monster = new MonsterRandomInject(90, 3);
+        map.putCreatureOnMap(monster, 3, 3);
+        map.putItemOnMap(weakWeapon, 4, 3);
+        assertEquals(monster, map.getActualMap()[3][3]);
+        assertEquals(weakWeapon, map.getActualMap()[4][3]);
+        map.moveCreatures();
+        assertEquals(monster, map.getActualMap()[3][3]);
+        assertEquals(weakWeapon, map.getActualMap()[4][3]);
     }
 
     @Test
     public void moveCreatures_monsterMovesOnArmor_false(){
-
+        GeneratedMapInject map = new GeneratedMapInject(10, 10);
+        MonsterRandomInject monster = new MonsterRandomInject(90, 1);
+        map.putCreatureOnMap(monster, 4, 4);
+        map.putItemOnMap(strongArmor, 3, 4);
+        assertEquals(monster, map.getActualMap()[4][4]);
+        assertEquals(strongArmor, map.getActualMap()[3][4]);
+        map.moveCreatures();
+        assertEquals(monster, map.getActualMap()[4][4]);
+        assertEquals(strongArmor, map.getActualMap()[3][4]);
     }
 
 }
