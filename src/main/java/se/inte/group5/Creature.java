@@ -41,22 +41,22 @@ public abstract class Creature extends GameObject {
         switch (direction) {
             // One step north
             case 1:
-                newPosition = new int[] {position[1], position[0], position[1]-1, position[0]};
+                newPosition = new int[] {position[0], position[1], position[0]-1, position[1]};
                 break;
             // One step east
             case 2:
-                newPosition = new int[] {position[1], position[0], position[1], position[0]+1};
+                newPosition = new int[] {position[0], position[1], position[0], position[1]+1};
                 break;
             // One step south
             case 3:
-                newPosition = new int[] {position[1], position[0], position[1]+1, position[0]};
+                newPosition = new int[] {position[0], position[1], position[0]+1, position[1]};
                 break;
             // One step west
             case 4:
-                newPosition = new int[] {position[1], position[0], position[1], position[0]-1};
+                newPosition = new int[] {position[0], position[1], position[0], position[1]-1};
                 break;
             default:
-                newPosition = new int[] {position[1], position[0], position[1], position[0]};
+                newPosition = new int[] {position[0], position[1], position[0], position[1]};
         }
         return newPosition;
     }

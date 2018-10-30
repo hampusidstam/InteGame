@@ -17,7 +17,6 @@ public class GeneratedMap {
         this.hero = hero;
         generatedMap = new GameObject[height][width];
         generateAll();
-        renderGeneratedToConsole();
     }
 
     protected void generateAll(){
@@ -25,6 +24,7 @@ public class GeneratedMap {
         putHeroOnMap(hero);
         putMonstersOnMap();
         putConsumablesOnMap();
+        renderGeneratedToConsole();
     }
 
     private void putHeroOnMap(Hero hero){
@@ -81,7 +81,7 @@ public class GeneratedMap {
         }
     }
 
-    public void moveCreatures() {
+    protected void moveCreatures() {
         for (Creature creature : creatures) {
             int position[] = creature.move();
             boolean allowed = false;
@@ -138,17 +138,15 @@ public class GeneratedMap {
             if (vertical) {
                 newIndex += start;
                 if (!(generatedMap[index][newIndex] instanceof Door)){
-                    a = 2*length;
+                    //a = 2*length;
                     break;
-                    //return newIndex;
                 }
             }
             else {
                 newIndex += start;
                 if (!(generatedMap[newIndex][index] instanceof Door)){
-                    a = 2*length;
+                    //a = 2*length;
                     break;
-                    //return newIndex;
                 }
             }
             newIndex = -1;
@@ -161,20 +159,20 @@ public class GeneratedMap {
     private void generateVerticalWall(int start, int finish, int index){
         int newIndex = generateWallIndex(start, finish, index, true);
         if (newIndex < 1) return;
-        generateVerticalWallDown(start, finish, index, newIndex);
+        generateVerticalWallDown( index, newIndex);
 
         newIndex = generateWallIndex(start, finish, index, true);
         if (newIndex < 1) return;
-        generateVerticalWallUp(start, finish, index, newIndex);
+        generateVerticalWallUp(index, newIndex);
     }
 
-    private void generateVerticalWallDown(int start, int finish, int index, int newIndex) {
+    private void generateVerticalWallDown(int index, int newIndex) {
         for (int row = index + 1; row < height; row++){
             row = innerVerticalLoop(row, index, newIndex, row-1);
         }
     }
 
-    private void generateVerticalWallUp(int start, int finish, int index, int newIndex) {
+    private void generateVerticalWallUp(int index, int newIndex) {
         for (int row = index - 1; row >= 0; row--){
             row = innerVerticalLoop(row, index, newIndex, row+1);
             if (row == width) row = 0;
@@ -207,20 +205,20 @@ public class GeneratedMap {
     private void generateHorizontalWall(int start, int finish, int index){
         int newIndex = generateWallIndex(start, finish, index, false);
         if (newIndex < 1) return;
-        generateHorizontalWallRight(start, finish, index, newIndex);
+        generateHorizontalWallRight(index, newIndex);
 
         newIndex = generateWallIndex(start, finish, index, false);
         if (newIndex < 1) return;
-        generateHorizontalWallLeft(start, finish, index, newIndex);
+        generateHorizontalWallLeft(index, newIndex);
     }
 
-    private void generateHorizontalWallRight(int start, int finish, int index, int newIndex) {
+    private void generateHorizontalWallRight(int index, int newIndex) {
         for (int column = index + 1; column < width; column++){
             column = innerHorizontalLoop(column, index, newIndex, column-1);
         }
     }
 
-    private void generateHorizontalWallLeft(int start, int finish, int index, int newIndex) {
+    private void generateHorizontalWallLeft(int index, int newIndex) {
         for (int column = index - 1; column >= 0; column--){
             column = innerHorizontalLoop(column, index, newIndex, column+1);
             if (column == width) column = 0;
@@ -265,7 +263,7 @@ public class GeneratedMap {
 
 
     private String printConsoleSymbolWithColor(GameObject obj) {
-        String color = "\033[0;90m";
+        String color;
 
         switch (obj.getColor()) {
             case BLUE:
@@ -289,7 +287,7 @@ public class GeneratedMap {
         return color + obj.getSymbol() + "\033[0m";
     }
 
-    public void renderGeneratedToConsole() {
+    protected void renderGeneratedToConsole() {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (generatedMap[i][j] == null) {
@@ -318,7 +316,7 @@ public class GeneratedMap {
 
 
     class Door extends Stationary{
-        public Door() {
+        protected Door() {
             super('.', Color.GRAY);
         }
     }
