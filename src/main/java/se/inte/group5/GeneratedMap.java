@@ -138,14 +138,12 @@ public class GeneratedMap {
             if (vertical) {
                 newIndex += start;
                 if (!(generatedMap[index][newIndex] instanceof Door)){
-                    //a = 2*length;
                     break;
                 }
             }
             else {
                 newIndex += start;
                 if (!(generatedMap[newIndex][index] instanceof Door)){
-                    //a = 2*length;
                     break;
                 }
             }
@@ -153,8 +151,6 @@ public class GeneratedMap {
         }
         return newIndex;
     }
-
-
 
     private void generateVerticalWall(int start, int finish, int index){
         int newIndex = generateWallIndex(start, finish, index, true);
@@ -260,8 +256,6 @@ public class GeneratedMap {
         return temp;
     }
 
-
-
     private String printConsoleSymbolWithColor(GameObject obj) {
         String color;
 
@@ -313,7 +307,6 @@ public class GeneratedMap {
         }
         doors.clear();
     }
-
 
     class Door extends Stationary{
         protected Door() {

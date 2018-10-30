@@ -10,16 +10,6 @@ public class GeneratedMapTest {
     private Hero hero = new Hero(10);
 
     @Test
-    public void generateMap_mapIsSolvable_True(){
-        GeneratedMap m = new GeneratedMap(10, 10, hero);
-        GameObject[][] gameMap = m.getGeneratedMap();
-        int firstPosition[] = {1,1};
-        floodMap(gameMap, firstPosition);
-        boolean filled = mapIsFilledWithStationary(gameMap);
-        assertTrue(filled);
-    }
-
-    @Test
     public void getWidth_widthIs40_True(){
         GeneratedMap m = new GeneratedMap(40, 40, hero);
         assertEquals(40, m.getHeight());
@@ -41,6 +31,8 @@ public class GeneratedMapTest {
         GeneratedMap m = new GeneratedMap(40, 40, hero);
         assertNotEquals(15, m.getHeight());
     }
+
+
 
     private boolean mapIsFilledWithStationary(GameObject[][] gameMap){
         for (GameObject[] row: gameMap){
@@ -68,41 +60,45 @@ public class GeneratedMapTest {
         }
     }
 
-    @Test
-    public void putHeroOnMap_HeroIsAt1x1InTheMatrix_true(){
-        GeneratedMap map = new GeneratedMap(10, 10, hero);
-        assertTrue(map.getGeneratedMap()[1][1] instanceof Hero);
-    }
-
-    @Test
-    public void putHeroOnMap_HeroInArrayList_true(){
-        GeneratedMap map = new GeneratedMap(10, 10, hero);
-        Hero hero = (Hero)map.getGeneratedMap()[1][1];
-        assertTrue(map.getCreatures().contains(hero));
-    }
-
-    @Test
-    public void putMonsterOnMap_Map10x10_2monstersExistsOnMapMatrix(){
-        int width = 10;
-        int height = 10;
-        GeneratedMap map = new GeneratedMap(width, height, hero);
-        int monsterCount = 0;
-        int expectedMonsterCount = (width*height)/50;
-
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                if(map.getGeneratedMap()[i][j] instanceof Monster){
-                    monsterCount++;
-                }
-            }
-        }
-        assertEquals(expectedMonsterCount, monsterCount);
-    }
-
     private class StationaryFill extends Stationary{
         private StationaryFill() {
             super('~', Color.BLUE);
         }
+    }
+
+    private void generateFilledMap(GameObject[][] generatedMap){
+        for (int i=0; i<generatedMap.length; i++){
+            for (int j=0; j<generatedMap[0].length; j++){
+                generatedMap[i][j] = new Wall();
+            }
+        }
+    }
+
+    private void generateSolvableMap(GameObject[][] generatedMap){
+        for (int i=0; i<generatedMap.length; i++){
+            for (int j=0; j<generatedMap[0].length; j++){
+                if (i == 0 || i == generatedMap.length-1 || j == 0 || j == generatedMap[0].length-1){
+                    generatedMap[i][j] = new Wall();
+                }
+            }
+        }
+    }
+
+    private void generateUnsolvableMap(GameObject[][] generatedMap){
+        generateSolvableMap(generatedMap);
+        for (int i=0; i<generatedMap.length-1; i++){
+            generatedMap[i][generatedMap[0].length/2] = new Wall();
+        }
+    }
+
+    @Test
+    public void generateMap_mapIsSolvable_True(){
+        GeneratedMap m = new GeneratedMap(30, 30, hero);
+        GameObject[][] gameMap = m.getGeneratedMap();
+        int firstPosition[] = {1,1};
+        floodMap(gameMap, firstPosition);
+        boolean filled = mapIsFilledWithStationary(gameMap);
+        assertTrue(filled);
     }
 
     @Test
@@ -137,34 +133,40 @@ public class GeneratedMapTest {
         assertFalse(mapIsFilledWithStationary(generatedMap));
     }
 
-    private void generateFilledMap(GameObject[][] generatedMap){
-        for (int i=0; i<generatedMap.length; i++){
-            for (int j=0; j<generatedMap[0].length; j++){
-                generatedMap[i][j] = new Wall();
-            }
-        }
-    }
-
-    private void generateSolvableMap(GameObject[][] generatedMap){
-        for (int i=0; i<generatedMap.length; i++){
-            for (int j=0; j<generatedMap[0].length; j++){
-                if (i == 0 || i == generatedMap.length-1 || j == 0 || j == generatedMap[0].length-1){
-                    generatedMap[i][j] = new Wall();
-                }
-            }
-        }
-    }
-
-    private void generateUnsolvableMap(GameObject[][] generatedMap){
-        generateSolvableMap(generatedMap);
-        for (int i=0; i<generatedMap.length-1; i++){
-            generatedMap[i][generatedMap[0].length/2] = new Wall();
-        }
+    @Test
+    public void putHeroOnMap_HeroIsAt1x1InTheMatrix_true(){
+        GeneratedMap map = new GeneratedMap(10, 10, hero);
+        assertTrue(map.getGeneratedMap()[1][1] instanceof Hero);
     }
 
     @Test
-    public void generateWallIndex_WallBuiltIntoDoor_True(){
-        GeneratedMap gm = new MapWithDoorBorder();
+    public void putHeroOnMap_HeroInArrayList_true(){
+        GeneratedMap map = new GeneratedMap(10, 10, hero);
+        Hero hero = (Hero)map.getGeneratedMap()[1][1];
+        assertTrue(map.getCreatures().contains(hero));
+    }
+
+    @Test
+    public void putMonsterOnMap_Map10x10_2monstersExistsOnMapMatrix(){
+        int width = 10;
+        int height = 10;
+        GeneratedMap map = new GeneratedMap(width, height, hero);
+        int monsterCount = 0;
+        int expectedMonsterCount = (width*height)/50;
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if(map.getGeneratedMap()[i][j] instanceof Monster){
+                    monsterCount++;
+                }
+            }
+        }
+        assertEquals(expectedMonsterCount, monsterCount);
+    }
+
+    @Test
+    public void innerLoops_WallBuiltIntoDoor_True(){
+        GeneratedMap gm = new MapWithDoorBorderInject();
         boolean noWalls = true;
         for (int i = 1; i<7; i++){
             if (gm.getGeneratedMap()[6][i] instanceof Wall){
@@ -176,13 +178,46 @@ public class GeneratedMapTest {
             if (gm.getGeneratedMap()[i][6] instanceof Wall){
                 noWalls = false;
             }
-
         }
         assertTrue(noWalls);
     }
 
-    private class MapWithDoorBorder extends GeneratedMap{
-        private MapWithDoorBorder(){
+    private class MapWithDoorBorderInject extends GeneratedMap{
+        private MapWithDoorBorderInject(){
+            super(8, 8, new Hero(10));
+        }
+
+        @Override
+        protected void generateSurroundingWalls() {
+            for (int i=0; i<getHeight(); i++){
+                for (int j=0; j<getWidth(); j++){
+                    if (i == getHeight()-1 || j == 0 || j == getWidth()-1){
+                        getActualMap()[i][j] = new Door();
+                    }
+                    if (i == 0){
+                        getActualMap()[i][j] = new Wall();
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    public void generateWallIndex_WallBuiltIntoDoor_True(){
+        GeneratedMap gm = new MapWithOnlyDoorBorderInject();
+        boolean noWalls = true;
+        for (int i = 0; i<8; i++){
+            for (int j = 0; j<8; j++) {
+                if (gm.getGeneratedMap()[j][i] instanceof Wall) {
+                    noWalls = false;
+                }
+            }
+        }
+        assertTrue(noWalls);
+    }
+
+    private class MapWithOnlyDoorBorderInject extends GeneratedMap{
+        private MapWithOnlyDoorBorderInject(){
             super(8, 8, new Hero(10));
         }
 
@@ -195,12 +230,6 @@ public class GeneratedMapTest {
                     }
                 }
             }
-            getGeneratedMap()[0][1] = new Wall();
-            getGeneratedMap()[0][2] = new Wall();
-            getGeneratedMap()[0][3] = new Wall();
-            getGeneratedMap()[0][4] = new Wall();
-            getGeneratedMap()[0][5] = new Wall();
-            getGeneratedMap()[0][6] = new Wall();
         }
     }
 

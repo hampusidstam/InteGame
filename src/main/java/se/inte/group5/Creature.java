@@ -60,40 +60,7 @@ public abstract class Creature extends GameObject {
         }
         return newPosition;
     }
-/*
-    public int[] moveCreature(char ch) {
 
-        int dir = 0;
-        int[] newPos;
-
-        if (this instanceof Hero)
-            dir = ((Hero)this).move(ch);
-        else if (this instanceof Monster)
-            dir = ((Monster)this).move();
-
-        switch (dir) {
-            // One step north
-            case 1:
-                newPos = new int[] {position[1], position[0], position[1]-1, position[0]};
-                break;
-            // One step east
-            case 2:
-                newPos = new int[] {position[1], position[0], position[1], position[0]+1};
-                break;
-            // One step south
-            case 3:
-                newPos = new int[] {position[1], position[0], position[1]+1, position[0]};
-                break;
-            // One step west
-            case 4:
-                newPos = new int[] {position[1], position[0], position[1], position[0]-1};
-                break;
-            default:
-                newPos = new int[] {position[1], position[0], position[1], position[0]};
-        }
-        return newPos;
-    }
-*/
     public void takeDamage(int damage) {
         if (damage > 0) {
             healthPoints -= damage;
