@@ -172,14 +172,14 @@ public class GeneratedMapTest {
     public void innerLoops_WallBuiltIntoDoor_True(){
         GeneratedMap gm = new MapWithDoorBorderInject();
         boolean noWalls = true;
-        for (int i = 1; i<7; i++){
-            if (gm.getGeneratedMap()[6][i] instanceof Wall){
+        for (int i = 1; i<9; i++){
+            if (gm.getGeneratedMap()[8][i] instanceof Wall){
                 noWalls = false;
             }
             if (gm.getGeneratedMap()[i][1] instanceof Wall){
                 noWalls = false;
             }
-            if (gm.getGeneratedMap()[i][6] instanceof Wall){
+            if (gm.getGeneratedMap()[i][8] instanceof Wall){
                 noWalls = false;
             }
         }
@@ -188,7 +188,7 @@ public class GeneratedMapTest {
 
     private class MapWithDoorBorderInject extends GeneratedMap{
         private MapWithDoorBorderInject(){
-            super(8, 8, new Hero(10));
+            super(10, 10, new Hero(10));
         }
 
         @Override
@@ -210,8 +210,8 @@ public class GeneratedMapTest {
     public void generateWallIndex_WallBuiltIntoDoor_True(){
         GeneratedMap gm = new MapWithOnlyDoorBorderInject();
         boolean noWalls = true;
-        for (int i = 0; i<8; i++){
-            for (int j = 0; j<8; j++) {
+        for (int i = 0; i<10; i++){
+            for (int j = 0; j<10; j++) {
                 if (gm.getGeneratedMap()[j][i] instanceof Wall) {
                     noWalls = false;
                 }
@@ -222,7 +222,7 @@ public class GeneratedMapTest {
 
     private class MapWithOnlyDoorBorderInject extends GeneratedMap{
         private MapWithOnlyDoorBorderInject(){
-            super(8, 8, new Hero(10));
+            super(10, 10, new Hero(10));
         }
 
         @Override
@@ -235,6 +235,68 @@ public class GeneratedMapTest {
                 }
             }
         }
+    }
+
+    private int[] lookForStuffOnMap(GeneratedMap map){
+        int[] numberOfStuff = new int[6];
+        for (int i = 0; i < map.getHeight(); i++){
+            for (int j = 0; j < map.getWidth(); j++){
+                GameObject habitant = map.getActualMap()[i][j];
+                if (habitant instanceof Item){
+                    if (habitant instanceof Potion){
+                        numberOfStuff[0] += 1;
+                    }
+                    else if (habitant instanceof Plant){
+                        numberOfStuff[1] += 1;
+                    }
+                    else if (habitant instanceof Armor){
+                        numberOfStuff[2] += 1;
+                    }
+                    else if (habitant instanceof Weapon){
+                        numberOfStuff[3] += 1;
+                    }
+                }
+                else if (habitant instanceof Creature){
+                    if (habitant instanceof Hero){
+                        numberOfStuff[4] += 1;
+                    }
+                    else if (habitant instanceof Monster){
+                        numberOfStuff[5] += 1;
+                    }
+                }
+            }
+        }
+        return numberOfStuff;
+    }
+
+    @Test
+    public void putPotionsOnMap_thereArePotionsOnTheMap_true(){
+        assertTrue(lookForStuffOnMap(new GeneratedMap(10, 10, hero))[0] > 0);
+    }
+
+    @Test
+    public void putPlantsOnMap_thereArePlantsOnTheMap_true(){
+        assertTrue(lookForStuffOnMap(new GeneratedMap(10, 10, hero))[1] > 0);
+    }
+
+    @Test
+    public void putWeaponOnMap_thereIsWeaponOnTheMap_true(){
+        assertTrue(lookForStuffOnMap(new GeneratedMap(10, 10, hero))[3] == 1);
+    }
+
+    @Test
+    public void putArmorOnMap_thereIsArmorOnTheMap_true(){
+        assertTrue(lookForStuffOnMap(new GeneratedMap(10, 10, hero))[2] == 1);
+    }
+
+    @Test
+    public void putHeroOnMap_thereIsOnePlayerOnTheMap_true(){
+        assertTrue(lookForStuffOnMap(new GeneratedMap(10, 10, hero))[4] == 1);
+    }
+
+    @Test
+    public void putMonstersOnMap_thereAreMonstersOnTheMap_true(){
+        assertTrue(lookForStuffOnMap(new GeneratedMap(10, 10, hero))[5] > 0);
     }
 
     class GeneratedMapInject extends GeneratedMap{

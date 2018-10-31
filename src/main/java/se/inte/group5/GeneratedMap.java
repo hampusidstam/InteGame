@@ -15,6 +15,8 @@ public class GeneratedMap {
         this.width = width;
         this.height = height;
         this.hero = hero;
+        if (width < 10) this.width = 10;
+        if (height < 10) this.height = 10;
         generatedMap = new GameObject[height][width];
         generateAll();
     }
@@ -24,6 +26,7 @@ public class GeneratedMap {
         putHeroOnMap(hero);
         putMonstersOnMap();
         putConsumablesOnMap();
+        putEquipmentOnMap();
         renderGeneratedToConsole();
     }
 
@@ -68,6 +71,20 @@ public class GeneratedMap {
         }
     }
 
+    private void putEquipmentOnMap(){
+        putWeaponOnMap();
+        putArmorOnMap();
+    }
+
+    private void putWeaponOnMap(){
+        Weapon weapon = new Weapon(10);
+        putGameObjectsOnMap(weapon);
+    }
+
+    private void putArmorOnMap(){
+        Armor armor = new Armor(10);
+        putGameObjectsOnMap(armor);
+    }
 
     private int[] putGameObjectsOnMap(GameObject obj){
         while (true){
